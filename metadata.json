@@ -1,0 +1,6 @@
+{
+  "name": "IIB Kiberxavfsizlik Akademiyasi",
+  "description": "Ichki Ishlar Vazirligi xodimlari uchun mo'ljallangan interaktiv kiberxavfsizlik ta'lim va simulyatsiyalar platformasi.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
