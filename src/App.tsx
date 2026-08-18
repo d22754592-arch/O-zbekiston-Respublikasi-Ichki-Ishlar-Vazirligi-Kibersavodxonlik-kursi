@@ -4,14 +4,54 @@ import Dashboard from './components/Dashboard';
 import CoursePlayer from './components/CoursePlayer';
 import Certificate from './components/Certificate';
 import WelcomeScreen from './components/WelcomeScreen';
+import VerificationModal from './components/VerificationModal';
 import { modules } from './modulesData';
 import { UserProgress } from './types';
 import { logger } from './utils/logger';
+import { usePWAInstall } from './utils/usePWAInstall';
+import { formatStudyTimeShort } from './utils/timeTracker';
 import iibLogo from './components/iib.jpg';
+import { 
+  ShieldCheck, 
+  Home, 
+  BarChart2, 
+  Award, 
+  Lock, 
+  User, 
+  Sparkles,
+  Sun,
+  Moon,
+  Clock,
+  DownloadCloud
+} from 'lucide-react';
 
 const LOCAL_STORAGE_KEY = 'kibersavodxonlik_user_progress_v2';
+const THEME_STORAGE_KEY = 'kibersavodxonlik_theme_v2';
 
 export default function App() {
+  const { isInstallable, installApp } = usePWAInstall();
+
+  // Theme State: 'dark' (Default Officer Midnight) or 'light' (UniAthena Paper)
+  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
+    try {
+      const saved = localStorage.getItem(THEME_STORAGE_KEY);
+      if (saved === 'light' || saved === 'dark') return saved;
+    } catch (e) {}
+    return 'dark';
+  });
+
+  const toggleTheme = () => {
+    const nextTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(nextTheme);
+    try {
+      localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+    } catch (e) {}
+  };
+
+  const [showVerificationModal, setShowVerificationModal] = useState(() => {
+    return typeof window !== 'undefined' && window.location.search.includes('verify=1');
+  });
+
   const [viewMode, setViewMode] = useState<'welcome' | 'app'>(() => {
     try {
       const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -28,7 +68,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<'module' | 'dashboard' | 'certificate'>('module');
   const [currentModuleId, setCurrentModuleId] = useState<number>(1);
 
-  const [userProgress, setUserProgress] = useState<UserProgress & { hasStarted?: boolean }>(() => {
+  const [userProgress, setUserProgress] = useState<UserProgress>(() => {
     try {
       const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
       if (saved) {
@@ -44,9 +84,32 @@ export default function App() {
         1: { moduleId: 1, completed: false, scorePercent: 0, attempts: 0 },
       },
       currentModuleId: 1,
+      totalStudySeconds: 0,
+      moduleStudySeconds: { 1: 0 },
       hasStarted: false,
     };
   });
+
+  // Active Learning Time Tracker (counts seconds only when page is focused)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (document.visibilityState === 'visible' && viewMode === 'app') {
+        setUserProgress(prev => {
+          const totalSecs = (prev.totalStudySeconds || 0) + 1;
+          const modSecsMap = { ...(prev.moduleStudySeconds || {}) };
+          modSecsMap[currentModuleId] = (modSecsMap[currentModuleId] || 0) + 1;
+
+          return {
+            ...prev,
+            totalStudySeconds: totalSecs,
+            moduleStudySeconds: modSecsMap,
+          };
+        });
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [viewMode, currentModuleId]);
 
   useEffect(() => {
     try {
@@ -91,6 +154,7 @@ export default function App() {
           completed: true,
           scorePercent: Math.max(prev.moduleProgress[moduleId]?.scorePercent || 0, scorePercent),
           attempts: (prev.moduleProgress[moduleId]?.attempts || 0) + 1,
+          timeSpentSeconds: prev.moduleStudySeconds?.[moduleId] || 0,
         },
       };
 
@@ -141,133 +205,215 @@ export default function App() {
 
   const currentModule = modules.find(m => m.id === currentModuleId) || modules[0];
 
-  if (viewMode === 'welcome') {
-    return (
-      <WelcomeScreen
-        initialName={userProgress.fullName}
-        onStartCourse={handleStartCourse}
-      />
-    );
-  }
-
   return (
-    <div className="min-h-screen bg-slate-100 flex flex-col font-sans antialiased text-slate-900">
+    <div className={`min-h-screen flex flex-col font-sans antialiased transition-colors duration-200 ${
+      theme === 'dark' 
+        ? 'bg-[#060d1f] text-slate-100 selection:bg-indigo-500 selection:text-white' 
+        : 'bg-slate-100 text-slate-900 selection:bg-rose-500 selection:text-white'
+    }`}>
       
-      {/* Top Header */}
-      <header className="bg-white border-b-2 border-slate-300 px-4 py-3 shadow-sm print:hidden">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="w-9 h-9 rounded-full overflow-hidden border border-slate-300 flex-shrink-0 shadow-sm">
-              <img src={iibLogo} alt="IIB Logo" className="w-full h-full object-cover" />
-            </div>
-            <div>
-              <h1 className="text-base font-black tracking-tight text-slate-900 uppercase font-sans">
-                Kibersavodxonlik kursi
-              </h1>
-              <p className="text-[11px] text-slate-700 font-black">
-                O'zbekiston Respublikasi Ichki Ishlar Vazirligi
-              </p>
-            </div>
-          </div>
+      {/* Verification Modal (Triggers when QR code is scanned) */}
+      {showVerificationModal && (
+        <VerificationModal onClose={() => setShowVerificationModal(false)} />
+      )}
 
-          <div className="flex items-center space-x-3">
-            <button
-              onClick={() => setViewMode('welcome')}
-              className="px-3.5 py-2 rounded-lg text-xs font-black bg-slate-100 text-slate-900 hover:bg-slate-200 border border-slate-300 cursor-pointer"
-            >
-              Bosh Menyu
-            </button>
-            <button
-              onClick={() => setActiveTab('dashboard')}
-              className={`px-3.5 py-2 rounded-lg text-xs font-black transition-all cursor-pointer ${
-                activeTab === 'dashboard'
-                  ? 'bg-indigo-600 text-white shadow font-black'
-                  : 'bg-slate-100 text-slate-800 hover:bg-slate-200 font-black'
-              }`}
-            >
-              Natijalarim
-            </button>
-            <button
-              onClick={() => setActiveTab('certificate')}
-              disabled={!allModulesCompleted}
-              className={`px-3.5 py-2 rounded-lg text-xs font-black transition-all cursor-pointer ${
-                activeTab === 'certificate'
-                  ? 'bg-emerald-600 text-white shadow font-black'
-                  : allModulesCompleted
-                  ? 'bg-emerald-100 text-emerald-900 hover:bg-emerald-200 border border-emerald-300 font-black'
-                  : 'bg-slate-100 text-slate-400 cursor-not-allowed opacity-60'
-              }`}
-            >
-              Sertifikat
-            </button>
-          </div>
-        </div>
-      </header>
-
-      {/* Main Layout */}
-      <div className="flex-1 flex flex-col lg:flex-row w-full max-w-7xl mx-auto p-4 md:p-6 gap-6">
-        
-        {/* Sidebar */}
-        <Sidebar
-          modules={modules}
-          userProgress={userProgress}
-          activeTab={activeTab}
-          setActiveTab={(tab) => setActiveTab(tab as any)}
-          onSelectModule={handleSelectModule}
-          onGoToWelcome={() => setViewMode('welcome')}
-          allModulesCompleted={allModulesCompleted}
+      {viewMode === 'welcome' ? (
+        <WelcomeScreen
+          initialName={userProgress.fullName}
+          onStartCourse={handleStartCourse}
+          onInstallApp={installApp}
+          isInstallable={isInstallable}
         />
+      ) : (
+        <>
+          {/* Executive Top Header */}
+          <header className={`px-4 py-3 shadow-xl backdrop-blur-xl sticky top-0 z-30 print:hidden border-b ${
+            theme === 'dark' 
+              ? 'bg-[#0b1633]/90 border-slate-800/80 text-white' 
+              : 'bg-white/95 border-slate-200 text-slate-900 shadow-slate-200/50'
+          }`}>
+            <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
+              
+              <div className="flex items-center space-x-3.5">
+                <div className="w-10 h-10 rounded-xl p-0.5 bg-gradient-to-br from-indigo-500 to-blue-700 shadow-md flex-shrink-0">
+                  <div className="w-full h-full rounded-lg overflow-hidden bg-slate-900 border border-white/20">
+                    <img src={iibLogo} alt="IIB Logo" className="w-full h-full object-cover" />
+                  </div>
+                </div>
+                <div>
+                  <h1 className="text-sm sm:text-base font-black tracking-tight uppercase font-sans">
+                    Kibersavodxonlik Maxsus Kursi
+                  </h1>
+                  <p className={`text-[10px] font-mono font-bold tracking-wider uppercase ${
+                    theme === 'dark' ? 'text-amber-400' : 'text-indigo-700'
+                  }`}>
+                    O'zbekiston Respublikasi IIV Farg'ona Viloyati
+                  </p>
+                </div>
+              </div>
 
-        {/* Content */}
-        <main className="flex-1 min-w-0">
-          {activeTab === 'module' && (
-            <CoursePlayer
-              module={currentModule}
-              onCompleteModule={handleCompleteModule}
-              onGoToNextModule={handleGoToNextModule}
-              isCompleted={!!userProgress.moduleProgress[currentModule.id]?.completed}
-              previousScore={userProgress.moduleProgress[currentModule.id]?.scorePercent || 0}
-              isLastModule={currentModule.id === modules.length}
-              userName={userProgress.fullName}
-              onSaveUserName={handleNameChange}
-              onGoToCertificate={() => setActiveTab('certificate')}
-            />
-          )}
+              {/* Top Action & Quick Navigation */}
+              <div className="flex items-center space-x-2 sm:space-x-3">
+                
+                {/* Active Learning Timer Badge */}
+                <div className={`hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-xl border text-xs font-mono font-bold ${
+                  theme === 'dark' 
+                    ? 'bg-[#070e24] border-slate-800 text-slate-300' 
+                    : 'bg-slate-50 border-slate-200 text-slate-700'
+                }`} title="Faol o'rganish vaqti">
+                  <Clock className="w-3.5 h-3.5 text-indigo-500 animate-spin" style={{ animationDuration: '8s' }} />
+                  <span>{formatStudyTimeShort(userProgress.totalStudySeconds || 0)}</span>
+                </div>
 
-          {activeTab === 'dashboard' && (
-            <Dashboard
+                {/* 1-Click PWA App Install Button */}
+                {isInstallable && (
+                  <button
+                    onClick={installApp}
+                    className="px-3 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md cursor-pointer flex items-center space-x-1.5 border border-emerald-400/40 animate-pulse hover:scale-105 transition-all"
+                    title="Telefonga yoki Kompyuterga o'rnatish"
+                  >
+                    <DownloadCloud className="w-3.5 h-3.5" />
+                    <span className="hidden md:inline">Ilovani O'rnatish</span>
+                  </button>
+                )}
+
+                {/* Light / Dark Mode Toggle */}
+                <button
+                  onClick={toggleTheme}
+                  className={`p-2 rounded-xl border transition-all cursor-pointer shadow ${
+                    theme === 'dark'
+                      ? 'bg-[#070e24] border-slate-800 text-amber-400 hover:bg-slate-800'
+                      : 'bg-slate-100 border-slate-300 text-indigo-700 hover:bg-slate-200'
+                  }`}
+                  title={theme === 'dark' ? "Kunduzgi rejimga o'tish (Light Mode)" : "Tungi rejimga o'tish (Dark Mode)"}
+                >
+                  {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                </button>
+
+                <button
+                  onClick={() => setViewMode('welcome')}
+                  className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer flex items-center space-x-1.5 ${
+                    theme === 'dark'
+                      ? 'bg-[#070e24] text-slate-300 hover:text-white hover:bg-slate-800 border-slate-800'
+                      : 'bg-white text-slate-700 hover:text-slate-900 hover:bg-slate-50 border-slate-200 shadow-sm'
+                  }`}
+                  title="Bosh sahifaga qaytish"
+                >
+                  <Home className="w-3.5 h-3.5 text-indigo-400" />
+                  <span className="hidden sm:inline">Bosh Menyu</span>
+                </button>
+
+                <button
+                  onClick={() => setActiveTab('dashboard')}
+                  className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center space-x-1.5 border ${
+                    activeTab === 'dashboard'
+                      ? 'bg-indigo-600 text-white border-indigo-400 shadow-lg shadow-indigo-950/60'
+                      : theme === 'dark'
+                      ? 'bg-[#070e24] text-slate-300 border-slate-800 hover:border-slate-700 hover:text-white'
+                      : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300'
+                  }`}
+                >
+                  <BarChart2 className="w-3.5 h-3.5 text-indigo-300" />
+                  <span>Natijalarim</span>
+                </button>
+
+                <button
+                  onClick={() => setActiveTab('certificate')}
+                  disabled={!allModulesCompleted}
+                  className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center space-x-1.5 border ${
+                    activeTab === 'certificate'
+                      ? 'bg-amber-500 text-slate-950 border-amber-400 shadow-lg font-black'
+                      : allModulesCompleted
+                      ? 'bg-[#070e24] text-amber-300 border-amber-500/40 hover:bg-amber-500/10 cursor-pointer'
+                      : 'bg-slate-800 text-slate-500 border-slate-700 opacity-60 cursor-not-allowed'
+                  }`}
+                >
+                  <Award className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Sertifikat</span>
+                  {allModulesCompleted && <Sparkles className="w-3 h-3 text-amber-400 animate-pulse" />}
+                </button>
+              </div>
+
+            </div>
+          </header>
+
+          {/* Main Full-Bleed Layout */}
+          <div className="flex-1 flex flex-col lg:flex-row w-full max-w-7xl mx-auto p-3 sm:p-4 md:p-6 gap-6">
+            
+            {/* Sidebar */}
+            <Sidebar
               modules={modules}
               userProgress={userProgress}
+              activeTab={activeTab === 'module' ? `module-${currentModuleId}` : activeTab}
+              setActiveTab={(tab) => {
+                if (tab === 'dashboard' || tab === 'certificate') {
+                  setActiveTab(tab);
+                }
+              }}
               onSelectModule={handleSelectModule}
-              onGoToCertificate={() => setActiveTab('certificate')}
+              onGoToWelcome={() => setViewMode('welcome')}
               allModulesCompleted={allModulesCompleted}
-              onRestoreProgress={handleRestoreProgress}
             />
-          )}
 
-          {activeTab === 'certificate' && (
-            allModulesCompleted ? (
-              <Certificate
-                defaultName={userProgress.fullName}
-                onNameChange={handleNameChange}
-              />
-            ) : (
-              <div className="bg-slate-900 border-2 border-rose-500 p-8 rounded-xl text-center space-y-4 shadow-2xl">
-                <div className="w-12 h-12 bg-rose-500/20 border border-rose-400 rounded-full flex items-center justify-center mx-auto">
-                  <span className="text-2xl">🔒</span>
-                </div>
-                <h3 className="text-lg font-black text-white uppercase tracking-wide">
-                  Sertifikat Bo'limi Qulflangan
-                </h3>
-                <p className="text-xs text-slate-300 font-bold max-w-md mx-auto leading-relaxed">
-                  Sertifikat olish uchun darslikdagi barcha 7 ta modul testlarini muvaffaqiyatli (kamida 65%) topshirishingiz shart!
-                </p>
-              </div>
-            )
-          )}
-        </main>
+            {/* Main Content Area */}
+            <main className="flex-1 min-w-0">
+              {activeTab === 'module' && (
+                <CoursePlayer
+                  module={currentModule}
+                  onCompleteModule={handleCompleteModule}
+                  onGoToNextModule={handleGoToNextModule}
+                  isCompleted={!!userProgress.moduleProgress[currentModule.id]?.completed}
+                  previousScore={userProgress.moduleProgress[currentModule.id]?.scorePercent || 0}
+                  isLastModule={currentModule.id === modules.length}
+                  userName={userProgress.fullName}
+                  onSaveUserName={handleNameChange}
+                  onGoToCertificate={() => setActiveTab('certificate')}
+                />
+              )}
 
-      </div>
+              {activeTab === 'dashboard' && (
+                <Dashboard
+                  modules={modules}
+                  userProgress={userProgress}
+                  onSelectModule={handleSelectModule}
+                  onGoToCertificate={() => setActiveTab('certificate')}
+                  allModulesCompleted={allModulesCompleted}
+                  onRestoreProgress={handleRestoreProgress}
+                />
+              )}
+
+              {activeTab === 'certificate' && (
+                allModulesCompleted ? (
+                  <Certificate
+                    fullName={userProgress.fullName}
+                    onNameChange={handleNameChange}
+                    onBackToCourse={() => setActiveTab('module')}
+                  />
+                ) : (
+                  <div className="bg-[#0b1633]/90 border border-indigo-500/30 p-8 sm:p-12 rounded-3xl text-center space-y-5 shadow-2xl backdrop-blur-xl">
+                    <div className="w-16 h-16 bg-amber-500/10 border border-amber-500/30 rounded-2xl flex items-center justify-center mx-auto text-amber-400">
+                      <Lock className="w-8 h-8" />
+                    </div>
+                    <h3 className="text-xl font-black text-white uppercase tracking-tight">
+                      Rasmiy IIB Sertifikati Hozircha Qulflangan
+                    </h3>
+                    <p className="text-sm text-slate-300 font-medium max-w-md mx-auto leading-relaxed">
+                      Rasmiy raqamli himoyalangan sertifikatni olish uchun barcha <b>7 ta modul darslarini</b> o'rganib, testlarini kamida <b>65%</b> natija bilan topshirishingiz lozim.
+                    </p>
+                    <button
+                      onClick={() => setActiveTab('module')}
+                      className="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-lg cursor-pointer transition-all hover:scale-105"
+                    >
+                      Darslarni Davom Ettirish
+                    </button>
+                  </div>
+                )
+              )}
+            </main>
+
+          </div>
+        </>
+      )}
 
     </div>
   );

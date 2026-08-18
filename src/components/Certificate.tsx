@@ -2,20 +2,28 @@ import React, { useMemo, useState } from 'react';
 import { Award, Printer, Calendar, User, Download, Loader2 } from 'lucide-react';
 import html2canvas from 'html2canvas-pro';
 import iibLogo from './iib.jpg';
+import { validateFullName } from '../utils/cyberUtils';
 
 interface CertificateProps {
+  fullName?: string;
   defaultName?: string;
+  completedDate?: string;
   onNameChange?: (name: string) => void;
+  onBackToCourse?: () => void;
 }
 
 export default function Certificate({
+  fullName: initialFullName = '',
   defaultName = '',
+  completedDate: initialDate,
   onNameChange,
+  onBackToCourse,
 }: CertificateProps) {
-  const [fullName, setFullName] = useState(defaultName);
+  const [fullName, setFullName] = useState(initialFullName || defaultName);
   const [isGenerating, setIsGenerating] = useState(false);
 
   const [completedDate, setCompletedDate] = useState(() => {
+    if (initialDate) return initialDate;
     const today = new Date();
     const yyyy = today.getFullYear();
     const mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -37,11 +45,11 @@ export default function Certificate({
     }
   };
 
-  const isReady = useMemo(() => {
-    const trimmed = fullName.trim();
-    const words = trimmed.split(/\s+/);
-    return words.length >= 2 && trimmed.length >= 5;
+  const validation = useMemo(() => {
+    return validateFullName(fullName);
   }, [fullName]);
+
+  const isReady = validation.isValid;
 
   const handleDownloadPNG = async () => {
     if (!isReady || isGenerating) return;
@@ -56,6 +64,7 @@ export default function Certificate({
         allowTaint: true,
         backgroundColor: '#ffffff',
         logging: false,
+        imageTimeout: 0,
       });
 
       const image = canvas.toDataURL('image/png', 1.0);
@@ -79,10 +88,10 @@ export default function Certificate({
     <div className="space-y-6" id="certificate-view-container">
 
       {/* ── Editor Panel (hidden in print) ── */}
-      <div className="bg-white border-2 border-slate-800 p-5 shadow-md space-y-4 print:hidden">
+      <div className="bg-white border-2 border-slate-800 p-5 shadow-md space-y-4 print:hidden rounded-2xl">
         <div className="flex items-center space-x-3 border-b border-slate-200 pb-3">
-          <div className="w-8 h-8 bg-amber-500 flex items-center justify-center rounded">
-            <Award className="w-5 h-5 text-white" />
+          <div className="w-8 h-8 bg-amber-500 flex items-center justify-center rounded-lg text-white">
+            <Award className="w-5 h-5" />
           </div>
           <div>
             <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wide">
@@ -105,7 +114,7 @@ export default function Certificate({
               type="text"
               value={fullName}
               onChange={(e) => handleNameChange(e.target.value)}
-              className="w-full bg-slate-50 border-2 border-slate-300 focus:border-indigo-500 p-2.5 text-sm font-bold text-slate-900 focus:outline-none rounded transition-colors"
+              className="w-full bg-slate-50 border-2 border-slate-300 focus:border-indigo-500 p-2.5 text-sm font-bold text-slate-900 focus:outline-none rounded-xl transition-colors"
               placeholder="Masalan: Toshpulatov Behruz Alisherovich"
             />
           </div>
@@ -119,15 +128,15 @@ export default function Certificate({
               type="date"
               value={completedDate}
               onChange={(e) => setCompletedDate(e.target.value)}
-              className="w-full bg-slate-50 border-2 border-slate-300 focus:border-indigo-500 p-2.5 text-sm font-bold text-slate-900 focus:outline-none rounded transition-colors"
+              className="w-full bg-slate-50 border-2 border-slate-300 focus:border-indigo-500 p-2.5 text-sm font-bold text-slate-900 focus:outline-none rounded-xl transition-colors"
             />
           </div>
         </div>
 
         {!isReady && (
-          <div className="flex items-center space-x-2 bg-amber-50 border border-amber-200 rounded p-2.5">
+          <div className="flex items-center space-x-2 bg-amber-50 border border-amber-200 rounded-xl p-2.5">
             <span className="text-amber-700 text-xs font-bold">
-              ⚠ Sertifikatni shakllantirish uchun to'liq F.I.Sh (kamida Ismi va Familiyasi) kiritilishi shart!
+              ⚠ Sertifikatni shakllantirish uchun to'liq F.I.Sh (kamida 2 ta so'z) kiritilishi shart!
             </span>
           </div>
         )}
@@ -137,7 +146,7 @@ export default function Certificate({
             onClick={handleDownloadPNG}
             disabled={!isReady || isGenerating}
             id="btn-download-png-certificate"
-            className={`px-5 py-3 font-bold text-xs flex items-center space-x-2 rounded-lg transition-all border-2 uppercase tracking-wider ${
+            className={`px-5 py-3 font-bold text-xs flex items-center space-x-2 rounded-xl transition-all border-2 uppercase tracking-wider ${
               isReady && !isGenerating
                 ? 'bg-emerald-600 hover:bg-emerald-700 text-white border-emerald-600 shadow-lg active:translate-y-px cursor-pointer'
                 : 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed'
@@ -160,7 +169,7 @@ export default function Certificate({
             onClick={() => window.print()}
             disabled={!isReady}
             id="btn-print-certificate"
-            className={`px-5 py-3 font-bold text-xs flex items-center space-x-2 rounded-lg transition-all border-2 uppercase tracking-wider ${
+            className={`px-5 py-3 font-bold text-xs flex items-center space-x-2 rounded-xl transition-all border-2 uppercase tracking-wider ${
               isReady
                 ? 'bg-slate-900 hover:bg-slate-700 text-white border-slate-900 shadow-lg active:translate-y-px cursor-pointer'
                 : 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed'
@@ -172,7 +181,7 @@ export default function Certificate({
         </div>
       </div>
 
-      {/* ── CERTIFICATE BODY (Pure HTML/CSS layout) ── */}
+      {/* ── EXACT ORIGINAL CERTIFICATE CANVAS (Pixel-Matched to Screenshot) ── */}
       <div className="flex justify-center w-full pb-4 overflow-x-auto" id="cert-scroll-wrapper">
         <div
           id="official-iib-certificate"
@@ -191,7 +200,7 @@ export default function Certificate({
           {/* Base Background */}
           <div style={{ position: 'absolute', inset: 0, background: '#fff' }} />
 
-          {/* Decorative Waves (Updated to IIB Officer Navy & Gold Palette) */}
+          {/* Concentric Decorative Blue Waves (Left) */}
           <div style={{
             position: 'absolute',
             left: '-18%',
@@ -228,6 +237,7 @@ export default function Certificate({
             transform: 'rotate(-3deg)',
           }} />
 
+          {/* Top-Right Soft Wave */}
           <div style={{
             position: 'absolute',
             right: '-30%',
@@ -240,72 +250,73 @@ export default function Certificate({
             transform: 'rotate(15deg)',
           }} />
 
-          {/* CONTENT LAYER */}
+          {/* Main Certificate Content Area */}
           <div style={{
             position: 'absolute',
-            inset: 0,
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: '26%',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            justifyContent: 'center',
+            padding: '3% 5% 3% 2%',
+            zIndex: 10,
           }}>
 
-            {/* TOP SECTION: IIB Logo + Org Name */}
+            {/* TOP EMBLEM & 2-LINE TITLE */}
             <div style={{
-              width: '100%',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              paddingTop: '5%',
+              width: '100%',
               zIndex: 10,
             }}>
               <div style={{
-                width: '13%',
+                width: 'clamp(44px, 7.2vw, 68px)',
                 aspectRatio: '1 / 1',
                 borderRadius: '50%',
                 overflow: 'hidden',
-                border: '2px solid rgba(30,58,138,0.25)',
-                boxShadow: '0 2px 12px rgba(30,58,138,0.25)',
-                flexShrink: 0,
+                boxShadow: '0 3px 12px rgba(0,0,0,0.18)',
+                border: '2px solid #1e3a8a',
+                background: '#ffffff',
+                marginBottom: '1.5%',
               }}>
                 <img
                   src={iibLogo}
                   alt="IIB Gerbi"
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    display: 'block',
-                  }}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
               </div>
 
               <p style={{
                 fontFamily: "'Arial', sans-serif",
-                fontWeight: 700,
-                fontSize: 'clamp(5px, 1.1vw, 11px)',
-                color: '#172554',
-                letterSpacing: '0.08em',
+                fontWeight: 900,
+                fontSize: 'clamp(7.5px, 1.2vw, 12px)',
+                color: '#1e3a8a',
+                letterSpacing: '0.06em',
                 textTransform: 'uppercase',
-                marginTop: '1.2%',
+                margin: 0,
                 textAlign: 'center',
-                lineHeight: 1.4,
+                lineHeight: 1.3,
               }}>
                 O'ZBEKISTON RESPUBLIKASI<br />
                 ICHKI ISHLAR VAZIRLIGI
               </p>
             </div>
 
-            {/* CERTIFICATE TITLE (Uzbek) */}
+            {/* SERTIFIKAT TITLE */}
             <div style={{
-              width: '60%',
+              width: '100%',
               textAlign: 'center',
-              marginTop: '1.5%',
+              marginTop: '3%',
               zIndex: 10,
             }}>
               <h1 style={{
                 fontFamily: "'Arial Black', 'Arial', sans-serif",
                 fontWeight: 900,
-                fontSize: 'clamp(20px, 5.5vw, 52px)',
+                fontSize: 'clamp(26px, 5.5vw, 50px)',
                 color: '#1e3a8a',
                 letterSpacing: '0.08em',
                 textTransform: 'uppercase',
@@ -316,49 +327,50 @@ export default function Certificate({
               </h1>
               <p style={{
                 fontFamily: "'Arial', sans-serif",
-                fontWeight: 600,
-                fontSize: 'clamp(6px, 1.2vw, 12px)',
+                fontWeight: 800,
+                fontSize: 'clamp(7.5px, 1.2vw, 12px)',
                 color: '#2563eb',
-                letterSpacing: '0.1em',
-                marginTop: '0.4%',
+                letterSpacing: '0.12em',
+                marginTop: '1%',
                 textTransform: 'uppercase',
+                margin: '6px 0 0 0',
               }}>
-                Kibersavodxonlik o'quv kursi
+                KIBERSAVODXONLIK O'QUV KURSI
               </p>
             </div>
 
-            {/* Award Label (Uzbek) */}
+            {/* USHBU SERTIFIKAT TOPSHIRILADI */}
             <p style={{
               fontFamily: "'Arial', sans-serif",
-              fontWeight: 600,
-              fontSize: 'clamp(6px, 1.1vw, 11px)',
-              color: '#1e3a8a',
-              letterSpacing: '0.05em',
-              marginTop: '4.5%',
-              zIndex: 10,
-              textAlign: 'center',
+              fontWeight: 700,
+              fontSize: 'clamp(6.5px, 1vw, 10px)',
+              color: '#334155',
+              letterSpacing: '0.1em',
               textTransform: 'uppercase',
+              marginTop: '4%',
+              marginBottom: 0,
+              zIndex: 10,
             }}>
-              Ushbu sertifikat topshiriladi:
+              USHBU SERTIFIKAT TOPSHIRILADI:
             </p>
 
-            {/* STUDENT FULL NAME */}
+            {/* RECIPIENT NAME */}
             <div style={{
-              width: '64%',
-              zIndex: 10,
+              width: '84%',
               marginTop: '1.5%',
+              zIndex: 10,
               textAlign: 'left',
               paddingLeft: '2%',
             }}>
               <h2 style={{
                 fontFamily: "'Arial Black', 'Arial', sans-serif",
                 fontWeight: 900,
-                fontSize: 'clamp(10px, 2.4vw, 24px)',
-                color: '#0b132b',
+                fontSize: 'clamp(11px, 2.6vw, 25px)',
+                color: '#0f172a',
                 letterSpacing: '0.04em',
                 textTransform: 'uppercase',
                 margin: 0,
-                lineHeight: 1.15,
+                lineHeight: 1.2,
                 wordBreak: 'break-word',
                 minHeight: 'clamp(14px, 3vw, 30px)',
               }}>
@@ -370,28 +382,28 @@ export default function Certificate({
               </h2>
             </div>
 
-            {/* Divider line */}
+            {/* Divider line (Blue to Gold) */}
             <div style={{
-              width: '64%',
-              height: '2.5px',
-              background: 'linear-gradient(90deg, #1e3a8a 0%, #d97706 100%)',
+              width: '84%',
+              height: '3px',
+              background: 'linear-gradient(90deg, #1e3a8a 0%, #1e3a8a 75%, #d97706 75%, #d97706 100%)',
               marginTop: '1.5%',
               zIndex: 10,
               alignSelf: 'center',
               marginLeft: '2%',
             }} />
 
-            {/* Course completion text (Uzbek) */}
+            {/* Course completion text */}
             <p style={{
               fontFamily: "'Arial', sans-serif",
-              fontWeight: 700,
-              fontSize: 'clamp(7px, 1.4vw, 14px)',
-              color: '#0b132b',
+              fontWeight: 800,
+              fontSize: 'clamp(7.5px, 1.4vw, 13.5px)',
+              color: '#0f172a',
               letterSpacing: '0.02em',
-              marginTop: '2.5%',
+              marginTop: '3%',
               zIndex: 10,
               textAlign: 'center',
-              width: '58%',
+              width: '70%',
               lineHeight: 1.4,
             }}>
               Kibersavodxonlik kursini muvaffaqiyatli<br />
@@ -400,44 +412,47 @@ export default function Certificate({
 
           </div>
 
-          {/* Medal Graphic */}
+          {/* Clean Gold Medal Graphic (Matching Screenshot) */}
           <div style={{
             position: 'absolute',
-            bottom: '5%',
-            right: '4%',
-            width: '13%',
+            bottom: '7%',
+            right: '5%',
+            width: '12%',
             aspectRatio: '1 / 1',
             zIndex: 10,
           }}>
-            <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%' }}>
-              <polygon points="35,75 45,95 50,70 55,95 65,75 50,65" fill="#f59e0b" />
-              <polygon points="35,75 45,95 50,70" fill="#d97706" />
-              <polygon points="55,95 65,75 50,70" fill="#d97706" />
-              <circle cx="50" cy="52" r="36" fill="#fbbf24" />
-              <circle cx="50" cy="52" r="30" fill="#f59e0b" />
-              <circle cx="50" cy="52" r="25" fill="#fffbeb" />
+            <svg viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%' }}>
+              {/* Bottom Ribbon Tips */}
+              <polygon points="43,80 47,98 50,88 53,98 57,80" fill="#d97706" />
+              {/* Outer Golden Circle */}
+              <circle cx="50" cy="48" r="42" fill="#fbbf24" stroke="#d97706" strokeWidth="2.5" />
+              {/* Inner Circle */}
+              <circle cx="50" cy="48" r="34" fill="#f59e0b" stroke="#fffbeb" strokeWidth="1.5" />
+              <circle cx="50" cy="48" r="28" fill="#ffffff" />
+              {/* Golden 5-point Star */}
               <polygon
-                points="50,30 53.5,42 65,42 55.5,49 59,61 50,54 41,61 44.5,49 35,42 46.5,42"
+                points="50,28 53.5,39 65,39 55.5,46 59,57 50,50 41,57 44.5,46 35,39 46.5,39"
                 fill="#d97706"
               />
             </svg>
           </div>
 
-          {/* Date */}
+          {/* Date (Bottom-Left on Blue Wave) */}
           {displayDate && (
             <div style={{
               position: 'absolute',
-              bottom: '9%',
-              left: '4%',
+              bottom: '7%',
+              left: '3.5%',
               zIndex: 10,
             }}>
               <span style={{
                 fontFamily: "'Courier New', monospace",
                 fontWeight: 700,
-                fontSize: 'clamp(5px, 0.9vw, 9px)',
+                fontSize: 'clamp(5px, 0.85vw, 8.5px)',
                 color: '#1e3a8a',
                 letterSpacing: '0.05em',
                 display: 'block',
+                opacity: 0.85,
               }}>
                 Sana: {displayDate}
               </span>

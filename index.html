@@ -2,14 +2,33 @@
 <html lang="uz">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
     <title>Kibersavodxonlik Maxsus O'quv Kursi — IIB Kiberxavfsizlik Akademiyasi</title>
     <meta name="description" content="O'zbekiston Respublikasi Ichki Ishlar Vazirligi — Kibersavodxonlik va Raqamli Xavfsizlik Maxsus O'quv Kursi Platformasi" />
+    
+    <!-- PWA Settings -->
+    <link rel="manifest" href="./manifest.json" />
+    <meta name="theme-color" content="#060d1f" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="IIV Kiber" />
+
     <link rel="icon" type="image/jpeg" href="./iib.jpg" />
+    <link rel="apple-touch-icon" href="./iib.jpg" />
     <link rel="shortcut icon" type="image/jpeg" href="./iib.jpg" />
   </head>
-  <body>
+  <body className="antialiased">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js').catch(err => {
+            console.log('SW registration note:', err);
+          });
+        });
+      }
+    </script>
   </body>
 </html>

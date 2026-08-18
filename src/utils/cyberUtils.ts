@@ -407,3 +407,48 @@ export function checkFinalExamAnswer(
   const normCorrect = correctAnswer.trim().toLowerCase().replace(/['"’`‘@\s]/g, '');
   return normUser === normCorrect || normUser.includes(normCorrect) || normCorrect.includes(normUser);
 }
+
+/**
+ * Strict Full Name (F.I.Sh) validator for IIB Cyber Academy Certificates & Profiles
+ * Rules:
+ * - Only Latin & Cyrillic characters (including o', g', sh, ch, ў, қ, ғ, ҳ), spaces, and standard apostrophes
+ * - Absolutely no digits (0-9) or special punctuation/symbols
+ * - Must contain at least 2 words (Ism va Familiya), ideally 3 words
+ * - Each word must be at least 2 letters, total trimmed length >= 5
+ */
+export function validateFullName(name: string): { isValid: boolean; error?: string } {
+  const trimmed = name.trim();
+  if (!trimmed) {
+    return { isValid: false, error: "Ism-sharifingizni kiritishingiz shart." };
+  }
+  
+  // Check for invalid numbers or forbidden symbols
+  const forbiddenCharsRegex = /[^a-zA-Zа-яА-ЯёЁўЎқҚғҒҳҲ\s'’`‘\-]/;
+  if (forbiddenCharsRegex.test(trimmed)) {
+    return { 
+      isValid: false, 
+      error: "Ism-sharifda faqat harflardan foydalaning (sonlar va maxsus belgilar kiritish taqiqlanadi)." 
+    };
+  }
+
+  // Check word count
+  const words = trimmed.split(/\s+/).filter(w => w.length > 0);
+  if (words.length < 2) {
+    return { 
+      isValid: false, 
+      error: "Iltimos, to'liq Ism va Familiyangizni kiriting (kamida 2 ta so'z, masalan: Aliyev Vali)." 
+    };
+  }
+
+  // Each word must have at least 2 letters
+  const hasTooShortWord = words.some(w => w.replace(/['’`‘\-]/g, '').length < 2);
+  if (hasTooShortWord || trimmed.length < 5) {
+    return { 
+      isValid: false, 
+      error: "Ism va familiya to'liq va to'g'ri shaklda kiritilishi lozim." 
+    };
+  }
+
+  return { isValid: true };
+}
+

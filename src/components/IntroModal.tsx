@@ -70,8 +70,8 @@ export default function IntroModal({ isOpen, onClose }: IntroModalProps) {
             <video
               ref={videoRef}
               controls
-              preload="none"
-              poster="./slides/module_1/slide_1.png"
+              playsInline
+              preload="auto"
               className="w-full aspect-video object-cover"
               onPlay={() => setIsPlaying(true)}
               onPause={() => setIsPlaying(false)}
@@ -134,7 +134,7 @@ export default function IntroModal({ isOpen, onClose }: IntroModalProps) {
                 "Har bir modul yakunida bilimlarni sinovdan o'tkazish uchun 8 tadan test savollari beriladi. Sertifikat olish uchun barcha 7 ta modul testlarini kamida 65 foizlik natija bilan muvaffaqiyatli topshirishingiz shart."
               </p>
               <p className="font-bold text-amber-400">
-                "Darslarni diqqat bilan o mezoniy o'rganing va kiber-xavfsizlik qoidalariga amalda qat'iy rioya qiling. Barchangizga muvaffaqiyat tilayman!"
+                "Darslarni diqqat bilan puxta o'rganing va kiberxavfsizlik qoidalariga amalda qat'iy rioya qiling. Barchangizga muvaffaqiyat tilayman!"
               </p>
             </div>
           </div>

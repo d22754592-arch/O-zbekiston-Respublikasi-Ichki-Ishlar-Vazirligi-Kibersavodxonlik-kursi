@@ -28,6 +28,7 @@ export interface ModuleProgress {
   completed: boolean;
   scorePercent: number;
   attempts: number;
+  timeSpentSeconds?: number;
 }
 
 export interface UserProgress {
@@ -35,4 +36,7 @@ export interface UserProgress {
   completedDate: string;
   moduleProgress: Record<number, ModuleProgress>;
   currentModuleId: number;
+  totalStudySeconds?: number;
+  moduleStudySeconds?: Record<number, number>;
+  hasStarted?: boolean;
 }
