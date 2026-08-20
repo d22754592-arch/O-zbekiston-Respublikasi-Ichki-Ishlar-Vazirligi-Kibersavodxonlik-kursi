@@ -72,7 +72,7 @@ export default function IntroModal({ isOpen, onClose }: IntroModalProps) {
               controls
               playsInline
               preload="auto"
-              className="w-full aspect-video object-cover"
+              className="w-full max-h-[460px] aspect-video object-contain bg-black"
               onPlay={() => setIsPlaying(true)}
               onPause={() => setIsPlaying(false)}
               onEnded={handleVideoEnded}
@@ -92,7 +92,7 @@ export default function IntroModal({ isOpen, onClose }: IntroModalProps) {
                   <Play className="w-8 h-8 ml-1 text-white fill-white group-hover:scale-105 transition-transform" />
                 </button>
                 <span className="text-xs font-black uppercase text-white tracking-widest bg-slate-900/90 border border-slate-700 px-3.5 py-1.5 rounded-full shadow">
-                  🎬 AI AVATAR TANISHTIRUV VIDEOSINI KO'RISH
+                  🎬 RASMIY YO'RIQNOMA VIDEOSINI KO'RISH
                 </span>
                 <p className="text-[11px] text-slate-300 font-medium max-w-sm mt-2">
                   (Videoni ijro etish uchun Play tugmasini bosing. Video yakunlangach, avtomatik darsga o'tiladi)
@@ -116,11 +116,11 @@ export default function IntroModal({ isOpen, onClose }: IntroModalProps) {
             )}
           </div>
 
-          {/* AI Avatar Speech Text Script Section */}
+          {/* Official Speech Text Script Section */}
           <div className="bg-slate-950 border-2 border-slate-800 p-5 rounded-xl space-y-3">
             <div className="flex items-center space-x-2 text-indigo-400 font-black text-xs uppercase tracking-wider border-b border-slate-800 pb-2">
               <FileText className="w-4 h-4 text-indigo-400" />
-              <span>AI Avatar Instruktor Nutqi (Rasmiy Matn):</span>
+              <span>Rasmiy Video-Instruksiya Nutqi (Matn):</span>
             </div>
             
             <div className="text-xs text-slate-200 font-medium leading-relaxed space-y-2.5 max-h-48 overflow-y-auto pr-2">
@@ -131,7 +131,7 @@ export default function IntroModal({ isOpen, onClose }: IntroModalProps) {
                 "O'quv kursi 7 ta asosiy moduldan iborat bo'lib, axborot xavfsizligi asoslari, murakkab parollar gigiyenasi, 2-bosqichli autentifikatsiya, Phishing va ijtimoiy muhandislik xujumlaridan himoyalanish hamda VPN va maxfiylik qoidalarini amaliy tarzda o'rgatadi."
               </p>
               <p>
-                "Har bir modul yakunida bilimlarni sinovdan o'tkazish uchun 8 tadan test savollari beriladi. Sertifikat olish uchun barcha 7 ta modul testlarini kamida 65 foizlik natija bilan muvaffaqiyatli topshirishingiz shart."
+                "Har bir modul yakunida bilimlarni sinovdan o'tkazish uchun 8 tadan test savollari beriladi. Sertifikat olish uchun barcha 7 ta modul testlarini kamida 80 foizlik natija bilan muvaffaqiyatli topshirishingiz shart."
               </p>
               <p className="font-bold text-amber-400">
                 "Darslarni diqqat bilan puxta o'rganing va kiberxavfsizlik qoidalariga amalda qat'iy rioya qiling. Barchangizga muvaffaqiyat tilayman!"
@@ -147,7 +147,7 @@ export default function IntroModal({ isOpen, onClose }: IntroModalProps) {
             </div>
             <div className="bg-slate-950 p-3 rounded-lg border border-slate-800 flex items-center space-x-2.5">
               <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0" />
-              <span className="font-bold text-slate-200">65% Test O'tish Balli</span>
+              <span className="font-bold text-slate-200">80% Test O'tish Balli</span>
             </div>
             <div className="bg-slate-950 p-3 rounded-lg border border-slate-800 flex items-center space-x-2.5">
               <Award className="w-5 h-5 text-amber-400 flex-shrink-0" />

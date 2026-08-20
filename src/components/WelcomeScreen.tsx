@@ -135,7 +135,7 @@ export default function WelcomeScreen({
                 <div className="text-[11px] font-medium text-slate-400 mt-0.5">70 Ta Slayd</div>
               </div>
               <div className="bg-[#070e24] border border-slate-800 p-3.5 rounded-2xl">
-                <div className="text-xl font-black text-emerald-400">65%</div>
+                <div className="text-xl font-black text-emerald-400">80%</div>
                 <div className="text-[11px] font-medium text-slate-400 mt-0.5">O'tish Balli</div>
               </div>
               <div className="bg-[#070e24] border border-slate-800 p-3.5 rounded-2xl">
