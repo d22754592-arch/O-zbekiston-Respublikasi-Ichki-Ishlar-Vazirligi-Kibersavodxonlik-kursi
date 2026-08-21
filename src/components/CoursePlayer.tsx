@@ -24,6 +24,7 @@ import {
 } from 'lucide-react';
 import { logger } from '../utils/logger';
 import { validateFullName } from '../utils/cyberUtils';
+import { useLanguage } from '../i18n/LanguageContext';
 
 interface CoursePlayerProps {
   module: ModuleData;
@@ -48,6 +49,7 @@ export default function CoursePlayer({
   onSaveUserName,
   onGoToCertificate,
 }: CoursePlayerProps) {
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState<'slides' | 'overview' | 'quiz'>('slides');
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -227,7 +229,7 @@ export default function CoursePlayer({
             <div>
               <div className="flex items-center space-x-2 text-indigo-400 text-xs font-mono font-semibold uppercase tracking-wider mb-1.5">
                 <BookOpen className="w-3.5 h-3.5 text-indigo-400" />
-                <span>O'quv Moduli #{module.id} • IIB Maxsus Kursi</span>
+                <span>{t('moduleTag', { id: module.id })}</span>
               </div>
               <h1 className="text-lg sm:text-xl md:text-2xl font-bold tracking-tight text-white">
                 {module.title}
@@ -241,7 +243,7 @@ export default function CoursePlayer({
             {isCompleted && (
               <div className="flex items-center space-x-2 bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-bold px-3.5 py-2 rounded-xl self-start md:self-auto shadow-sm flex-shrink-0">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                <span>Muvaffaqiyatli O'tilgan ({previousScore || scorePercent}%)</span>
+                <span>{t('moduleCompletedBadge', { score: previousScore || scorePercent })}</span>
               </div>
             )}
           </div>
@@ -257,7 +259,7 @@ export default function CoursePlayer({
               }`}
             >
               <Layers className="w-3.5 h-3.5" />
-              <span>1. Taqdimot Slaydlari ({module.slideCount})</span>
+              <span>{t('tabSlides', { count: module.slideCount })}</span>
             </button>
 
             <button
@@ -269,7 +271,7 @@ export default function CoursePlayer({
               }`}
             >
               <HelpCircle className="w-3.5 h-3.5" />
-              <span>2. Modul Testi ({module.quizQuestions.length} Savol)</span>
+              <span>{t('tabQuiz', { count: module.quizQuestions.length })}</span>
             </button>
 
             <button
@@ -281,7 +283,7 @@ export default function CoursePlayer({
               }`}
             >
               <Info className="w-3.5 h-3.5" />
-              <span>3. Qisqacha O'quv Qo'llanmasi</span>
+              <span>{t('tabOverview')}</span>
             </button>
           </div>
         </div>
@@ -300,7 +302,7 @@ export default function CoursePlayer({
             {/* Slide Indicator Badge */}
             <div className="flex items-center space-x-2">
               <span className="bg-indigo-600/30 border border-indigo-500/40 text-indigo-200 px-3 py-1 rounded-lg font-mono font-bold text-xs">
-                Slayd {currentSlideIndex + 1} / {module.slideCount}
+                {t('slideOf', { current: currentSlideIndex + 1, total: module.slideCount })}
               </span>
             </div>
 
@@ -332,9 +334,9 @@ export default function CoursePlayer({
                       ? 'bg-amber-500/20 border-amber-400 text-amber-300' 
                       : 'bg-slate-900 border-slate-700/60 text-slate-300 hover:text-white'
                   }`}
-                  title="Fokus Rejimi"
+                  title={t('focusMode')}
                 >
-                  <span>{isFocusMode ? 'Oddiy Rejim' : 'Fokus Rejimi'}</span>
+                  <span>{isFocusMode ? t('normalMode') : t('focusMode')}</span>
                 </button>
               )}
 
@@ -342,10 +344,10 @@ export default function CoursePlayer({
               <button
                 onClick={toggleFullscreen}
                 className="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-200 hover:text-white rounded-xl font-semibold text-xs flex items-center space-x-1.5 cursor-pointer border border-slate-700/60 transition-colors"
-                title="To'liq Ekran (F)"
+                title={t('fullscreen')}
               >
                 {isFullscreen ? <Minimize2 className="w-3.5 h-3.5" /> : <Maximize2 className="w-3.5 h-3.5" />}
-                <span className="hidden sm:inline">{isFullscreen ? 'Chiqish' : "To'liq Ekran"}</span>
+                <span className="hidden sm:inline">{isFullscreen ? t('exitFullscreen') : t('fullscreen')}</span>
               </button>
             </div>
           </div>
@@ -425,7 +427,7 @@ export default function CoursePlayer({
                 {/* Progress Percentage */}
                 <div className="flex items-center space-x-3 w-full sm:w-auto justify-between sm:justify-end">
                   <div className="text-xs font-mono text-slate-400">
-                    Jarayon: <span className="text-emerald-400 font-bold">{Math.round(((currentSlideIndex + 1) / module.slideCount) * 100)}%</span>
+                    {t('slideProgress')} <span className="text-emerald-400 font-bold">{Math.round(((currentSlideIndex + 1) / module.slideCount) * 100)}%</span>
                   </div>
                   <div className="w-28 bg-slate-800 h-1.5 rounded-full overflow-hidden">
                     <div 
@@ -466,7 +468,7 @@ export default function CoursePlayer({
                   onClick={toggleFullscreen}
                   className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold rounded-xl border border-slate-600 cursor-pointer"
                 >
-                  Ekrandan Chiqish (Esc)
+                  {t('exitFullscreen')} (Esc)
                 </button>
               </div>
             </div>
@@ -478,18 +480,18 @@ export default function CoursePlayer({
               <div className="space-y-1">
                 <div className="flex items-center space-x-2 text-emerald-400 text-xs font-mono font-semibold uppercase tracking-wider">
                   <CheckCircle2 className="w-3.5 h-3.5" />
-                  <span>Slaydlar yakunlandi</span>
+                  <span>{t('slidesCompletedPrompt')}</span>
                 </div>
-                <h4 className="text-sm sm:text-base font-bold text-white">Slaydlarni to'liq o'rganib bo'ldingizmi?</h4>
+                <h4 className="text-sm sm:text-base font-bold text-white">{t('slidesCompletedPrompt')}</h4>
                 <p className="text-xs text-slate-300">
-                  Bilimingizni sinash va keyingi modulni ochish uchun <b>Modul Testi ({module.quizQuestions.length} ta savol)</b> topshiring.
+                  {t('slidesCompletedDesc', { count: module.quizQuestions.length })}
                 </p>
               </div>
               <button
                 onClick={() => setActiveTab('quiz')}
                 className="w-full sm:w-auto px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-lg shadow-emerald-950/60 flex items-center justify-center space-x-2 cursor-pointer transition-all active:scale-95 flex-shrink-0"
               >
-                <span>MODUL TESTINI TOPSHIRISH</span>
+                <span>{t('takeQuizBtn')}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>
@@ -507,13 +509,13 @@ export default function CoursePlayer({
             <div>
               <div className="flex items-center space-x-1.5 text-xs font-mono font-semibold text-amber-400 uppercase tracking-wider mb-1">
                 <HelpCircle className="w-3.5 h-3.5" />
-                <span>Modul Bilim Testi</span>
+                <span>{t('quizTestTitle')}</span>
               </div>
               <h3 className="text-base sm:text-lg font-bold text-white">
-                {module.title} — Bilim Sinovi
+                {module.title}
               </h3>
               <p className="text-xs text-slate-300 mt-0.5">
-                Modulni muvaffaqiyatli topshirish uchun kamida <b>80%</b> natija ko'rsatishingiz shart.
+                {t('quizTestDesc')}
               </p>
             </div>
 
@@ -521,14 +523,14 @@ export default function CoursePlayer({
             <div className="flex flex-wrap items-center gap-2">
               <div className="bg-slate-900/60 px-3 py-1.5 rounded-lg text-xs text-slate-300 flex items-center space-x-1.5">
                 <Clock className="w-3.5 h-3.5 text-slate-400" />
-                <span>Cheksiz Vaqt</span>
+                <span>{t('unlimitedTime')}</span>
               </div>
               <div className="bg-slate-900/60 px-3 py-1.5 rounded-lg text-xs text-slate-300 flex items-center space-x-1.5">
                 <RotateCcw className="w-3.5 h-3.5 text-slate-400" />
-                <span>Cheksiz Qayta Topshirish</span>
+                <span>{t('unlimitedRetakes')}</span>
               </div>
               <div className="bg-indigo-600/15 text-indigo-300 px-3 py-1.5 rounded-lg text-xs font-mono font-bold">
-                O'tish balli: 80%
+                {t('passingRequirement')}
               </div>
             </div>
           </div>
@@ -548,13 +550,13 @@ export default function CoursePlayer({
                 </div>
                 <div>
                   <div className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-md text-[11px] font-mono font-bold uppercase tracking-wider mb-1.5 bg-slate-900/60">
-                    <span>{passed ? '🎉 Muvaffaqiyatli O\'tdingiz' : '⚠️ Sinovdan O\'tilmadi'}</span>
+                    <span>{passed ? t('quizPassedTitle') : t('quizFailedTitle')}</span>
                   </div>
                   <h4 className="text-lg sm:text-xl font-bold text-white tracking-tight">
-                    {passed ? 'Tabriklaymiz! Modul Testi Muvaffaqiyatli Topshirildi' : 'Test Natijasi Yetarli Emas'}
+                    {passed ? t('quizPassed') : t('quizFailed')}
                   </h4>
                   <p className="text-xs sm:text-sm text-slate-200 mt-1">
-                    Sizning yakuniy ko'rsatkichingiz: <b className="font-mono font-bold text-amber-300 px-2 py-0.5 rounded bg-black/40">{scorePercent}%</b> (Minimal talab: 80%)
+                    {t('yourScore')} <b className="font-mono font-bold text-amber-300 px-2 py-0.5 rounded bg-black/40">{scorePercent}%</b> ({t('passingRequirement')})
                   </p>
                 </div>
               </div>
@@ -564,14 +566,14 @@ export default function CoursePlayer({
                   {!isLastModule ? (
                     <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-900/60 p-4 rounded-2xl border border-emerald-400/20">
                       <div className="text-xs font-semibold text-emerald-300">
-                        ✅ Ushbu modul o'zlashtirildi. Keyingi modul ochildi!
+                        {t('moduleUnlockedNext')}
                       </div>
                       {onGoToNextModule && (
                         <button
                           onClick={onGoToNextModule}
                           className="w-full sm:w-auto px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-md cursor-pointer transition-all flex items-center justify-center space-x-2"
                         >
-                          <span>KEYINGI MODULGA O'TISH</span>
+                          <span>{t('goToNextModule')}</span>
                           <ArrowRight className="w-4 h-4" />
                         </button>
                       )}
@@ -580,10 +582,10 @@ export default function CoursePlayer({
                     <div className="bg-[#050b18] border border-amber-400/40 p-5 rounded-2xl space-y-4 shadow-xl">
                       <div className="flex items-center space-x-2.5 text-amber-400 font-bold text-sm sm:text-base">
                         <Award className="w-6 h-6 flex-shrink-0" />
-                        <span>Barcha 8 ta modul tamomlandi! Rasmiy IIB sertifikati tayyor!</span>
+                        <span>{t('allModulesCompletedBanner')}</span>
                       </div>
                       <p className="text-xs text-slate-300">
-                        Sertifikatga yoziladigan to'liq Ism va Familiyangizni (F.I.Sh) tekshiring:
+                        {t('verifyCertName')}
                       </p>
                       
                       <div className="space-y-2">
@@ -597,7 +599,7 @@ export default function CoursePlayer({
                                 setTempName(e.target.value);
                                 if (nameError) setNameError(null);
                               }}
-                              placeholder="Masalan: Toshpulatov Behruz Alisherovich"
+                              placeholder={t('fullNamePlaceholder')}
                               className="w-full bg-slate-900 border border-slate-700 focus:border-amber-400 pl-10 p-3 text-sm font-semibold text-white rounded-xl focus:outline-none"
                             />
                           </div>
@@ -606,7 +608,7 @@ export default function CoursePlayer({
                             className="px-6 py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs uppercase tracking-wider rounded-xl shadow-md flex items-center justify-center space-x-2 cursor-pointer transition-all flex-shrink-0"
                           >
                             <Award className="w-4 h-4" />
-                            <span>Sertifikatni Olish</span>
+                            <span>{t('getCertBtn')}</span>
                           </button>
                         </div>
                         {nameError && (
@@ -621,14 +623,14 @@ export default function CoursePlayer({
               {!passed && (
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-rose-500/30">
                   <span className="text-xs text-rose-200">
-                    Modul slaydlari bo'yicha bilimlarni mustahkamlab, qayta topshirishingiz mumkin.
+                    {t('retakeHint')}
                   </span>
                   <button
                     onClick={handleRetakeQuiz}
                     className="w-full sm:w-auto px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-md cursor-pointer transition-all flex items-center justify-center space-x-2"
                   >
                     <RotateCcw className="w-4 h-4" />
-                    <span>Qayta Topshirish</span>
+                    <span>{t('retakeBtn')}</span>
                   </button>
                 </div>
               )}
@@ -638,7 +640,7 @@ export default function CoursePlayer({
           {/* Interactive Question Navigator Matrix (Primary Blue/Indigo, No Red) */}
           <div className="bg-[#091124]/90 border border-slate-800/80 p-4 rounded-2xl shadow-lg flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center space-x-2">
-              <span className="text-xs font-mono text-slate-400">Savollar:</span>
+              <span className="text-xs font-mono text-slate-400">{t('questionsMatrix')}</span>
               <div className="flex items-center space-x-1.5">
                 {module.quizQuestions.map((q, idx) => {
                   const isAnswered = selectedAnswers[q.id] !== undefined;
@@ -668,7 +670,7 @@ export default function CoursePlayer({
             </div>
 
             <div className="text-xs font-mono text-slate-400">
-              Belgilandi: <b className="text-indigo-400 font-bold">{answeredCount}</b> / {module.quizQuestions.length}
+              {t('selectedCount')} <b className="text-indigo-400 font-bold">{answeredCount}</b> / {module.quizQuestions.length}
             </div>
           </div>
 
@@ -683,7 +685,7 @@ export default function CoursePlayer({
                 </div>
                 <div>
                   <span className="text-[10px] font-mono text-indigo-400 font-semibold uppercase tracking-wider block mb-0.5">
-                    Savol {activeQuestionIndex + 1} / {module.quizQuestions.length}
+                    {t('questionOf', { current: activeQuestionIndex + 1, total: module.quizQuestions.length })}
                   </span>
                   <h3 className="text-sm sm:text-base font-bold text-white leading-snug">
                     {currentQuestion.question}
@@ -747,7 +749,7 @@ export default function CoursePlayer({
                 <div className="p-4 bg-indigo-950/30 border border-indigo-500/20 rounded-xl text-xs text-indigo-200 leading-relaxed">
                   <div className="font-bold text-amber-400 uppercase tracking-wider mb-1 flex items-center space-x-1.5">
                     <ShieldAlert className="w-3.5 h-3.5 text-amber-400" />
-                    <span>Kiberxavfsizlik Tahlili va Asosi:</span>
+                    <span>{t('cyberAnalysisTag')}</span>
                   </div>
                   {currentQuestion.explanation}
                 </div>
@@ -761,7 +763,7 @@ export default function CoursePlayer({
                   className="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 disabled:opacity-30 text-xs font-semibold text-slate-300 rounded-xl border border-slate-700/60 flex items-center space-x-1.5 cursor-pointer transition-colors"
                 >
                   <ArrowLeft className="w-3.5 h-3.5" />
-                  <span>Oldingi savol</span>
+                  <span>{t('prevQuestion')}</span>
                 </button>
 
                 {activeQuestionIndex < module.quizQuestions.length - 1 ? (
@@ -769,7 +771,7 @@ export default function CoursePlayer({
                     onClick={() => setActiveQuestionIndex(prev => prev + 1)}
                     className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-xs font-bold text-white rounded-xl shadow-sm flex items-center space-x-1.5 cursor-pointer transition-colors"
                   >
-                    <span>Keyingi savol</span>
+                    <span>{t('nextQuestion')}</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </button>
                 ) : !quizSubmitted ? (
@@ -783,7 +785,7 @@ export default function CoursePlayer({
                     }`}
                   >
                     <Award className="w-4 h-4" />
-                    <span>{allQuestionsAnswered ? 'TESTNI YAKUNLASH' : 'Barcha savollarni belgilang'}</span>
+                    <span>{allQuestionsAnswered ? t('finishTest') : t('selectAllQuestions')}</span>
                   </button>
                 ) : null}
               </div>
@@ -800,16 +802,16 @@ export default function CoursePlayer({
           <div className="border-b border-slate-800/60 pb-3">
             <h3 className="text-base font-bold text-white flex items-center space-x-2">
               <FileText className="w-4 h-4 text-indigo-400" />
-              <span>Modul O'quv Rejasi va Asosiy Qoidalar</span>
+              <span>{t('overviewTitle')}</span>
             </h3>
             <p className="text-xs text-slate-400 mt-0.5">
-              Ushbu modul doirasida o'zlashtirilishi shart bo'lgan axborot xavfsizligi qoidalari.
+              {t('overviewDesc')}
             </p>
           </div>
 
           <div className="space-y-5 text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
             <div className="bg-slate-900/40 p-4 rounded-xl space-y-2">
-              <h4 className="text-xs font-bold text-indigo-400 uppercase tracking-wider">Modul Xulosasi:</h4>
+              <h4 className="text-xs font-bold text-indigo-400 uppercase tracking-wider">{t('moduleSummary')}</h4>
               <p>{module.description}</p>
             </div>
 
@@ -817,7 +819,7 @@ export default function CoursePlayer({
               <div className="bg-emerald-950/20 border border-emerald-500/20 p-4 rounded-xl space-y-2.5">
                 <div className="text-xs font-mono font-bold text-emerald-400 uppercase tracking-wide flex items-center space-x-1.5">
                   <Check className="w-4 h-4" />
-                  <span>Qat'iy Tavsiyalar</span>
+                  <span>{t('strictRecommendations')}</span>
                 </div>
                 <ul className="text-xs text-slate-300 space-y-2 list-disc list-inside pl-1">
                   <li>Har bir xizmat uchun alohida, kamida 12-16 belgili parol qo'llang.</li>
@@ -829,7 +831,7 @@ export default function CoursePlayer({
               <div className="bg-rose-950/20 border border-rose-500/20 p-4 rounded-xl space-y-2.5">
                 <div className="text-xs font-mono font-bold text-rose-400 uppercase tracking-wide flex items-center space-x-1.5">
                   <ShieldAlert className="w-4 h-4" />
-                  <span>Qat'iyan Taqiqlanadi</span>
+                  <span>{t('strictlyForbidden')}</span>
                 </div>
                 <ul className="text-xs text-slate-300 space-y-2 list-disc list-inside pl-1">
                   <li>SMS orqali kelgan tasdiq kodlarini begonalarga berish.</li>

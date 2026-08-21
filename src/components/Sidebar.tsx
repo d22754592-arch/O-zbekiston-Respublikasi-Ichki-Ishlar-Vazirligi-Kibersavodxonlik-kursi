@@ -12,6 +12,7 @@ import {
   Sparkles
 } from 'lucide-react';
 import { ModuleData, UserProgress } from '../types';
+import { useLanguage } from '../i18n/LanguageContext';
 
 interface SidebarProps {
   modules: ModuleData[];
@@ -32,6 +33,7 @@ export default function Sidebar({
   onGoToWelcome,
   allModulesCompleted,
 }: SidebarProps) {
+  const { t } = useLanguage();
 
   const completedCount = modules.filter(
     m => userProgress.moduleProgress[m.id]?.completed
@@ -48,10 +50,10 @@ export default function Sidebar({
         </div>
         <div>
           <h2 className="font-bold text-xs sm:text-sm text-white tracking-tight leading-tight uppercase">
-            IIB Kiberxavfsizlik
+            {t('academyTitle')}
           </h2>
           <p className="text-[10px] text-slate-400 font-medium">
-            Maxsus O'quv Portali
+            {t('portalSubtitle')}
           </p>
         </div>
       </div>
@@ -69,7 +71,7 @@ export default function Sidebar({
               </div>
               <div className="text-[10px] text-emerald-400 flex items-center space-x-1 mt-0.5 font-medium">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                <span>Tinglovchi Faol</span>
+                <span>{t('activeStudent')}</span>
               </div>
             </div>
           </div>
@@ -78,8 +80,8 @@ export default function Sidebar({
         {/* Linear Progress Bar with high WCAG contrast */}
         <div className="space-y-1.5">
           <div className="flex items-center justify-between text-xs">
-            <span className="text-slate-300 font-medium">Umumiy Jarayon:</span>
-            <span className="text-white font-mono font-bold">{completedCount} / {modules.length} Modul ({progressPercent}%</span>
+            <span className="text-slate-300 font-medium">{t('totalProgress')}:</span>
+            <span className="text-white font-mono font-bold">{completedCount} / {modules.length} ({progressPercent}%)</span>
           </div>
           <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
             <div 
@@ -96,7 +98,7 @@ export default function Sidebar({
         {/* General Views */}
         <div className="space-y-1.5">
           <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider px-2 mb-2">
-            Asosiy Bo'limlar
+            {t('mainSections')}
           </div>
 
           <button
@@ -105,7 +107,7 @@ export default function Sidebar({
           >
             <div className="flex items-center space-x-2.5">
               <Home className="w-4 h-4 text-indigo-400" />
-              <span>Bosh Sahifa</span>
+              <span>{t('home')}</span>
             </div>
             <ChevronRight className="w-3.5 h-3.5 text-slate-500" />
           </button>
@@ -120,7 +122,7 @@ export default function Sidebar({
           >
             <div className="flex items-center space-x-2.5">
               <BarChart2 className="w-4 h-4 text-indigo-300" />
-              <span>Mening Natijalarim</span>
+              <span>{t('dashboard')}</span>
             </div>
             <ChevronRight className="w-3.5 h-3.5" />
           </button>
@@ -137,7 +139,7 @@ export default function Sidebar({
           >
             <div className="flex items-center space-x-2.5">
               <Award className="w-4 h-4 text-amber-400" />
-              <span>Rasmiy Sertifikat</span>
+              <span>{t('certificate')}</span>
             </div>
             {allModulesCompleted ? (
               <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
@@ -150,7 +152,7 @@ export default function Sidebar({
         {/* Modules List */}
         <div className="space-y-1.5">
           <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider px-2 mb-2 flex items-center justify-between">
-            <span>Dars Modullari ({modules.length})</span>
+            <span>{t('courseModules')} ({modules.length})</span>
             <span className="text-indigo-400 font-bold">{completedCount}/{modules.length}</span>
           </div>
 
@@ -204,11 +206,11 @@ export default function Sidebar({
                           : 'text-slate-400 font-medium'
                       }`}>
                         {isModuleCompleted ? (
-                          <span>Natija: {score}%</span>
+                          <span>{t('completed')}: {score}%</span>
                         ) : isUnlocked ? (
-                          <span>10 Slayd • 8 Savol</span>
+                          <span>{t('slidesAndQuestions', { slides: m.slideCount, questions: m.quizQuestions.length })}</span>
                         ) : (
-                          <span>Qulflangan</span>
+                          <span>{t('locked')}</span>
                         )}
                       </div>
                     </div>

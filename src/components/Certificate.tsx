@@ -3,6 +3,7 @@ import { Award, Printer, Calendar, User, Download, Loader2 } from 'lucide-react'
 import html2canvas from 'html2canvas-pro';
 import iibLogo from './iib.jpg';
 import { validateFullName } from '../utils/cyberUtils';
+import { useLanguage } from '../i18n/LanguageContext';
 
 interface CertificateProps {
   fullName?: string;
@@ -19,6 +20,7 @@ export default function Certificate({
   onNameChange,
   onBackToCourse,
 }: CertificateProps) {
+  const { t } = useLanguage();
   const [fullName, setFullName] = useState(initialFullName || defaultName);
   const [isGenerating, setIsGenerating] = useState(false);
 
@@ -88,55 +90,55 @@ export default function Certificate({
     <div className="space-y-6" id="certificate-view-container">
 
       {/* ── Editor Panel (hidden in print) ── */}
-      <div className="bg-white border-2 border-slate-800 p-5 shadow-md space-y-4 print:hidden rounded-2xl">
-        <div className="flex items-center space-x-3 border-b border-slate-200 pb-3">
-          <div className="w-8 h-8 bg-amber-500 flex items-center justify-center rounded-lg text-white">
+      <div className="bg-[#091124]/90 border border-slate-800/80 p-5 shadow-xl space-y-4 print:hidden rounded-3xl backdrop-blur-xl">
+        <div className="flex items-center space-x-3 border-b border-slate-800/60 pb-3">
+          <div className="w-8 h-8 bg-amber-500 flex items-center justify-center rounded-xl text-slate-950 font-bold">
             <Award className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wide">
-              Sertifikat Ma'lumotlarini Kiritish
+            <h3 className="text-sm font-bold text-white uppercase tracking-wide">
+              {t('certificate')}
             </h3>
-            <p className="text-[10px] text-slate-500 font-medium">
-              Ism va sharifingizni to'g'ri kiriting, so'ng sertifikatni yuklab oling yoki chop eting
+            <p className="text-xs text-slate-400 font-medium">
+              {t('verifyCertName')}
             </p>
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase mb-1 flex items-center space-x-1">
-              <User className="w-3.5 h-3.5 text-indigo-600" />
-              <span>F.I.Sh (Ismi Sharifingiz): *</span>
+            <label className="block text-xs font-semibold text-slate-300 uppercase mb-1 flex items-center space-x-1">
+              <User className="w-3.5 h-3.5 text-indigo-400" />
+              <span>{t('fullNameInputLabel')} *</span>
             </label>
             <input
               id="cert-name-input"
               type="text"
               value={fullName}
               onChange={(e) => handleNameChange(e.target.value)}
-              className="w-full bg-slate-50 border-2 border-slate-300 focus:border-indigo-500 p-2.5 text-sm font-bold text-slate-900 focus:outline-none rounded-xl transition-colors"
-              placeholder="Masalan: Toshpulatov Behruz Alisherovich"
+              className="w-full bg-slate-900 border border-slate-700 focus:border-amber-400 p-2.5 text-sm font-semibold text-white focus:outline-none rounded-xl transition-colors"
+              placeholder={t('fullNamePlaceholder')}
             />
           </div>
           <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase mb-1 flex items-center space-x-1">
-              <Calendar className="w-3.5 h-3.5 text-indigo-600" />
-              <span>Tugatilgan sana:</span>
+            <label className="block text-xs font-semibold text-slate-300 uppercase mb-1 flex items-center space-x-1">
+              <Calendar className="w-3.5 h-3.5 text-indigo-400" />
+              <span>{t('certDate')}:</span>
             </label>
             <input
               id="cert-date-input"
               type="date"
               value={completedDate}
               onChange={(e) => setCompletedDate(e.target.value)}
-              className="w-full bg-slate-50 border-2 border-slate-300 focus:border-indigo-500 p-2.5 text-sm font-bold text-slate-900 focus:outline-none rounded-xl transition-colors"
+              className="w-full bg-slate-900 border border-slate-700 focus:border-amber-400 p-2.5 text-sm font-semibold text-white focus:outline-none rounded-xl transition-colors"
             />
           </div>
         </div>
 
         {!isReady && (
-          <div className="flex items-center space-x-2 bg-amber-50 border border-amber-200 rounded-xl p-2.5">
-            <span className="text-amber-700 text-xs font-bold">
-              ⚠ Sertifikatni shakllantirish uchun to'liq F.I.Sh (kamida 2 ta so'z) kiritilishi shart!
+          <div className="flex items-center space-x-2 bg-amber-500/10 border border-amber-500/30 rounded-xl p-2.5">
+            <span className="text-amber-300 text-xs font-semibold">
+              ⚠ {t('nameValidationRule')}
             </span>
           </div>
         )}
@@ -146,10 +148,10 @@ export default function Certificate({
             onClick={handleDownloadPNG}
             disabled={!isReady || isGenerating}
             id="btn-download-png-certificate"
-            className={`px-5 py-3 font-bold text-xs flex items-center space-x-2 rounded-xl transition-all border-2 uppercase tracking-wider ${
+            className={`px-5 py-2.5 font-bold text-xs flex items-center space-x-2 rounded-xl transition-all uppercase tracking-wider ${
               isReady && !isGenerating
-                ? 'bg-emerald-600 hover:bg-emerald-700 text-white border-emerald-600 shadow-lg active:translate-y-px cursor-pointer'
-                : 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed'
+                ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-md cursor-pointer'
+                : 'bg-slate-800 text-slate-500 cursor-not-allowed'
             }`}
           >
             {isGenerating ? (
@@ -160,7 +162,7 @@ export default function Certificate({
             ) : (
               <>
                 <Download className="w-4 h-4" />
-                <span>PNG Rasm Sifatida Yuklab Olish</span>
+                <span>{t('downloadPng')}</span>
               </>
             )}
           </button>
@@ -169,32 +171,33 @@ export default function Certificate({
             onClick={() => window.print()}
             disabled={!isReady}
             id="btn-print-certificate"
-            className={`px-5 py-3 font-bold text-xs flex items-center space-x-2 rounded-xl transition-all border-2 uppercase tracking-wider ${
+            className={`px-5 py-2.5 font-bold text-xs flex items-center space-x-2 rounded-xl transition-all uppercase tracking-wider ${
               isReady
-                ? 'bg-slate-900 hover:bg-slate-700 text-white border-slate-900 shadow-lg active:translate-y-px cursor-pointer'
-                : 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed'
+                ? 'bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 shadow-md cursor-pointer'
+                : 'bg-slate-900 text-slate-600 cursor-not-allowed'
             }`}
           >
             <Printer className="w-4 h-4" />
-            <span>PDF Saqlash (Chop etish)</span>
+            <span>{t('printCert')}</span>
           </button>
         </div>
       </div>
 
-      {/* ── EXACT ORIGINAL CERTIFICATE CANVAS (Pixel-Matched to Screenshot) ── */}
-      <div className="flex justify-center w-full pb-4 overflow-x-auto" id="cert-scroll-wrapper">
+      {/* ── Official High-DPI Certificate Render Container ── */}
+      <div className="w-full flex justify-center overflow-x-auto py-2">
         <div
           id="official-iib-certificate"
           style={{
-            position: 'relative',
             width: '100%',
-            maxWidth: '860px',
-            minWidth: '660px',
-            aspectRatio: '1.414 / 1',
-            background: '#ffffff',
+            maxWidth: '960px',
+            minWidth: '680px',
+            aspectRatio: '16 / 10.5',
+            backgroundColor: '#ffffff',
+            position: 'relative',
             overflow: 'hidden',
-            fontFamily: "'Arial', sans-serif",
-            boxShadow: '0 8px 40px rgba(0,0,0,0.18)',
+            boxShadow: '0 20px 50px rgba(0,0,0,0.3)',
+            borderRadius: '4px',
+            boxSizing: 'border-box',
           }}
         >
           {/* Base Background */}
@@ -301,8 +304,8 @@ export default function Certificate({
                 textAlign: 'center',
                 lineHeight: 1.3,
               }}>
-                O'ZBEKISTON RESPUBLIKASI<br />
-                ICHKI ISHLAR VAZIRLIGI
+                {t('iibTitle')}<br />
+                {t('departmentTitle')}
               </p>
             </div>
 
@@ -323,7 +326,7 @@ export default function Certificate({
                 margin: 0,
                 lineHeight: 1,
               }}>
-                SERTIFIKAT
+                {t('certMainTitle')}
               </h1>
               <p style={{
                 fontFamily: "'Arial', sans-serif",
@@ -335,7 +338,7 @@ export default function Certificate({
                 textTransform: 'uppercase',
                 margin: '6px 0 0 0',
               }}>
-                KIBERSAVODXONLIK O'QUV KURSI
+                {t('courseTitle')}
               </p>
             </div>
 
@@ -351,7 +354,7 @@ export default function Certificate({
               marginBottom: 0,
               zIndex: 10,
             }}>
-              USHBU SERTIFIKAT TOPSHIRILADI:
+              {t('certAwardedTo')}
             </p>
 
             {/* RECIPIENT NAME */}
@@ -406,13 +409,12 @@ export default function Certificate({
               width: '70%',
               lineHeight: 1.4,
             }}>
-              Kibersavodxonlik kursini muvaffaqiyatli<br />
-              tamomlagani uchun
+              {t('certReason')}
             </p>
 
           </div>
 
-          {/* Clean Gold Medal Graphic (Matching Screenshot) */}
+          {/* Clean Gold Medal Graphic */}
           <div style={{
             position: 'absolute',
             bottom: '7%',
@@ -422,14 +424,10 @@ export default function Certificate({
             zIndex: 10,
           }}>
             <svg viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%' }}>
-              {/* Bottom Ribbon Tips */}
               <polygon points="43,80 47,98 50,88 53,98 57,80" fill="#d97706" />
-              {/* Outer Golden Circle */}
               <circle cx="50" cy="48" r="42" fill="#fbbf24" stroke="#d97706" strokeWidth="2.5" />
-              {/* Inner Circle */}
               <circle cx="50" cy="48" r="34" fill="#f59e0b" stroke="#fffbeb" strokeWidth="1.5" />
               <circle cx="50" cy="48" r="28" fill="#ffffff" />
-              {/* Golden 5-point Star */}
               <polygon
                 points="50,28 53.5,39 65,39 55.5,46 59,57 50,50 41,57 44.5,46 35,39 46.5,39"
                 fill="#d97706"
@@ -454,7 +452,7 @@ export default function Certificate({
                 display: 'block',
                 opacity: 0.85,
               }}>
-                Sana: {displayDate}
+                {t('certDate')}: {displayDate}
               </span>
             </div>
           )}

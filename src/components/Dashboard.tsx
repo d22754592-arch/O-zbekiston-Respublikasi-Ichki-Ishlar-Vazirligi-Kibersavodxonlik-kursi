@@ -15,6 +15,7 @@ import {
 import { ModuleData, UserProgress } from '../types';
 import { logger } from '../utils/logger';
 import { formatStudyTime, formatStudyTimeShort } from '../utils/timeTracker';
+import { useLanguage } from '../i18n/LanguageContext';
 
 interface DashboardProps {
   modules: ModuleData[];
@@ -34,6 +35,7 @@ export default function Dashboard({
   allModulesCompleted,
   onRestoreProgress,
 }: DashboardProps) {
+  const { t } = useLanguage();
   const [importError, setImportError] = useState(false);
 
   const completedCount = modules.filter(
@@ -92,15 +94,15 @@ export default function Dashboard({
       <div className="bg-[#091124]/90 border border-slate-800/80 p-6 sm:p-7 rounded-3xl text-white shadow-xl backdrop-blur-xl space-y-2.5">
         <div className="inline-flex items-center space-x-1.5 bg-indigo-500/10 px-3 py-1 rounded-full text-indigo-300 text-xs font-mono font-semibold uppercase tracking-wider">
           <ShieldCheck className="w-3.5 h-3.5 text-indigo-400" />
-          <span>Tinglovchi Shaxsiy Kabineti</span>
+          <span>{t('studentCabinet')}</span>
         </div>
 
         <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-white">
-          {userProgress.fullName ? `Salom, ${userProgress.fullName}` : 'O\'quv Natijalari Paneli'}
+          {userProgress.fullName ? t('greeting', { name: userProgress.fullName }) : t('resultsPanel')}
         </h1>
 
         <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal max-w-3xl">
-          Kibersavodxonlik kursidagi faolligingiz, har bir modul bo'yicha to'plangan ballaringiz va yakuniy rasmiy IIB sertifikatiga erishish holatingiz.
+          {t('dashboardDesc')}
         </p>
       </div>
 
@@ -110,7 +112,7 @@ export default function Dashboard({
         {/* Metric 1 */}
         <div className="bg-slate-900/50 border border-slate-800/80 p-5 rounded-2xl space-y-2 shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">O'tilgan Modullar</span>
+            <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">{t('completedModules')}</span>
             <div className="w-7 h-7 rounded-lg bg-indigo-600/20 flex items-center justify-center text-indigo-400">
               <BookOpen className="w-3.5 h-3.5" />
             </div>
@@ -130,7 +132,7 @@ export default function Dashboard({
         {/* Metric 2 */}
         <div className="bg-slate-900/50 border border-slate-800/80 p-5 rounded-2xl space-y-2 shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">O'rtacha Natija</span>
+            <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">{t('averageScore')}</span>
             <div className="w-7 h-7 rounded-lg bg-emerald-600/20 flex items-center justify-center text-emerald-400">
               <BarChart2 className="w-3.5 h-3.5" />
             </div>
@@ -139,14 +141,14 @@ export default function Dashboard({
             {averageScore}%
           </div>
           <div className="text-xs text-slate-400 font-medium">
-            {completedCount > 0 ? `${completedCount} ta modul natijasi` : "Testlar topshirilmagan"}
+            {completedCount > 0 ? `${completedCount} ta modul` : "0%"}
           </div>
         </div>
 
         {/* Metric 3: Active Study Time Tracker (No Truncation) */}
         <div className="bg-slate-900/50 border border-slate-800/80 p-5 rounded-2xl space-y-2 shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">Jami O'qish Vaqti</span>
+            <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">{t('totalStudyTime')}</span>
             <div className="w-7 h-7 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-400">
               <Clock className="w-3.5 h-3.5" />
             </div>
@@ -155,27 +157,27 @@ export default function Dashboard({
             {formatStudyTime(userProgress.totalStudySeconds || 0)}
           </div>
           <div className="text-xs text-slate-400 font-medium">
-            Faol o'rganilgan vaqt
+            {t('activeStudyTime')}
           </div>
         </div>
 
         {/* Metric 4: Certificate Status */}
         <div className="bg-slate-900/50 border border-slate-800/80 p-5 rounded-2xl space-y-2 shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">Sertifikat Holati</span>
+            <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">{t('certificateStatus')}</span>
             <div className="w-7 h-7 rounded-lg bg-amber-600/20 flex items-center justify-center text-amber-400">
               <Award className="w-3.5 h-3.5" />
             </div>
           </div>
           <div className="text-base sm:text-lg font-bold font-mono">
             {allModulesCompleted ? (
-              <span className="text-amber-400 font-bold">TAYYOR (Ochiq)</span>
+              <span className="text-amber-400 font-bold">{t('certReady')}</span>
             ) : (
-              <span className="text-slate-300 font-medium">{totalModules - completedCount} ta modul qoldi</span>
+              <span className="text-slate-300 font-medium">{t('modulesLeft', { count: totalModules - completedCount })}</span>
             )}
           </div>
           <div className="text-xs text-slate-400">
-            {allModulesCompleted ? 'Sertifikat bo\'limiga o\'ting' : 'Barcha testlarni yakunlang'}
+            {allModulesCompleted ? t('goToCertTab') : t('completeAllTests')}
           </div>
         </div>
 
@@ -187,10 +189,10 @@ export default function Dashboard({
           <div>
             <h3 className="text-base font-bold text-white flex items-center space-x-2">
               <Layers className="w-4 h-4 text-indigo-400" />
-              <span>Modullar Bo'yicha O'zlashtirish</span>
+              <span>{t('modulesBreakdown')}</span>
             </h3>
             <p className="text-xs text-slate-400 mt-0.5">
-              Har bir modul bo'yicha darslar, sarflangan vaqt va test ko'rsatkichlari.
+              {t('modulesBreakdownDesc')}
             </p>
           </div>
         </div>
@@ -228,7 +230,7 @@ export default function Dashboard({
                       {m.title}
                     </div>
                     <div className="flex items-center space-x-3 text-xs text-slate-400 mt-0.5 font-mono">
-                      <span>{m.slideCount} ta Slayd • {m.quizQuestions.length} ta Test</span>
+                      <span>{t('slidesAndQuestions', { slides: m.slideCount, questions: m.quizQuestions.length })}</span>
                       {modTime > 0 && (
                         <span className="text-indigo-300 flex items-center space-x-1">
                           <Clock className="w-3 h-3" />
@@ -243,7 +245,7 @@ export default function Dashboard({
                   {isCompleted && (
                     <div className="text-right font-mono">
                       <span className="text-emerald-400 font-bold text-xs sm:text-sm">{score}%</span>
-                      <span className="text-[10px] text-slate-400 block">O'tilgan</span>
+                      <span className="text-[10px] text-slate-400 block">{t('completed')}</span>
                     </div>
                   )}
 
@@ -256,7 +258,7 @@ export default function Dashboard({
                           : 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-sm'
                       }`}
                     >
-                      <span>{isCompleted ? 'Qayta Ko\'rish' : 'Darsni Boshlash'}</span>
+                      <span>{isCompleted ? t('reviewLesson') : t('startLesson')}</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </button>
                   )}
@@ -270,8 +272,8 @@ export default function Dashboard({
       {/* Data Backup / Export / Import Controls */}
       <div className="bg-slate-900/40 border border-slate-800/80 p-4 sm:p-5 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
         <div>
-          <span className="font-semibold text-slate-300 block">Jarayonni Zaxiralash (Backup / Restore)</span>
-          <span>Natijalaringiz va o'qish vaqtingizni saqlab qo'yish yoki boshqa qurilmaga ko'chirish.</span>
+          <span className="font-semibold text-slate-300 block">{t('backupProgress')}</span>
+          <span>{t('backupDesc')}</span>
         </div>
 
         <div className="flex items-center space-x-2">
@@ -280,12 +282,12 @@ export default function Dashboard({
             className="px-3.5 py-2 bg-slate-800/80 hover:bg-slate-700 text-slate-200 rounded-xl border border-slate-700/60 flex items-center space-x-1.5 cursor-pointer transition-colors"
           >
             <Download className="w-3.5 h-3.5" />
-            <span>Yuklab Olish (JSON)</span>
+            <span>{t('downloadJson')}</span>
           </button>
 
           <label className="px-3.5 py-2 bg-slate-800/80 hover:bg-slate-700 text-slate-200 rounded-xl border border-slate-700/60 flex items-center space-x-1.5 cursor-pointer transition-colors">
             <Upload className="w-3.5 h-3.5" />
-            <span>Tiklash</span>
+            <span>{t('restoreJson')}</span>
             <input
               type="file"
               accept=".json"

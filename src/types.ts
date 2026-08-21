@@ -1,3 +1,5 @@
+export type Language = 'uz' | 'oz' | 'ru';
+
 export interface QuizQuestion {
   id: number;
   question: string;

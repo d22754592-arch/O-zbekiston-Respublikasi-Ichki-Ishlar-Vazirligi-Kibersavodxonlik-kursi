@@ -5,7 +5,9 @@ import CoursePlayer from './components/CoursePlayer';
 import Certificate from './components/Certificate';
 import WelcomeScreen from './components/WelcomeScreen';
 import VerificationModal from './components/VerificationModal';
-import { modules } from './modulesData';
+import LanguageSelector from './components/LanguageSelector';
+import { LanguageProvider, useLanguage } from './i18n/LanguageContext';
+import { getModules } from './modulesData';
 import { UserProgress } from './types';
 import { logger } from './utils/logger';
 import { usePWAInstall } from './utils/usePWAInstall';
@@ -16,8 +18,6 @@ import {
   Home, 
   BarChart2, 
   Award, 
-  Lock, 
-  User, 
   Sparkles,
   Sun,
   Moon,
@@ -28,8 +28,11 @@ import {
 const LOCAL_STORAGE_KEY = 'kibersavodxonlik_user_progress_v2';
 const THEME_STORAGE_KEY = 'kibersavodxonlik_theme_v2';
 
-export default function App() {
+function AppContent() {
+  const { language, t } = useLanguage();
   const { isInstallable, installApp } = usePWAInstall();
+
+  const modules = getModules(language);
 
   // Theme State: 'dark' (Default Officer Midnight) or 'light' (UniAthena Paper)
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
@@ -241,13 +244,13 @@ export default function App() {
                   </div>
                 </div>
                 <div>
-                  <h1 className="text-sm sm:text-base font-black tracking-tight uppercase font-sans">
-                    Kibersavodxonlik Maxsus Kursi
+                  <h1 className="text-sm sm:text-base font-bold tracking-tight uppercase font-sans">
+                    {t('courseTitle')}
                   </h1>
-                  <p className={`text-[10px] font-mono font-bold tracking-wider uppercase ${
+                  <p className={`text-[10px] font-mono font-medium tracking-wider uppercase ${
                     theme === 'dark' ? 'text-amber-400' : 'text-indigo-700'
                   }`}>
-                    O'zbekiston Respublikasi IIV Farg'ona Viloyati
+                    {t('iibTitle')}
                   </p>
                 </div>
               </div>
@@ -255,12 +258,15 @@ export default function App() {
               {/* Top Action & Quick Navigation */}
               <div className="flex items-center space-x-2 sm:space-x-3">
                 
+                {/* Language Switcher */}
+                <LanguageSelector />
+
                 {/* Active Learning Timer Badge */}
                 <div className={`hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-xl border text-xs font-mono font-bold ${
                   theme === 'dark' 
                     ? 'bg-[#070e24] border-slate-800 text-slate-300' 
                     : 'bg-slate-50 border-slate-200 text-slate-700'
-                }`} title="Faol o'rganish vaqti">
+                }`} title={t('activeStudyTime')}>
                   <Clock className="w-3.5 h-3.5 text-indigo-500 animate-spin" style={{ animationDuration: '8s' }} />
                   <span>{formatStudyTimeShort(userProgress.totalStudySeconds || 0)}</span>
                 </div>
@@ -270,10 +276,10 @@ export default function App() {
                   <button
                     onClick={installApp}
                     className="px-3 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md cursor-pointer flex items-center space-x-1.5 border border-emerald-400/40 animate-pulse hover:scale-105 transition-all"
-                    title="Telefonga yoki Kompyuterga o'rnatish"
+                    title={t('installApp')}
                   >
                     <DownloadCloud className="w-3.5 h-3.5" />
-                    <span className="hidden md:inline">Ilovani O'rnatish</span>
+                    <span className="hidden md:inline">{t('installApp')}</span>
                   </button>
                 )}
 
@@ -285,36 +291,36 @@ export default function App() {
                       ? 'bg-[#070e24] border-slate-800 text-amber-400 hover:bg-slate-800'
                       : 'bg-slate-100 border-slate-300 text-indigo-700 hover:bg-slate-200'
                   }`}
-                  title={theme === 'dark' ? "Kunduzgi rejimga o'tish (Light Mode)" : "Tungi rejimga o'tish (Dark Mode)"}
+                  title={theme === 'dark' ? "Kunduzgi rejim" : "Tungi rejim"}
                 >
                   {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
                 </button>
 
                 <button
                   onClick={() => setViewMode('welcome')}
-                  className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer flex items-center space-x-1.5 ${
+                  className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-semibold border transition-all cursor-pointer flex items-center space-x-1.5 ${
                     theme === 'dark'
-                      ? 'bg-[#070e24] text-slate-300 hover:text-white hover:bg-slate-800 border-slate-800'
+                      ? 'bg-slate-900/40 text-slate-300 hover:text-white hover:bg-slate-800 border-slate-800/60'
                       : 'bg-white text-slate-700 hover:text-slate-900 hover:bg-slate-50 border-slate-200 shadow-sm'
                   }`}
-                  title="Bosh sahifaga qaytish"
+                  title={t('home')}
                 >
                   <Home className="w-3.5 h-3.5 text-indigo-400" />
-                  <span className="hidden sm:inline">Bosh Menyu</span>
+                  <span className="hidden sm:inline">{t('home')}</span>
                 </button>
 
                 <button
                   onClick={() => setActiveTab('dashboard')}
-                  className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center space-x-1.5 border ${
+                  className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer flex items-center space-x-1.5 border ${
                     activeTab === 'dashboard'
-                      ? 'bg-indigo-600 text-white border-indigo-400 shadow-lg shadow-indigo-950/60'
+                      ? 'bg-indigo-600 text-white border-indigo-500 shadow-md'
                       : theme === 'dark'
-                      ? 'bg-[#070e24] text-slate-300 border-slate-800 hover:border-slate-700 hover:text-white'
+                      ? 'bg-slate-900/40 text-slate-300 border-slate-800/60 hover:bg-slate-800 hover:text-white'
                       : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300'
                   }`}
                 >
                   <BarChart2 className="w-3.5 h-3.5 text-indigo-300" />
-                  <span>Natijalarim</span>
+                  <span>{t('dashboard')}</span>
                 </button>
 
                 <button
@@ -331,7 +337,7 @@ export default function App() {
                   }`}
                 >
                   <Award className="w-3.5 h-3.5 text-amber-400" />
-                  <span>Sertifikat</span>
+                  <span>{t('certificate')}</span>
                   {allModulesCompleted && <Sparkles className="w-3 h-3 text-amber-400 animate-pulse" />}
                 </button>
               </div>
@@ -364,9 +370,9 @@ export default function App() {
                   module={currentModule}
                   onCompleteModule={handleCompleteModule}
                   onGoToNextModule={handleGoToNextModule}
-                  isCompleted={!!userProgress.moduleProgress[currentModule.id]?.completed}
-                  previousScore={userProgress.moduleProgress[currentModule.id]?.scorePercent || 0}
-                  isLastModule={currentModule.id === modules.length}
+                  isCompleted={!!userProgress.moduleProgress[currentModuleId]?.completed}
+                  previousScore={userProgress.moduleProgress[currentModuleId]?.scorePercent || 0}
+                  isLastModule={currentModuleId === modules.length}
                   userName={userProgress.fullName}
                   onSaveUserName={handleNameChange}
                   onGoToCertificate={() => setActiveTab('certificate')}
@@ -385,31 +391,13 @@ export default function App() {
               )}
 
               {activeTab === 'certificate' && (
-                allModulesCompleted ? (
-                  <Certificate
-                    fullName={userProgress.fullName}
-                    onNameChange={handleNameChange}
-                    onBackToCourse={() => setActiveTab('module')}
-                  />
-                ) : (
-                  <div className="bg-[#0b1633]/90 border border-indigo-500/30 p-8 sm:p-12 rounded-3xl text-center space-y-5 shadow-2xl backdrop-blur-xl">
-                    <div className="w-16 h-16 bg-amber-500/10 border border-amber-500/30 rounded-2xl flex items-center justify-center mx-auto text-amber-400">
-                      <Lock className="w-8 h-8" />
-                    </div>
-                    <h3 className="text-xl font-black text-white uppercase tracking-tight">
-                      Rasmiy IIB Sertifikati Hozircha Qulflangan
-                    </h3>
-                    <p className="text-sm text-slate-300 font-medium max-w-md mx-auto leading-relaxed">
-                      Rasmiy raqamli himoyalangan sertifikatni olish uchun barcha <b>7 ta modul darslarini</b> o'rganib, testlarini kamida <b>65%</b> natija bilan topshirishingiz lozim.
-                    </p>
-                    <button
-                      onClick={() => setActiveTab('module')}
-                      className="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-lg cursor-pointer transition-all hover:scale-105"
-                    >
-                      Darslarni Davom Ettirish
-                    </button>
-                  </div>
-                )
+                <Certificate
+                  fullName={userProgress.fullName}
+                  defaultName="Toshpulatov Behruz Alisherovich"
+                  completedDate={userProgress.completedDate}
+                  onNameChange={handleNameChange}
+                  onBackToCourse={() => setActiveTab('module')}
+                />
               )}
             </main>
 
@@ -418,5 +406,13 @@ export default function App() {
       )}
 
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <LanguageProvider>
+      <AppContent />
+    </LanguageProvider>
   );
 }
