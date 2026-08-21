@@ -320,12 +320,14 @@ export default function App() {
                 <button
                   onClick={() => setActiveTab('certificate')}
                   disabled={!allModulesCompleted}
-                  className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center space-x-1.5 border ${
+                  className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-semibold transition-all flex items-center space-x-1.5 border ${
                     activeTab === 'certificate'
-                      ? 'bg-amber-500 text-slate-950 border-amber-400 shadow-lg font-black'
+                      ? 'bg-amber-500 text-slate-950 border-amber-400 shadow-md font-bold'
                       : allModulesCompleted
-                      ? 'bg-[#070e24] text-amber-300 border-amber-500/40 hover:bg-amber-500/10 cursor-pointer'
-                      : 'bg-slate-800 text-slate-500 border-slate-700 opacity-60 cursor-not-allowed'
+                      ? 'bg-amber-500/10 text-amber-300 border-amber-500/40 hover:bg-amber-500/20 cursor-pointer'
+                      : theme === 'dark'
+                      ? 'bg-slate-900/40 text-slate-400 border-slate-800/60 cursor-not-allowed'
+                      : 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed'
                   }`}
                 >
                   <Award className="w-3.5 h-3.5 text-amber-400" />
