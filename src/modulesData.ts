@@ -9,6 +9,22 @@ const modulesUz: ModuleData[] = [
     iconName: "ShieldAlert",
     slideCount: 10,
     slideFolder: "./slides/module_1",
+    overview: {
+      summary: "O'zbekiston Respublikasi IIV tomonidan tasdiqlangan ushbu 5 ta oltin qoida — barcha xodimlar va fuqarolar uchun kiberfiribgarlik tuzoqlariga tushib qolmaslikning eng samarali amaliy qo'llanmasidir.",
+      keyRule: "Firibgarlar shoshiltiradi — siz esa To'xtang, O'ylang va Tekshiring!",
+      dos: [
+        "Begona qo'ng'iroq bo'lganda darhol aloqani to'xtatib, bank yoki davlat idorasining rasmiy raqamiga o'zingiz qayta qo'ng'iroq qiling.",
+        "Har qanday kelgan havolaning domen manzilini (URL) bosishdan oldin sinchkovlik bilan tekshiring.",
+        "Telegramda notanish yoki tanish akkauntdan yuborilgan fayllarni (APK, ZIP, EXE) ochishdan oldin yuboruvchini boshqa kanal orqali tasdiqlang.",
+        "Kiberfiribgarlikka duch kelsangiz, skrinshotlarni saqlab darhol 1102 — IIV Ishonch telefoniga xabar bering."
+      ],
+      donts: [
+        "Hech kimga, hatto o'zini bank xodimi yoki tergovchi deb tanishtirganlarga ham PIN-kod, SMS-tasdiq kodi va parollarni bermang.",
+        "'Pulingizni 2 barobarga ko'paytirib beramiz' degan kafolatlangan katta daromad va'dalariga aslo aldanmang.",
+        "Mahsulot qo'lingizga yetib kelmasdan va ko'rmasdan turib begonalarga oldindan to'lov qilmang.",
+        "Noma'lum Telegram botlar va shubhali guruhlardagi havolalarga bank karta ma'lumotlarini kiritmang."
+      ]
+    },
     quizQuestions: [
       {
         id: 101,
@@ -116,6 +132,22 @@ const modulesUz: ModuleData[] = [
     iconName: "KeyRound",
     slideCount: 10,
     slideFolder: "./slides/module_2",
+    overview: {
+      summary: "Parollar — shaxsiy va ishchi ma'lumotlarning birinchi mudofaa chizig'idir. Zamonaviy kiber-xavfsizlikda oddiy parollardan voz kechib, uzun parol iboralari (Passphrase) va parol menejerlariga o'tish talab etiladi.",
+      keyRule: "Har bir xizmat uchun alohida, kamida 12-16 belgili kuchli parol va Passphrase qo'llang!",
+      dos: [
+        "Parol uzunligini kamida 12-16 ta belgi qilib belgilang (harflar, raqamlar va maxsus belgilar).",
+        "Bir-biri bilan bog'liq bo'lmagan so'zlardan iborat 'Passphrase' (masalan: kitob-osmon-qush-daryo) tamoyilidan foydalaning.",
+        "Parollarni shifrlangan Bitwarden yoki offline KeePassXC parol menejerlarida saqlang.",
+        "Muntazam ravishda parollaringiz ochiq bazalarga sizdirilmaganligini tekshirib turing."
+      ],
+      donts: [
+        "Tug'ilgan yil, ism, telefon raqami yoki '123456', 'password' kabi oddiy parollarni ishlatmang.",
+        "Bir xil parolni bir nechta turli akkauntlarda takroran ishlatmang.",
+        "Parollarni kompyuter monitoriga stiker qilib yopishtirish yoki oddiy bloknotda ochiq saqlashdan saqlaning.",
+        "Parollaringizni messenjerlar orqali birovga yubormang."
+      ]
+    },
     quizQuestions: [
       {
         id: 201,
@@ -223,6 +255,22 @@ const modulesUz: ModuleData[] = [
     iconName: "ShieldCheck",
     slideCount: 10,
     slideFolder: "./slides/module_3",
+    overview: {
+      summary: "Ikki faktorli autentifikatsiya (2FA) parolingiz o'g'irlangan taqdirda ham akkauntingizga begonalarning kirishini 99% holatda to'xtatib qoluvchi eng ishonchli himoya mexanizmidir.",
+      keyRule: "Barcha Telegram, pochta va bank ilovalariga zudlik bilan 2FA (Ikki bosqichli tasdiqlash) ni yoqing!",
+      dos: [
+        "Google Authenticator, Microsoft Authenticator kabi vaqtga asoslangan (TOTP) dasturlardan foydalaning.",
+        "Telegramda Sozlamalar > Maxfiylik > Ikki bosqichli tasdiqlash (Bulutli parol) ni yoqing.",
+        "2FA yoqilganda beriladigan bir martalik zaxira kodlarini (Backup codes) xavfsiz offline joyda saqlang.",
+        "Telegram va boshqa tarmoqlardagi 'Faol seanslar' (Active Sessions) ro'yxatini vaqti-vaqti bilan tekshirib turing."
+      ],
+      donts: [
+        "Telefoningizga kelgan 2FA tasdiq kodini hech kimga va hech qachon bermang.",
+        "SIM-karta o'g'irlanishi yoki klonlanishi xavfi sababli faqat SMS-kodga tayanib qolmang.",
+        "Zaxira kodlarini telefon galereyasida ochiq skrinshot holatida saqlamang.",
+        "Begona yoki jamoat kompyuterlarida 'Meni eslab qol' (Remember me) katakchasini belgilamang."
+      ]
+    },
     quizQuestions: [
       {
         id: 301,
@@ -330,6 +378,22 @@ const modulesUz: ModuleData[] = [
     iconName: "UserX",
     slideCount: 10,
     slideFolder: "./slides/module_4",
+    overview: {
+      summary: "Ijtimoiy muhandislik — texnik zaifliklardan emas, balki insonning ishonchi, qo'rquvi, shoshqaloqligi va his-tuyg'ularidan foydalanib maxfiy ma'lumotlarni o'g'irlash usulidir.",
+      keyRule: "Har qanday shoshilinchlik, qo'rquv yoki soxta obro' bosimi ostida qaror chiqarmang — rasmiy manba orqali tekshiring!",
+      dos: [
+        "Sizni shoshiltirishganida suhbatni to'xtating va 'Menga 10 daqiqa vaqt bering' deb o'ylab ko'ring.",
+        "Telefon qo'ng'irog'i (Vishing) qilgan shaxsning shaxsiyatini rasmiy tashkilot bilan bog'lanib aniqlang.",
+        "Ko'chada yoki ofisda topib olingan notanish USB-fleshkalarni to'g'ridan-to'g'ri ishchi kompyuterga ulamang.",
+        "Har qanday kutilmagan favqulodda xabarni sovuqqonlik bilan mantiqiy tahlil qiling."
+      ],
+      donts: [
+        "'Hisobingiz 10 daqiqada bloklanadi!' degan qo'rqituvlarga uchib, shoshilinch ravishda ma'lumot bermang.",
+        "'Siz 1,000,000 so'm yutdingiz' kabi soxta mukofot va'da qiluvchi havolalarni bosmang.",
+        "O'zini IIV xodimi, bank xavfsizligi yoki IT-mutaxassis deb tanishtirganlarning har bir gapiga tekshirmasdan ishonmang.",
+        "Ishxonadagi parollaringiz va xizmat ma'lumotlarini hamkasblar nomidan yozgan notanish profillarga yubormang."
+      ]
+    },
     quizQuestions: [
       {
         id: 401,
@@ -437,6 +501,22 @@ const modulesUz: ModuleData[] = [
     iconName: "Lock",
     slideCount: 10,
     slideFolder: "./slides/module_5",
+    overview: {
+      summary: "Pasport, JSHSHIR (PINFL) va shaxsiy ma'lumotlar — sizning raqamli shaxsingizdir. Ularning tarmoqqa sizdirilishi noqonuniy kreditlar rasmiylashtirilishi va shaxsiy daxlsizlikning buzilishiga olib keladi.",
+      keyRule: "Pasportingiz, PINFL raqamingiz va shaxsiy hujjatlaringizni hech qachon ochiq ijtimoiy tarmoqlarga yuklamang!",
+      dos: [
+        "JSHSHIR (PINFL) raqamingizni faqat rasmiy davlat portallari (my.gov.uz) da kiriting.",
+        "Ijtimoiy tarmoqlarda profilingizni faqat yaqin tanishlar uchun yopiq (Private) holatga o'tkazing.",
+        "Messenjerlarda telefon raqamingiz va so'nggi faollik vaqtingizni begonalar ko'rmaydigan qilib sozlang.",
+        "Shaxsiy ma'lumotlaringiz sizdirilganini bilsangiz, zudlik bilan huquqni muhofaza qiluvchi organlarga murojaat qiling."
+      ],
+      donts: [
+        "Pasport, haydovchilik guvohnomasi yoki aviachipta suratlarini Instagram, Facebook yoki Telegram kanallarga yuklamang.",
+        "Shubhali so'rovnomalar yoki notanish guruhlarda o'zingiz va oilangiz haqidagi ma'lumotlarni qoldirmang.",
+        "Begona shaxslarning ruxsatisiz ularning ma'lumotlarini tarmoqda tarqatmang (Doxxing jinoyat hisoblanadi).",
+        "Geolokatsiyangizni (qayerda ekanligingizni) real vaqtda ochiq postlarda e'lon qilmang."
+      ]
+    },
     quizQuestions: [
       {
         id: 501,
@@ -544,6 +624,22 @@ const modulesUz: ModuleData[] = [
     iconName: "CreditCard",
     slideCount: 10,
     slideFolder: "./slides/module_6",
+    overview: {
+      summary: "Bank kartalari va mobil to'lov ilovalari orqali pul o'g'irlash holatlari asosan foydalanuvchining ehtiyotsizligi (SMS-kodni aytish yoki soxta saytga kartani kiritish) tufayli sodir bo'ladi.",
+      keyRule: "Karta orqasidagi CVV kodini va SMS orqali kelgan OTP parolini hech kimga bermang!",
+      dos: [
+        "Bankomatdan pul yechishdan oldin karta qabul qilgich va klaviaturada shubhali qurilma (Skimmer) yo'qligini tekshiring.",
+        "Mobil bank ilovangizda kunlik sarflash limitlarini o'rnating va SMS-xabarnoma xizmatini yoqing.",
+        "Har qanday to'lovdan oldin 4 bosqichli tekshiruvdan o'ting: TASDIQLA -> TAQQOSLA -> TEKSHIR -> TO'LOV QIL.",
+        "Kartangiz ma'lumotlari sizdirilganini sezsangiz, zudlik bilan mobil ilovadan kartani bloklang."
+      ],
+      donts: [
+        "Bank xodimi yoki operator so'ragan taqdirda ham OTP SMS-kodini aslo aytmang.",
+        "Telegramdagi 'Kafolatlangan daromad beruvchi treyder' kanallariga pul o'tkazmang.",
+        "Kartangizning old va orqa tomoni suratini messenjerlarda boshqalarga yubormang.",
+        "Notanish kishilar yuborgan havola orqali 'Karta raqamingiz va kodni kiriting, pul tushirib beraman' degan aldovga ishonmang."
+      ]
+    },
     quizQuestions: [
       {
         id: 601,
@@ -651,6 +747,22 @@ const modulesUz: ModuleData[] = [
     iconName: "Fish",
     slideCount: 10,
     slideFolder: "./slides/module_7",
+    overview: {
+      summary: "Fishing (Phishing) — rasmiy tashkilotlar (banklar, davlat idoralari, to'lov tizimlari) nomidan soxta veb-sahifalar yaratib, foydalanuvchilarning login va parollarini o'g'irlash usulidir.",
+      keyRule: "Havolani bosishdan oldin uning manzilini sichqoncha bilan ko'rib chiqing va rasmiy domen bilan taqqoslang!",
+      dos: [
+        "Havolaning boshida 'https://' protokoli va qulf belgisi borligini, SSL sertifikati haqiqiyligini tekshiring.",
+        "Domen nomidagi harflar almashinuviga (Typosquatting) e'tibor bering (masalan: payme-verify.xyz yoki cIick.uz).",
+        "Fishingdan himoyalanishda 'STOP' metodikasiga amal qiling: S - To'xta, T - Tekshir, O - O'yla, P - Keyin bos.",
+        "Shubhali havola kelganda sayt manzilini brauzer qidiruviga to'g'ridan-to'g'ri o'zingiz yozib kiring."
+      ],
+      donts: [
+        "SMS, email yoki Telegramda kelgan 'Hisobingizni tasdiqlang' degan havolalarni o'ylamasdan bosmang.",
+        "Domen manzili xatolari (masalan, qo'shimcha defislar yoki boshqa domen zonalari) bo'lgan saytlarga parolingizni kiritmang.",
+        "Telegramda 'Telegram Premium sovg'a qilishdi' degan soxta bot havolalariga kirmang.",
+        "Qisqartirilgan (bit.ly, tinyurl) noma'lum havolalarni tekshirmasdan ochmang."
+      ]
+    },
     quizQuestions: [
       {
         id: 701,
@@ -726,7 +838,7 @@ const modulesUz: ModuleData[] = [
       },
       {
         id: 707,
-        question: "Fishingni aniqlash bo'yicho 'STOP' metodikasidagi 'T' harfi nimani anglatadi?",
+        question: "Fishingni aniqlash bo'yicha 'STOP' metodikasidagi 'T' harfi nimani anglatadi?",
         options: [
           "TO'LOV QIL",
           "TEKSHIR — URL, domen nomi va sertifikatni diqqat bilan tekshir",
@@ -758,6 +870,22 @@ const modulesUz: ModuleData[] = [
     iconName: "Bug",
     slideCount: 10,
     slideFolder: "./slides/module_8",
+    overview: {
+      summary: "Zararli dasturlar (Troyanlar, Ransomware shifrlagichlar, josus dasturlar) qurilmadagi ma'lumotlarni o'g'irlash, shifrlab tovlamachilik qilish yoki bank ilovalarini nazoratga olish uchun ishlatiladi.",
+      keyRule: "Faqat rasmiy ilovalar do'konidan (Play Market / App Store) foydalaning va muhim fayllarni muntazam zaxiralang (Backup)!",
+      dos: [
+        "Android qurilmalarga ilovalarni faqat Google Play Market yoki App Store dan o'rnating.",
+        "Muhim ishchi va shaxsiy hujjatlaringizning offline zaxira nusxalarini (Tashqi diskda Backup) saqlang.",
+        "Operatsion tizim va antivirus dasturlarini muntazam ravishda eng so'nggi yangilanishlarga (Update) o'tkazing.",
+        "Telegram orqali kelgan har qanday noma'lum `.apk`, `.exe`, `.scr` kengaytmali fayllarni darhol o'chirib tashlang."
+      ],
+      donts: [
+        "Telegram kanallari yoki shubhali saytlardan yuklab olingan `.APK` fayllarni telefonga o'rnatmang.",
+        "Ilovalar o'rnatilayotganda ularga SMS o'qish, kontaktlar va galereyaga asossiz ruxsatlar bermang.",
+        "Ransomware hujumiga uchraganda firibgarlarga pul to'lamang (bu fayllar qaytarilishini kafolatlamaydi).",
+        "Noma'lum fleshkalarni xizmat kompyuterlariga tekshiruvsiz ulamang."
+      ]
+    },
     quizQuestions: [
       {
         id: 801,
@@ -868,6 +996,22 @@ const modulesOz: ModuleData[] = [
     iconName: "ShieldAlert",
     slideCount: 10,
     slideFolder: "./slides/module_1",
+    overview: {
+      summary: "Ўзбекистон Республикаси ИИВ томонидан тасдиқланган ушбу 5 та олтин қоида — барча ходимлар ва фуқаролар учун киберфирибгарлик тузоқларига тушиб қолмасликнинг энг самарали амалий қўлланмасидир.",
+      keyRule: "Фирибгарлар шошилтиради — сиз эса Тўхтанг, Ўйланг ва Текширинг!",
+      dos: [
+        "Бегона қўнғироқ бўлганда дарҳол алоқани тўхтатиб, банк ёки давлат идорасининг расмий рақамига ўзингиз қайта қўнғироқ қилинг.",
+        "Ҳар қандай келган ҳаволанинг домен манзилини (URL) босишдан олдин синчковлик билан текширинг.",
+        "Телеграмда нотаниш ёки таниш аккаунтдан юборилган файлларни (APK, ZIP, EXE) очишдан олдин юборувчини бошқа канал орқали тасдиқланг.",
+        "Киберфирибгарликка дуч келсангиз, скриншотларни сақлаб дарҳол 1102 — ИИВ Ишонч телефонига хабар беринг."
+      ],
+      donts: [
+        "Ҳеч кимга, ҳатто ўзини банк ходими ёки терговчи деб таништирганларга ҳам PIN-код, SMS-тасдиқ коди ва паролларни берманг.",
+        "'Пулингизни 2 баробарга кўпайтириб берамиз' деган кафолатланган катта даромад ваъдаларига асло алданманг.",
+        "Маҳсулот қўлингизга етиб келмасдан ва кўрмасдан туриб бегоналарга олдиндан тўлов қилманг.",
+        "Номаълум Telegram ботлар ва шубҳали гуруҳлардаги ҳаволаларга банк карта маълумотларини киритманг."
+      ]
+    },
     quizQuestions: [
       {
         id: 101,
@@ -975,6 +1119,22 @@ const modulesOz: ModuleData[] = [
     iconName: "KeyRound",
     slideCount: 10,
     slideFolder: "./slides/module_2",
+    overview: {
+      summary: "Пароллар — шахсий ва ишчи маълумотларнинг биринчи мудофаа чизиғидир. Замонавий кибер-хавфсизликда оддий пароллардан воз кечиб, узун парол иборалари (Passphrase) ва парол менежерларига ўтиш талаб этилади.",
+      keyRule: "Ҳар бир хизмат учун алоҳида, камида 12-16 белгили кучли парол ва Passphrase қўлланг!",
+      dos: [
+        "Парол узунлигини камида 12-16 та белги қилиб белгиланг (ҳарфлар, рақамлар ва махсус белгилар).",
+        "Бир-бири билан боғлиқ бўлмаган сўзлардан иборат 'Passphrase' (масалан: kitob-osmon-qush-daryo) тамойилидан фойдаланинг.",
+        "Паролларни шифрланган Bitwarden ёки offline KeePassXC парол менежерларида сақланг.",
+        "Мунтазам равишда паролларингиз очиқ базаларга сиздирилмаганлигини текшириб туринг."
+      ],
+      donts: [
+        "Туғилган йил, исм, телефон рақами ёки '123456', 'password' каби оддий паролларни ишлатманг.",
+        "Бир хил паролни бир нечта турли аккаунтларда такроран ишлатманг.",
+        "Паролларни компьютер мониторига стикер қилиб ёпиштириш ёки оддий блокнотда очиқ сақлашдан сақланинг.",
+        "Паролларингизни мессенжерлар орқали бировга юборманг."
+      ]
+    },
     quizQuestions: [
       {
         id: 201,
@@ -1082,6 +1242,22 @@ const modulesOz: ModuleData[] = [
     iconName: "ShieldCheck",
     slideCount: 10,
     slideFolder: "./slides/module_3",
+    overview: {
+      summary: "Икки факторли аутентификация (2FA) паролингиз ўғирланган тақдирда ҳам аккаунтингизга бегоналарнинг киришини 99% ҳолатда тўхтатиб қолувчи энг ишончли ҳимоя механизмидир.",
+      keyRule: "Барча Telegram, почта ва банк иловаларига зудлик билан 2FA (Икки босқичли тасдиқлаш) ни ёқинг!",
+      dos: [
+        "Google Authenticator, Microsoft Authenticator каби вақтга асосланган (TOTP) дастурлардан фойдаланинг.",
+        "Telegramда Созламалар > Махфийлик > Икки босқичли тасдиқлаш (Булутли парол) ни ёқинг.",
+        "2FA ёқилганда бериладиган бир марталик захира кодларини (Backup codes) хавфсиз offline жойда сақланг.",
+        "Telegram ва бошқа тармоқлардаги 'Фаол сеанслар' (Active Sessions) рўйхатини вақти-вақти билан текшириб туринг."
+      ],
+      donts: [
+        "Телефонингизга келган 2FA тасдиқ кодини ҳеч кимга ва ҳеч қачон берманг.",
+        "SIM-карта ўғирланиши ёки клонланиши хавфи сабабли фақат SMS-кодга таяниб қолманг.",
+        "Захира кодларини телефон галереясида очиқ скриншот ҳолатида сақламанг.",
+        "Бегона ёки жамоат компьютерларида 'Мени эслаб қол' (Remember me) катакчасини белгиламанг."
+      ]
+    },
     quizQuestions: [
       {
         id: 301,
@@ -1189,6 +1365,22 @@ const modulesOz: ModuleData[] = [
     iconName: "UserX",
     slideCount: 10,
     slideFolder: "./slides/module_4",
+    overview: {
+      summary: "Ижтимоий муҳандислик — техник заифликлардан эмас, балки инсоннинг ишончи, қўрқуви, шошқалоқлиги ва ҳис-туйғуларидан фойдаланиб махфий маълумотларни ўғирлаш усулидир.",
+      keyRule: "Ҳар қандай шошилинчлик, қўрқув ёки сохта обрў босими остида қарор чиқарманг — расмий манба орқали текширинг!",
+      dos: [
+        "Сизни шошилтиришганида суҳбатни тўхтатинг ва 'Менга 10 дақиқа вақт беринг' деб ўйлаб кўринг.",
+        "Телефон қўнғироғи (Vishing) қилган шахснинг шахсиятини расмий ташкилот билан боғланиб аниқланг.",
+        "Кўчада ёки офисда топиб олинган нотаниш USB-флешкаларни тўғридан-тўғри ишчи компьютерга уламанг.",
+        "Ҳар қандай кутилмаган фавқулодда хабарни совуққонлик билан мантиқий таҳлил қилинг."
+      ],
+      donts: [
+        "'Ҳисобингиз 10 дақиқада блокланади!' деган қўрқитувларга учиб, шошилинч равишда маълумот берманг.",
+        "'Сиз 1,000,000 сўм ютдингиз' каби сохта мукофот ваъда қилувчи ҳаволаларни босманг.",
+        "Ўзини ИИВ ходими, банк хавфсизлиги ёки IT-мутахассис деб таништирганларнинг ҳар бир гапига текширмасдан ишонманг.",
+        "Ишхонадаги паролларингиз ва хизмат маълумотларини ҳамкасблар номидан ёзган нотаниш профилларга юборманг."
+      ]
+    },
     quizQuestions: [
       {
         id: 401,
@@ -1296,6 +1488,22 @@ const modulesOz: ModuleData[] = [
     iconName: "Lock",
     slideCount: 10,
     slideFolder: "./slides/module_5",
+    overview: {
+      summary: "Паспорт, ЖШШИР (PINFL) ва шахсий маълумотлар — сизнинг рақамли шахсингиздир. Уларнинг тармоққа сиздирилиши ноқонуний кредитлар расмийлаштирилиши ва шахсий дахлсизликнинг бузилишига олиб келади.",
+      keyRule: "Паспортингиз, PINFL рақамингиз ва шахсий ҳужжатларингизни ҳеч қачон очиқ ижтимоий тармоқларга юкламанг!",
+      dos: [
+        "ЖШШИР (PINFL) рақамингизни фақат расмий давлат порталлари (my.gov.uz) да киритинг.",
+        "Ижтимоий тармоқларда профилингизни фақат яқин танишлар учун ёпиқ (Private) ҳолатга ўтказинг.",
+        "Мессенжерларда телефон рақамингиз ва сўнгги фаоллик вақтингизни бегоналар кўрмайдиган қилиб созланг.",
+        "Шахсий маълумотларингиз сиздирилганини билсангиз, зудлик билан ҳуқуқни муҳофаза қилувчи органларга мурожаат қилинг."
+      ],
+      donts: [
+        "Паспорт, ҳайдовчилик гувоҳномаси ёки авиачипта суратларини Instagram, Facebook ёки Telegram каналларга юкламанг.",
+        "Шубҳали сўровномалар ёки нотаниш гуруҳларда ўзингиз ва оилангиз ҳақидаги маълумотларни қолдирманг.",
+        "Бегона шахсларнинг рухсатисиз уларнинг маълумотларини тармоқда тарқатманг (Doxxing жиноят ҳисобланади).",
+        "Геолокациянгизни (қаерда эканлигингизни) реал вақтда очиқ постларда эълон қилманг."
+      ]
+    },
     quizQuestions: [
       {
         id: 501,
@@ -1403,6 +1611,22 @@ const modulesOz: ModuleData[] = [
     iconName: "CreditCard",
     slideCount: 10,
     slideFolder: "./slides/module_6",
+    overview: {
+      summary: "Банк карталари ва мобил тўлов иловалари орқали пул ўғирлаш ҳолатлари асосан фойдаланувчининг эҳтиётсизлиги (SMS-кодни айтиш ёки сохта сайтга картани киритиш) туфайли содир бўлади.",
+      keyRule: "Карта орқасидаги CVV кодини ва SMS орқали келган OTP паролини ҳеч кимга берманг!",
+      dos: [
+        "Банкоматдан пул ечишдан олдин карта қабул қилгич ва клавиатурада шубҳали қурилма (Skimmer) йўқлигини текширинг.",
+        "Мобил банк иловангизда кунлик сарфлаш лимитларини ўрнатинг ва SMS-хабарнома хизматини ёқинг.",
+        "Ҳар қандай тўловдан олдин 4 босқичли текширувдан ўтинг: ТАСДИҚЛА -> ТАҚҚОСЛА -> ТЕКШИР -> ТЎЛОВ ҚИЛ.",
+        "Картангиз маълумотлари сиздирилганини сезсангиз, зудлик билан мобил иловадан картани блокланг."
+      ],
+      donts: [
+        "Банк ходими ёки оператор сўраган тақдирда ҳам OTP SMS-кодини асло айтманг.",
+        "Telegramдаги 'Кафолатланган даромад берувчи трейдер' каналларига пул ўтказманг.",
+        "Картангизнинг олд ва орқа томони суратини мессенжерларда бошқаларга юборманг.",
+        "Нотаниш кишилар юборган ҳавола орқали 'Карта рақамингиз ва кодни киритинг, пул тушириб бераман' деган алдовга ишонманг."
+      ]
+    },
     quizQuestions: [
       {
         id: 601,
@@ -1510,6 +1734,22 @@ const modulesOz: ModuleData[] = [
     iconName: "Fish",
     slideCount: 10,
     slideFolder: "./slides/module_7",
+    overview: {
+      summary: "Фишинг (Phishing) — расмий ташкилотлар (банклар, давлат идоралари, тўлов тизимлари) номидан сохта веб-саҳифалар яратиб, фойдаланувчиларнинг логин ва паролларини ўғирлаш усулидир.",
+      keyRule: "Ҳаволани босишдан олдин унинг манзилини сичқонча билан кўриб чиқинг ва расмий домен билан таққосланг!",
+      dos: [
+        "Ҳаволанинг бошида 'https://' протоколи ва қулф белгиси борлигини, SSL сертификати ҳақиқийлигини текширинг.",
+        "Домен номидаги ҳарфлар алмашинувига (Typosquatting) эътибор беринг (масалан: payme-verify.xyz ёки cIick.uz).",
+        "Фишингдан ҳимояланишда 'STOP' методикасига амал қилинг: S - Тўхта, T - Текшир, O - Ўйла, P - Кейин бос.",
+        "Шубҳали ҳавола келганда сайт манзилини браузер қидирувига тўғридан-тўғри ўзингиз ёзиб киринг."
+      ],
+      donts: [
+        "SMS, email ёки Telegramда келган 'Ҳисобингизни тасдиқланг' деган ҳаволаларни ўйламасдан босманг.",
+        "Домен манзили хатолари (масалан, қўшимча дефислар ёки бошқа домен зоналари) бўлган сайтларга паролингизни киритманг.",
+        "Telegramда 'Telegram Premium совға қилишди' деган сохта бот ҳаволаларига кирманг.",
+        "Қисқартирилган (bit.ly, tinyurl) номаълум ҳаволаларни текширмасдан очманг."
+      ]
+    },
     quizQuestions: [
       {
         id: 701,
@@ -1617,6 +1857,22 @@ const modulesOz: ModuleData[] = [
     iconName: "Bug",
     slideCount: 10,
     slideFolder: "./slides/module_8",
+    overview: {
+      summary: "Зарарли дастурлар (Троянлар, Ransomware шифрлагичлар, жосус дастурлар) қурилмадаги маълумотларни ўғирлаш, шифрлаб товламачилик қилиш ёки банк иловаларини назоратга олиш учун ишлатилади.",
+      keyRule: "Фақат расмий иловалар дўконидан (Play Market / App Store) фойдаланинг ва муҳим файлларни мунтазам захираланг (Backup)!",
+      dos: [
+        "Android қурилмаларга иловаларни фақат Google Play Market ёки App Store дан ўрнатинг.",
+        "Муҳим ишчи ва шахсий ҳужжатларингизнинг offline захира нусхаларини (Ташқи дискда Backup) сақланг.",
+        "Операцион тизим ва антивирус дастурларини мунтазам равишда энг сўнгги янгиланишларга (Update) ўтказинг.",
+        "Telegram орқали келган ҳар қандай номаълум `.apk`, `.exe`, `.scr` кенгайтмали файлларни дарҳол ўчириб ташланг."
+      ],
+      donts: [
+        "Telegram каналлари ёки шубҳали сайтлардан юклаб олинган `.APK` файлларни телефонга ўрнатманг.",
+        "Иловалар ўрнатилаётганда уларга SMS ўқиш, контактлар ва галереяга асоссиз рухсатлар берманг.",
+        "Ransomware ҳужумига учраганда фирибгарларга пул тўламанг (бу файллар қайтарилишини кафолатламайди).",
+        "Номаълум флешкаларни хизмат компьютерларига текширувсиз уламанг."
+      ]
+    },
     quizQuestions: [
       {
         id: 801,
@@ -1727,6 +1983,22 @@ const modulesRu: ModuleData[] = [
     iconName: "ShieldAlert",
     slideCount: 10,
     slideFolder: "./slides/module_1",
+    overview: {
+      summary: "Утвержденные МВД Республики Узбекистан 5 золотых правил кибербезопасности — это универсальный фундаментальный щит для каждого сотрудника и гражданина против любых видов цифрового мошенничества и социальной инженерии.",
+      keyRule: "Мошенники торопят — вы же Остановитесь, Подумайте и Проверьте!",
+      dos: [
+        "При любом подозрительном звонке немедленно завершите разговор и самостоятельно перезвоните по официальному номеру ведомства или банка.",
+        "Внимательно проверяйте адрес доменного имени (URL) перед каждым переходом по внешним ссылкам.",
+        "При получении файлов в мессенджерах от знакомых или незнакомцев перепроверяйте подлинность отправки по альтернативному каналу связи.",
+        "При столкновении с мошенниками сохраните скриншоты переписки и немедленно обратитесь по номеру 1102 (горячая линия МВД РУз)."
+      ],
+      donts: [
+        "Категорически запрещено сообщать кому-либо PIN-коды, пароли и разовые SMS-коды подтверждения (даже сотрудникам банка или правоохранителям).",
+        "Не переводите средства в сомнительные инвестиционные проекты с обещаниями гарантированного удвоения капитала.",
+        "Никогда не вносите предоплату продавцам на онлайн-площадках до фактического получения и осмотра товара.",
+        "Не вводите реквизиты банковских карт по ссылкам из непроверенных Telegram-ботов и рекламных групп."
+      ]
+    },
     quizQuestions: [
       {
         id: 101,
@@ -1834,6 +2106,22 @@ const modulesRu: ModuleData[] = [
     iconName: "KeyRound",
     slideCount: 10,
     slideFolder: "./slides/module_2",
+    overview: {
+      summary: "Пароли являются первой линией обороны цифровых данных. В современной кибербезопасности простой пароль уязвим, поэтому стандартом стало использование длинных парольных фраз (Passphrase) и специализированных менеджеров паролей.",
+      keyRule: "Используйте для каждого сервиса уникальный пароль длиной не менее 12-16 символов или кодовую фразу!",
+      dos: [
+        "Устанавливайте длину паролей от 12 до 16 символов, сочетая заглавные и строчные буквы, цифры и спецсимволы.",
+        "Используйте мнемонические фразы из 4-6 несвязанных слов (например: kitob-osmon-qush-daryo).",
+        "Храните все сложные пароли в зашифрованных хранилищах Bitwarden или локальном KeePassXC.",
+        "Периодически проверяйте свои учетные записи на предмет утечек в открытые базы данных."
+      ],
+      donts: [
+        "Не используйте даты рождения, имена родственников, номера телефонов и простые последовательности ('123456', 'qwerty').",
+        "Категорически запрещено дублировать один и тот же пароль для нескольких рабочих и личных аккаунтов.",
+        "Не записывайте пароли на стикерах, приклеенных к монитору, и не храните их в открытых текстовых файлах.",
+        "Никогда не пересылайте пароли в открытых сообщениях мессенджеров и соцсетей."
+      ]
+    },
     quizQuestions: [
       {
         id: 201,
@@ -1941,6 +2229,22 @@ const modulesRu: ModuleData[] = [
     iconName: "ShieldCheck",
     slideCount: 10,
     slideFolder: "./slides/module_3",
+    overview: {
+      summary: "Двухфакторная аутентификация (2FA) предотвращает несанкционированный вход в 99% случаев, даже если злоумышленники узнали ваш основной пароль.",
+      keyRule: "Обязательно включите двухэтапную аутентификацию (2FA) на всех аккаунтах Telegram, почте и в онлайн-банках!",
+      dos: [
+        "Используйте приложения генерации временных кодов (Google Authenticator, Microsoft Authenticator) вместо SMS.",
+        "Включите в Telegram меню 'Настройки' -> 'Конфиденциальность' -> 'Двухэтапная аутентификация' (облачный пароль).",
+        "Сохраните резервные коды восстановления (Backup codes) в надежном офлайн месте на случай утери телефона.",
+        "Периодически проверяйте меню 'Активные сеансы' (Active Sessions) и завершайте незнакомые подключения."
+      ],
+      donts: [
+        "Никогда и никому не диктуйте поступающие на телефон одноразовые коды авторизации.",
+        "Не полагайтесь исключительно на SMS из-за риска перехвата радиосигнала и клонирования SIM-карт.",
+        "Не сохраняйте скриншоты резервных кодов в открытой галерее смартфона или облаке.",
+        "Не нажимайте 'Запомнить меня' на чужих или общедоступных рабочих компьютерах."
+      ]
+    },
     quizQuestions: [
       {
         id: 301,
@@ -2048,6 +2352,22 @@ const modulesRu: ModuleData[] = [
     iconName: "UserX",
     slideCount: 10,
     slideFolder: "./slides/module_4",
+    overview: {
+      summary: "Социальная инженерия — это манипулирование психологией человека (страхом, спешкой, жаждой выгоды или авторитетом) с целью выманивания конфиденциальных данных и обхода технических средств защиты.",
+      keyRule: "Не принимайте поспешных решений под давлением эмоций — всегда берите паузу и перепроверяйте информацию!",
+      dos: [
+        "При возникновении ощущения искусственной спешки возьмите паузу: 'Мне нужно время проверить информацию'.",
+        "Проверяйте личность звонящего по официальным справочным телефонам государственных ведомств или банков.",
+        "Передавайте найденные на территории организации неизвестные USB-накопители сотрудникам отдела кибербезопасности.",
+        "Сохраняйте хладнокровие и критическое мышление при получении любых экстренных известий."
+      ],
+      donts: [
+        "Не поддавайтесь на угрозы немедленной блокировки счетов или уголовного преследования по телефону.",
+        "Не переходите по ссылкам с обещаниями внезапных денежных призов или грантов.",
+        "Не доверяйте слепо звонящим, даже если они обращаются по званию, имени и отчеству.",
+        "Не разглашайте рабочие учетные данные и структуру внутренней сети в телефонных разговорах."
+      ]
+    },
     quizQuestions: [
       {
         id: 401,
@@ -2155,6 +2475,22 @@ const modulesRu: ModuleData[] = [
     iconName: "Lock",
     slideCount: 10,
     slideFolder: "./slides/module_5",
+    overview: {
+      summary: "Паспортные данные и ПИНФЛ (JSHSHIR) — это ваш цифровой идентификатор. Их компрометация позволяет преступникам оформлять кредиты, поддельные контракты и осуществлять шантаж.",
+      keyRule: "Никогда не публикуйте фотографии паспорта, ПИНФЛ и служебных удостоверений в интернете!",
+      dos: [
+        "Вводите номер ПИНФЛ исключительно на защищенных государственных ресурсах (my.gov.uz, id.egov.uz).",
+        "Настройте приватность своих профилей в соцсетях, ограничив доступ только проверенным контактам.",
+        "Скройте отображение своего номера телефона и сетевого статуса в настройках мессенджера Telegram.",
+        "Немедленно обращайтесь в органы внутренних дел при обнаружении несанкционированного использования ваших данных."
+      ],
+      donts: [
+        "Не выкладывайте фото билетов с QR-кодами, служебных пропусков и паспортов в социальные сети.",
+        "Не участвуйте в сомнительных интернет-опросах, требующих указания персональных сведений.",
+        "Не распространяйте чужие персональные данные без согласия владельца (доксинг преследуется по закону).",
+        "Не делитесь геолокацией своего дома и постоянных служебных маршрутов в открытых постах."
+      ]
+    },
     quizQuestions: [
       {
         id: 501,
@@ -2262,6 +2598,22 @@ const modulesRu: ModuleData[] = [
     iconName: "CreditCard",
     slideCount: 10,
     slideFolder: "./slides/module_6",
+    overview: {
+      summary: "Хищения с банковских карт происходят в подавляющем большинстве случаев из-за передачи одноразового SMS-кода (OTP) или ввода данных карты на поддельных платежных шлюзах.",
+      keyRule: "Никогда и никому не передавайте CVV-код на обороте карты и разовые SMS-пароли подтверждения операций!",
+      dos: [
+        "Перед снятием наличных в банкомате осмотрите картоприемник и клавиатуру на предмет накладных скиммеров.",
+        "Установите в мобильном банке суточные лимиты на интернет-платежи и подключите SMS-информирование.",
+        "Применяйте 4-этапный алгоритм: ПОДТВЕРДИ -> СРАВНИ -> ПРОВЕРЬ -> ОПЛАТИ.",
+        "При малейшем подозрении на компрометацию немедленно заблокируйте карту через приложение банка."
+      ],
+      donts: [
+        "Не сообщайте SMS-коды подтверждения даже лицам, представляющимся службой безопасности банка.",
+        "Не переводите средства псевдотрейдерам в Telegram, обещающим гарантированное приумножение депозита.",
+        "Не пересылайте фотографии лицевой и оборотной стороны карты в мессенджерах.",
+        "Не вводите реквизиты карты на сомнительных сайтах для получения мнимых 'компенсаций' или 'выигрышей'."
+      ]
+    },
     quizQuestions: [
       {
         id: 601,
@@ -2369,6 +2721,22 @@ const modulesRu: ModuleData[] = [
     iconName: "Fish",
     slideCount: 10,
     slideFolder: "./slides/module_7",
+    overview: {
+      summary: "Фишинг — это метод выманивания паролей и платежных реквизитов через визуально неотличимые клоны официальных сайтов платежных систем и банков.",
+      keyRule: "Всегда наводите курсор на ссылку перед кликом и проверяйте доменное имя в адресной строке браузера!",
+      dos: [
+        "Проверяйте наличие защищенного соединения HTTPS, действующего сертификата и корректного написания домена.",
+        "Обращайте внимание на подмену похожих символов в домене (Typosquatting, например: payme-auth.xyz или cIick.uz).",
+        "Применяйте формулу STOP: S - Stop (Остановись), T - Tekshir (Проверь URL), O - O'yla (Подумай), P - Pay (Действуй).",
+        "Вводите адреса важных порталов вручную или сохраняйте их в закладках браузера."
+      ],
+      donts: [
+        "Не переходите по ссылкам из тревожных SMS или писем с требованием 'срочно подтвердить аккаунт'.",
+        "Не вводите учетные данные на сайтах с лишними символами, дефисами и сторонними доменными зонами.",
+        "Не переходите по ссылкам в Telegram от имени поддельных ботов с раздачами подписок Premium.",
+        "Не открывайте сокращенные ссылки (bit.ly, is.gd) без предварительной проверки сервисами предпросмотра."
+      ]
+    },
     quizQuestions: [
       {
         id: 701,
@@ -2476,6 +2844,22 @@ const modulesRu: ModuleData[] = [
     iconName: "Bug",
     slideCount: 10,
     slideFolder: "./slides/module_8",
+    overview: {
+      summary: "Вредоносные программы (трояны, шифровальщики Ransomware, шпионское ПО) используются для перехвата управления устройством, кражи конфиденциальных данных и вымогательства.",
+      keyRule: "Устанавливайте приложения только из официальных магазинов (Google Play / App Store) и регулярно создавайте резервные копии (Backup)!",
+      dos: [
+        "Загружайте приложения для Android и iOS исключительно из официальных магазинов Google Play и App Store.",
+        "Регулярно создавайте автономные резервные копии (Backup) важных файлов на изолированных внешних дисках.",
+        "Своевременно устанавливайте обновления операционной системы и баз антивирусного ПО.",
+        "Немедленно удаляйте любые файлы с подозрительными расширениями (`.apk`, `.exe`, `.scr`), присланные в мессенджерах."
+      ],
+      donts: [
+        "Категорически запрещено устанавливать сторонние файлы `.APK` из Telegram-каналов и непроверенных сайтов.",
+        "Не предоставляйте установленным приложениям избыточные разрешения на чтение SMS, контактов и доступ к спецвозможностям.",
+        "Никогда не платите выкуп злоумышленникам при заражении вирусом-шифровальщиком (это не гарантирует возврат файлов).",
+        "Не подключайте найденные неизвестные флеш-накопители к служебным компьютерам."
+      ]
+    },
     quizQuestions: [
       {
         id: 801,

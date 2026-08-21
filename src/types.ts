@@ -1,4 +1,5 @@
 export type Language = 'uz' | 'oz' | 'ru';
+export type Theme = 'dark' | 'light';
 
 export interface QuizQuestion {
   id: number;
@@ -8,10 +9,12 @@ export interface QuizQuestion {
   explanation: string;
 }
 
-export interface LessonData {
-  id: number;
-  title: string;
-  duration: string;
+export interface ModuleOverview {
+  summary: string;
+  keyRule: string;
+  dos: string[];
+  donts: string[];
+  practicalSteps?: string[];
 }
 
 export interface ModuleData {
@@ -23,6 +26,7 @@ export interface ModuleData {
   slideCount: number;
   slideFolder: string;
   quizQuestions: QuizQuestion[];
+  overview?: ModuleOverview;
 }
 
 export interface ModuleProgress {

@@ -20,11 +20,14 @@ import {
   ChevronLeft, 
   Layers, 
   Info, 
-  Check 
+  Check,
+  ShieldCheck,
+  AlertTriangle
 } from 'lucide-react';
 import { logger } from '../utils/logger';
 import { validateFullName } from '../utils/cyberUtils';
 import { useLanguage } from '../i18n/LanguageContext';
+import { useTheme } from '../theme/ThemeContext';
 
 interface CoursePlayerProps {
   module: ModuleData;
@@ -50,6 +53,7 @@ export default function CoursePlayer({
   onGoToCertificate,
 }: CoursePlayerProps) {
   const { t } = useLanguage();
+  const { isDark } = useTheme();
   const [activeTab, setActiveTab] = useState<'slides' | 'overview' | 'quiz'>('slides');
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -219,43 +223,50 @@ export default function CoursePlayer({
   const allQuestionsAnswered = answeredCount === module.quizQuestions.length;
   const currentQuestion = module.quizQuestions[activeQuestionIndex];
 
+  // Theme-derived styles
+  const cardBg = isDark ? 'bg-[#091124]/90 border-slate-800/80 text-white' : 'bg-white border-slate-200 text-slate-900 shadow-sm';
+  const subText = isDark ? 'text-slate-300' : 'text-slate-600';
+  const innerCard = isDark ? 'bg-slate-900/50 border-slate-800/80' : 'bg-slate-50 border-slate-200';
+
   return (
-    <div className={`space-y-6 text-slate-100 font-sans ${isFullscreen ? 'bg-black p-0 m-0 min-h-screen w-full flex flex-col justify-between' : ''}`} ref={containerRef}>
+    <div className={`space-y-6 font-sans ${isFullscreen ? 'bg-black p-0 m-0 min-h-screen w-full flex flex-col justify-between' : ''}`} ref={containerRef}>
 
       {/* ── 1. MODULE EXECUTIVE HEADER (Hidden in Fullscreen or Focus Mode) ── */}
       {!isFocusMode && !isFullscreen && (
-        <div className="bg-[#091124]/90 border border-slate-800/80 p-6 sm:p-7 rounded-3xl text-white shadow-xl backdrop-blur-xl transition-all space-y-5">
+        <div className={`${cardBg} border p-6 sm:p-7 rounded-3xl shadow-xl backdrop-blur-xl transition-all space-y-5`}>
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <div className="flex items-center space-x-2 text-indigo-400 text-xs font-mono font-semibold uppercase tracking-wider mb-1.5">
-                <BookOpen className="w-3.5 h-3.5 text-indigo-400" />
+              <div className="flex items-center space-x-2 text-indigo-500 text-xs font-mono font-semibold uppercase tracking-wider mb-1.5">
+                <BookOpen className="w-3.5 h-3.5 text-indigo-500" />
                 <span>{t('moduleTag', { id: module.id })}</span>
               </div>
-              <h1 className="text-lg sm:text-xl md:text-2xl font-bold tracking-tight text-white">
+              <h1 className="text-lg sm:text-xl md:text-2xl font-bold tracking-tight">
                 {module.title}
               </h1>
-              <p className="text-xs sm:text-sm text-slate-300 font-normal mt-1.5 leading-relaxed max-w-3xl">
+              <p className={`text-xs sm:text-sm font-normal mt-1.5 leading-relaxed max-w-3xl ${subText}`}>
                 {module.description}
               </p>
             </div>
 
             {/* Status Indicator */}
             {isCompleted && (
-              <div className="flex items-center space-x-2 bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-bold px-3.5 py-2 rounded-xl self-start md:self-auto shadow-sm flex-shrink-0">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+              <div className="flex items-center space-x-2 bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 text-xs font-bold px-3.5 py-2 rounded-xl self-start md:self-auto shadow-sm flex-shrink-0">
+                <CheckCircle2 className="w-4 h-4 text-emerald-500" />
                 <span>{t('moduleCompletedBadge', { score: previousScore || scorePercent })}</span>
               </div>
             )}
           </div>
 
-          {/* Unified Segmented Tab Bar - True Connected Tab Architecture */}
-          <div className="flex items-center bg-[#050b18] p-1 rounded-2xl border border-slate-800/70 w-full sm:w-auto overflow-x-auto gap-1">
+          {/* Unified Segmented Tab Bar - Connected Tab Architecture */}
+          <div className={`flex items-center p-1 rounded-2xl border w-full sm:w-auto overflow-x-auto gap-1 ${
+            isDark ? 'bg-[#050b18] border-slate-800/70' : 'bg-slate-100 border-slate-200'
+          }`}>
             <button
               onClick={() => setActiveTab('slides')}
               className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all flex items-center space-x-2 cursor-pointer flex-shrink-0 ${
                 activeTab === 'slides' 
-                  ? 'bg-indigo-600 text-white shadow-sm' 
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800/40'
+                  ? 'bg-indigo-600 text-white shadow-sm font-bold' 
+                  : isDark ? 'text-slate-400 hover:text-white hover:bg-slate-800/40' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
               }`}
             >
               <Layers className="w-3.5 h-3.5" />
@@ -266,8 +277,8 @@ export default function CoursePlayer({
               onClick={() => setActiveTab('quiz')}
               className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all flex items-center space-x-2 cursor-pointer flex-shrink-0 ${
                 activeTab === 'quiz' 
-                  ? 'bg-indigo-600 text-white shadow-sm' 
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800/40'
+                  ? 'bg-indigo-600 text-white shadow-sm font-bold' 
+                  : isDark ? 'text-slate-400 hover:text-white hover:bg-slate-800/40' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
               }`}
             >
               <HelpCircle className="w-3.5 h-3.5" />
@@ -278,8 +289,8 @@ export default function CoursePlayer({
               onClick={() => setActiveTab('overview')}
               className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all flex items-center space-x-2 cursor-pointer flex-shrink-0 ${
                 activeTab === 'overview' 
-                  ? 'bg-indigo-600 text-white shadow-sm' 
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800/40'
+                  ? 'bg-indigo-600 text-white shadow-sm font-bold' 
+                  : isDark ? 'text-slate-400 hover:text-white hover:bg-slate-800/40' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
               }`}
             >
               <Info className="w-3.5 h-3.5" />
@@ -289,29 +300,29 @@ export default function CoursePlayer({
         </div>
       )}
 
-      {/* ── 2. TAB 1: 16:9 PRESENTATION SLIDE CANVAS ── */}
+      {/* ── 2. TAB 1: PRESENTATION SLIDES CANVAS ── */}
       {activeTab === 'slides' && (
         <div className={isFullscreen ? "h-screen w-full flex flex-col justify-between bg-black p-2 sm:p-4" : "space-y-4"}>
           
-          {/* Top Floating Control Bar - Clean, Proportional, No Redundant Text */}
+          {/* Top Floating Control Bar */}
           <div className={`px-4 py-2.5 rounded-2xl flex items-center justify-between shadow-lg backdrop-blur-md sticky top-2 z-20 transition-all ${
             isFullscreen 
               ? 'bg-slate-900/90 border border-slate-700 text-white mx-2 mb-2' 
-              : 'bg-[#091124]/90 border border-slate-800/80'
+              : cardBg
           }`}>
-            {/* Slide Indicator Badge */}
             <div className="flex items-center space-x-2">
-              <span className="bg-indigo-600/30 border border-indigo-500/40 text-indigo-200 px-3 py-1 rounded-lg font-mono font-bold text-xs">
+              <span className="bg-indigo-600/15 border border-indigo-500/30 text-indigo-400 px-3 py-1 rounded-lg font-mono font-bold text-xs">
                 {t('slideOf', { current: currentSlideIndex + 1, total: module.slideCount })}
               </span>
             </div>
 
-            {/* Quick Slide Navigation & Utility Controls */}
             <div className="flex items-center space-x-2">
               <button
                 onClick={() => setCurrentSlideIndex(prev => Math.max(0, prev - 1))}
                 disabled={currentSlideIndex === 0}
-                className="p-2 bg-slate-900 hover:bg-slate-800 disabled:opacity-30 text-white rounded-xl border border-slate-700/60 transition-colors cursor-pointer"
+                className={`p-2 rounded-xl border transition-colors cursor-pointer disabled:opacity-30 ${
+                  isDark ? 'bg-slate-900 hover:bg-slate-800 border-slate-700/60 text-white' : 'bg-slate-100 hover:bg-slate-200 border-slate-300 text-slate-800'
+                }`}
                 title="Oldingi slayd (←)"
               >
                 <ChevronLeft className="w-4 h-4" />
@@ -320,7 +331,9 @@ export default function CoursePlayer({
               <button
                 onClick={() => setCurrentSlideIndex(prev => Math.min(module.slideCount - 1, prev + 1))}
                 disabled={currentSlideIndex === module.slideCount - 1}
-                className="p-2 bg-slate-900 hover:bg-slate-800 disabled:opacity-30 text-white rounded-xl border border-slate-700/60 transition-colors cursor-pointer"
+                className={`p-2 rounded-xl border transition-colors cursor-pointer disabled:opacity-30 ${
+                  isDark ? 'bg-slate-900 hover:bg-slate-800 border-slate-700/60 text-white' : 'bg-slate-100 hover:bg-slate-200 border-slate-300 text-slate-800'
+                }`}
                 title="Keyingi slayd (→)"
               >
                 <ChevronRight className="w-4 h-4" />
@@ -331,8 +344,8 @@ export default function CoursePlayer({
                   onClick={() => setIsFocusMode(!isFocusMode)}
                   className={`px-3 py-1.5 rounded-xl border text-xs font-semibold transition-colors cursor-pointer ${
                     isFocusMode 
-                      ? 'bg-amber-500/20 border-amber-400 text-amber-300' 
-                      : 'bg-slate-900 border-slate-700/60 text-slate-300 hover:text-white'
+                      ? 'bg-amber-500/20 border-amber-400 text-amber-400' 
+                      : isDark ? 'bg-slate-900 border-slate-700/60 text-slate-300 hover:text-white' : 'bg-slate-100 border-slate-300 text-slate-700 hover:text-slate-900'
                   }`}
                   title={t('focusMode')}
                 >
@@ -340,10 +353,11 @@ export default function CoursePlayer({
                 </button>
               )}
 
-              {/* Proportional Secondary Outlined Utility Button */}
               <button
                 onClick={toggleFullscreen}
-                className="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-200 hover:text-white rounded-xl font-semibold text-xs flex items-center space-x-1.5 cursor-pointer border border-slate-700/60 transition-colors"
+                className={`px-3 py-1.5 rounded-xl font-semibold text-xs flex items-center space-x-1.5 cursor-pointer border transition-colors ${
+                  isDark ? 'bg-slate-900 hover:bg-slate-800 text-slate-200 hover:text-white border-slate-700/60' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 border-slate-300'
+                }`}
                 title={t('fullscreen')}
               >
                 {isFullscreen ? <Minimize2 className="w-3.5 h-3.5" /> : <Maximize2 className="w-3.5 h-3.5" />}
@@ -352,7 +366,7 @@ export default function CoursePlayer({
             </div>
           </div>
 
-          {/* 16:9 Presentation Screen Container */}
+          {/* 16:9 Presentation Screen */}
           <div 
             ref={slideContainerRef}
             onTouchStart={handleTouchStart}
@@ -361,10 +375,11 @@ export default function CoursePlayer({
             className={
               isFullscreen
                 ? "flex-1 w-full h-full flex items-center justify-center relative select-none overflow-hidden my-auto"
-                : "relative bg-[#050b18] border border-slate-800/80 rounded-3xl shadow-xl overflow-hidden flex flex-col items-center justify-center p-3 sm:p-5 select-none"
+                : `relative border rounded-3xl shadow-xl overflow-hidden flex flex-col items-center justify-center p-3 sm:p-5 select-none ${
+                    isDark ? 'bg-[#050b18] border-slate-800/80' : 'bg-slate-900 border-slate-300'
+                  }`
             }
           >
-            {/* Slide Image with 100% Screen Filling in Fullscreen */}
             <div className={
               isFullscreen
                 ? "w-full h-full max-h-[86vh] flex items-center justify-center relative"
@@ -381,7 +396,6 @@ export default function CoursePlayer({
                 loading="eager"
               />
 
-              {/* Next / Prev Floating Overlay Chevrons */}
               {currentSlideIndex > 0 && (
                 <button
                   onClick={() => setCurrentSlideIndex(prev => prev - 1)}
@@ -403,11 +417,8 @@ export default function CoursePlayer({
               )}
             </div>
 
-            {/* Bottom Slide Navigator Matrix & Progress Strip */}
             {!isFullscreen && (
               <div className="w-full max-w-5xl mt-4 flex flex-col sm:flex-row items-center justify-between gap-4 px-2">
-                
-                {/* Thumbnail Pills */}
                 <div className="flex items-center space-x-1.5 overflow-x-auto max-w-full py-1">
                   {slides.map((s, idx) => (
                     <button
@@ -416,7 +427,7 @@ export default function CoursePlayer({
                       className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg text-xs font-mono font-bold transition-all flex items-center justify-center cursor-pointer border ${
                         currentSlideIndex === idx
                           ? 'bg-indigo-600 text-white border-indigo-400 shadow-sm scale-105'
-                          : 'bg-slate-900 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-white'
+                          : isDark ? 'bg-slate-900 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-white' : 'bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700'
                       }`}
                     >
                       {s.id}
@@ -424,7 +435,6 @@ export default function CoursePlayer({
                   ))}
                 </div>
 
-                {/* Progress Percentage */}
                 <div className="flex items-center space-x-3 w-full sm:w-auto justify-between sm:justify-end">
                   <div className="text-xs font-mono text-slate-400">
                     {t('slideProgress')} <span className="text-emerald-400 font-bold">{Math.round(((currentSlideIndex + 1) / module.slideCount) * 100)}%</span>
@@ -436,60 +446,26 @@ export default function CoursePlayer({
                     ></div>
                   </div>
                 </div>
-
               </div>
             )}
           </div>
 
-          {/* Fullscreen Floating Bottom Bar */}
-          {isFullscreen && (
-            <div className="bg-slate-900/90 border border-slate-700 p-2 rounded-2xl flex items-center justify-between shadow-2xl backdrop-blur-md mx-2 mt-2">
-              <div className="flex items-center space-x-1.5 overflow-x-auto">
-                {slides.map((s, idx) => (
-                  <button
-                    key={s.id}
-                    onClick={() => setCurrentSlideIndex(idx)}
-                    className={`w-7 h-7 rounded-lg text-xs font-mono font-bold transition-all flex items-center justify-center cursor-pointer border ${
-                      currentSlideIndex === idx
-                        ? 'bg-indigo-600 text-white border-indigo-400 shadow-sm'
-                        : 'bg-slate-950 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-white'
-                    }`}
-                  >
-                    {s.id}
-                  </button>
-                ))}
-              </div>
-
-              <div className="flex items-center space-x-3">
-                <span className="text-xs font-mono text-slate-300 font-bold">
-                  {currentSlideIndex + 1} / {module.slideCount}
-                </span>
-                <button
-                  onClick={toggleFullscreen}
-                  className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold rounded-xl border border-slate-600 cursor-pointer"
-                >
-                  {t('exitFullscreen')} (Esc)
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* Bottom Action - Green Confirmation CTA */}
+          {/* Bottom Action Prompt */}
           {!isFullscreen && (
-            <div className="bg-[#091124]/90 border border-slate-800/80 p-5 sm:p-6 rounded-3xl shadow-xl backdrop-blur-xl flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className={`${cardBg} border p-5 sm:p-6 rounded-3xl shadow-xl backdrop-blur-xl flex flex-col sm:flex-row items-center justify-between gap-4`}>
               <div className="space-y-1">
-                <div className="flex items-center space-x-2 text-emerald-400 text-xs font-mono font-semibold uppercase tracking-wider">
+                <div className="flex items-center space-x-2 text-emerald-500 text-xs font-mono font-semibold uppercase tracking-wider">
                   <CheckCircle2 className="w-3.5 h-3.5" />
                   <span>{t('slidesCompletedPrompt')}</span>
                 </div>
-                <h4 className="text-sm sm:text-base font-bold text-white">{t('slidesCompletedPrompt')}</h4>
-                <p className="text-xs text-slate-300">
+                <h4 className="text-sm sm:text-base font-bold">{t('slidesCompletedPrompt')}</h4>
+                <p className={`text-xs ${subText}`}>
                   {t('slidesCompletedDesc', { count: module.quizQuestions.length })}
                 </p>
               </div>
               <button
                 onClick={() => setActiveTab('quiz')}
-                className="w-full sm:w-auto px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-lg shadow-emerald-950/60 flex items-center justify-center space-x-2 cursor-pointer transition-all active:scale-95 flex-shrink-0"
+                className="w-full sm:w-auto px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-lg shadow-emerald-950/40 flex items-center justify-center space-x-2 cursor-pointer transition-all active:scale-95 flex-shrink-0"
               >
                 <span>{t('takeQuizBtn')}</span>
                 <ArrowRight className="w-4 h-4" />
@@ -504,43 +480,42 @@ export default function CoursePlayer({
       {activeTab === 'quiz' && (
         <div className="space-y-5">
 
-          {/* Quiz Top Briefing Bar - Information Chips (No False Button Affordance) */}
-          <div className="bg-[#091124]/90 border border-slate-800/80 p-5 sm:p-6 rounded-3xl shadow-xl backdrop-blur-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          {/* Quiz Briefing Bar */}
+          <div className={`${cardBg} border p-5 sm:p-6 rounded-3xl shadow-xl backdrop-blur-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4`}>
             <div>
-              <div className="flex items-center space-x-1.5 text-xs font-mono font-semibold text-amber-400 uppercase tracking-wider mb-1">
+              <div className="flex items-center space-x-1.5 text-xs font-mono font-semibold text-amber-500 uppercase tracking-wider mb-1">
                 <HelpCircle className="w-3.5 h-3.5" />
                 <span>{t('quizTestTitle')}</span>
               </div>
-              <h3 className="text-base sm:text-lg font-bold text-white">
+              <h3 className="text-base sm:text-lg font-bold">
                 {module.title}
               </h3>
-              <p className="text-xs text-slate-300 mt-0.5">
+              <p className={`text-xs mt-0.5 ${subText}`}>
                 {t('quizTestDesc')}
               </p>
             </div>
 
-            {/* Flat Informational Meta Chips (No heavy borders or button appearances) */}
             <div className="flex flex-wrap items-center gap-2">
-              <div className="bg-slate-900/60 px-3 py-1.5 rounded-lg text-xs text-slate-300 flex items-center space-x-1.5">
+              <div className={`${innerCard} px-3 py-1.5 rounded-xl text-xs flex items-center space-x-1.5 ${subText}`}>
                 <Clock className="w-3.5 h-3.5 text-slate-400" />
                 <span>{t('unlimitedTime')}</span>
               </div>
-              <div className="bg-slate-900/60 px-3 py-1.5 rounded-lg text-xs text-slate-300 flex items-center space-x-1.5">
+              <div className={`${innerCard} px-3 py-1.5 rounded-xl text-xs flex items-center space-x-1.5 ${subText}`}>
                 <RotateCcw className="w-3.5 h-3.5 text-slate-400" />
                 <span>{t('unlimitedRetakes')}</span>
               </div>
-              <div className="bg-indigo-600/15 text-indigo-300 px-3 py-1.5 rounded-lg text-xs font-mono font-bold">
+              <div className="bg-indigo-600/15 text-indigo-400 px-3 py-1.5 rounded-xl text-xs font-mono font-bold">
                 {t('passingRequirement')}
               </div>
             </div>
           </div>
 
-          {/* Quiz Result Celebration Banner */}
+          {/* Result Banner */}
           {quizSubmitted && (
             <div className={`p-6 sm:p-7 rounded-3xl space-y-5 shadow-2xl backdrop-blur-xl animate-in zoom-in-95 duration-150 ${
               passed
-                ? 'bg-emerald-950/80 border border-emerald-500/60 text-emerald-100'
-                : 'bg-rose-950/80 border border-rose-500/60 text-rose-100'
+                ? isDark ? 'bg-emerald-950/80 border border-emerald-500/60 text-emerald-100' : 'bg-emerald-50 border border-emerald-300 text-emerald-900'
+                : isDark ? 'bg-rose-950/80 border border-rose-500/60 text-rose-100' : 'bg-rose-50 border border-rose-300 text-rose-900'
             }`}>
               <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-4 text-center sm:text-left">
                 <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0 ${
@@ -549,14 +524,14 @@ export default function CoursePlayer({
                   {passed ? <CheckCircle2 className="w-8 h-8 stroke-[2.5]" /> : <XCircle className="w-8 h-8 stroke-[2.5]" />}
                 </div>
                 <div>
-                  <div className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-md text-[11px] font-mono font-bold uppercase tracking-wider mb-1.5 bg-slate-900/60">
+                  <div className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-md text-[11px] font-mono font-bold uppercase tracking-wider mb-1.5 bg-black/20">
                     <span>{passed ? t('quizPassedTitle') : t('quizFailedTitle')}</span>
                   </div>
-                  <h4 className="text-lg sm:text-xl font-bold text-white tracking-tight">
+                  <h4 className="text-lg sm:text-xl font-bold tracking-tight">
                     {passed ? t('quizPassed') : t('quizFailed')}
                   </h4>
-                  <p className="text-xs sm:text-sm text-slate-200 mt-1">
-                    {t('yourScore')} <b className="font-mono font-bold text-amber-300 px-2 py-0.5 rounded bg-black/40">{scorePercent}%</b> ({t('passingRequirement')})
+                  <p className="text-xs sm:text-sm mt-1 opacity-90">
+                    {t('yourScore')} <b className="font-mono font-bold px-2 py-0.5 rounded bg-black/30">{scorePercent}%</b> ({t('passingRequirement')})
                   </p>
                 </div>
               </div>
@@ -564,8 +539,10 @@ export default function CoursePlayer({
               {passed && (
                 <div className="pt-5 border-t border-emerald-500/30 space-y-4">
                   {!isLastModule ? (
-                    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-900/60 p-4 rounded-2xl border border-emerald-400/20">
-                      <div className="text-xs font-semibold text-emerald-300">
+                    <div className={`flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl border border-emerald-400/20 ${
+                      isDark ? 'bg-slate-900/60' : 'bg-white'
+                    }`}>
+                      <div className="text-xs font-semibold text-emerald-600 dark:text-emerald-300">
                         {t('moduleUnlockedNext')}
                       </div>
                       {onGoToNextModule && (
@@ -579,12 +556,14 @@ export default function CoursePlayer({
                       )}
                     </div>
                   ) : (
-                    <div className="bg-[#050b18] border border-amber-400/40 p-5 rounded-2xl space-y-4 shadow-xl">
-                      <div className="flex items-center space-x-2.5 text-amber-400 font-bold text-sm sm:text-base">
+                    <div className={`border border-amber-400/40 p-5 rounded-2xl space-y-4 shadow-xl ${
+                      isDark ? 'bg-[#050b18]' : 'bg-white'
+                    }`}>
+                      <div className="flex items-center space-x-2.5 text-amber-500 font-bold text-sm sm:text-base">
                         <Award className="w-6 h-6 flex-shrink-0" />
                         <span>{t('allModulesCompletedBanner')}</span>
                       </div>
-                      <p className="text-xs text-slate-300">
+                      <p className={`text-xs ${subText}`}>
                         {t('verifyCertName')}
                       </p>
                       
@@ -600,7 +579,9 @@ export default function CoursePlayer({
                                 if (nameError) setNameError(null);
                               }}
                               placeholder={t('fullNamePlaceholder')}
-                              className="w-full bg-slate-900 border border-slate-700 focus:border-amber-400 pl-10 p-3 text-sm font-semibold text-white rounded-xl focus:outline-none"
+                              className={`w-full border focus:border-amber-400 pl-10 p-3 text-sm font-semibold rounded-xl focus:outline-none ${
+                                isDark ? 'bg-slate-900 border-slate-700 text-white' : 'bg-slate-50 border-slate-300 text-slate-900'
+                              }`}
                             />
                           </div>
                           <button
@@ -612,7 +593,7 @@ export default function CoursePlayer({
                           </button>
                         </div>
                         {nameError && (
-                          <p className="text-xs font-semibold text-rose-400">{nameError}</p>
+                          <p className="text-xs font-semibold text-rose-500">{nameError}</p>
                         )}
                       </div>
                     </div>
@@ -622,7 +603,7 @@ export default function CoursePlayer({
 
               {!passed && (
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-rose-500/30">
-                  <span className="text-xs text-rose-200">
+                  <span className="text-xs opacity-90">
                     {t('retakeHint')}
                   </span>
                   <button
@@ -637,8 +618,8 @@ export default function CoursePlayer({
             </div>
           )}
 
-          {/* Interactive Question Navigator Matrix (Primary Blue/Indigo, No Red) */}
-          <div className="bg-[#091124]/90 border border-slate-800/80 p-4 rounded-2xl shadow-lg flex flex-wrap items-center justify-between gap-3">
+          {/* Questions Matrix */}
+          <div className={`${cardBg} border p-4 rounded-2xl shadow-lg flex flex-wrap items-center justify-between gap-3`}>
             <div className="flex items-center space-x-2">
               <span className="text-xs font-mono text-slate-400">{t('questionsMatrix')}</span>
               <div className="flex items-center space-x-1.5">
@@ -646,14 +627,14 @@ export default function CoursePlayer({
                   const isAnswered = selectedAnswers[q.id] !== undefined;
                   const isCurrent = activeQuestionIndex === idx;
 
-                  let btnColor = "bg-slate-900 text-slate-400 border-slate-800 hover:border-slate-700";
+                  let btnColor = isDark ? "bg-slate-900 text-slate-400 border-slate-800 hover:border-slate-700" : "bg-slate-100 text-slate-600 border-slate-300 hover:border-slate-400";
                   if (quizSubmitted) {
                     const isCorrect = selectedAnswers[q.id] === q.correctAnswer;
                     btnColor = isCorrect ? "bg-emerald-600 text-white border-emerald-500" : "bg-rose-600 text-white border-rose-500";
                   } else if (isCurrent) {
                     btnColor = "bg-indigo-600 text-white border-indigo-400 ring-2 ring-indigo-400/30 scale-105 shadow-sm";
                   } else if (isAnswered) {
-                    btnColor = "bg-slate-800 text-indigo-300 border-indigo-500/40";
+                    btnColor = isDark ? "bg-slate-800 text-indigo-300 border-indigo-500/40" : "bg-indigo-50 text-indigo-700 border-indigo-300";
                   }
 
                   return (
@@ -670,30 +651,29 @@ export default function CoursePlayer({
             </div>
 
             <div className="text-xs font-mono text-slate-400">
-              {t('selectedCount')} <b className="text-indigo-400 font-bold">{answeredCount}</b> / {module.quizQuestions.length}
+              {t('selectedCount')} <b className="text-indigo-500 font-bold">{answeredCount}</b> / {module.quizQuestions.length}
             </div>
           </div>
 
-          {/* Single Focused Question Card with Tactile Options */}
+          {/* Single Focused Question */}
           {currentQuestion && (
-            <div className="bg-[#091124]/90 border border-slate-800/80 p-6 sm:p-7 rounded-3xl shadow-xl space-y-5 backdrop-blur-xl">
+            <div className={`${cardBg} border p-6 sm:p-7 rounded-3xl shadow-xl space-y-5 backdrop-blur-xl`}>
               
-              {/* Question Header */}
-              <div className="border-b border-slate-800/60 pb-3 flex items-start space-x-3">
+              <div className={`border-b pb-3 flex items-start space-x-3 ${isDark ? 'border-slate-800/60' : 'border-slate-200'}`}>
                 <div className="w-7 h-7 rounded-lg bg-indigo-600 text-white font-mono font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
                   {activeQuestionIndex + 1}
                 </div>
                 <div>
-                  <span className="text-[10px] font-mono text-indigo-400 font-semibold uppercase tracking-wider block mb-0.5">
+                  <span className="text-[10px] font-mono text-indigo-500 font-semibold uppercase tracking-wider block mb-0.5">
                     {t('questionOf', { current: activeQuestionIndex + 1, total: module.quizQuestions.length })}
                   </span>
-                  <h3 className="text-sm sm:text-base font-bold text-white leading-snug">
+                  <h3 className="text-sm sm:text-base font-bold leading-snug">
                     {currentQuestion.question}
                   </h3>
                 </div>
               </div>
 
-              {/* Option Cards (A, B, C, D) with Perfect Vertical Centering */}
+              {/* Option Cards */}
               <div className="space-y-2.5">
                 {currentQuestion.options.map((opt, oIdx) => {
                   const optionLetters = ['A', 'B', 'C', 'D'];
@@ -701,18 +681,22 @@ export default function CoursePlayer({
                   const isThisSelected = selectedAnswers[currentQuestion.id] === oIdx;
                   const isThisCorrect = oIdx === currentQuestion.correctAnswer;
 
-                  let cardStyle = "bg-slate-900/50 border-slate-800/80 text-slate-200 hover:border-indigo-500/50 hover:bg-slate-900/80";
+                  let cardStyle = isDark 
+                    ? "bg-slate-900/50 border-slate-800/80 text-slate-200 hover:border-indigo-500/50 hover:bg-slate-900/80" 
+                    : "bg-slate-50 border-slate-200 text-slate-800 hover:border-indigo-400 hover:bg-indigo-50/30";
 
                   if (quizSubmitted) {
                     if (isThisCorrect) {
-                      cardStyle = "bg-emerald-950/80 border-emerald-500 text-emerald-100 shadow-sm";
+                      cardStyle = isDark ? "bg-emerald-950/80 border-emerald-500 text-emerald-100 shadow-sm" : "bg-emerald-50 border-emerald-500 text-emerald-900 shadow-sm";
                     } else if (isThisSelected && !isThisCorrect) {
-                      cardStyle = "bg-rose-950/80 border-rose-500 text-rose-100 shadow-sm";
+                      cardStyle = isDark ? "bg-rose-950/80 border-rose-500 text-rose-100 shadow-sm" : "bg-rose-50 border-rose-500 text-rose-900 shadow-sm";
                     } else {
-                      cardStyle = "bg-slate-900/20 border-slate-900 text-slate-500 opacity-50";
+                      cardStyle = isDark ? "bg-slate-900/20 border-slate-900 text-slate-600 opacity-40" : "bg-slate-100/50 border-slate-200 text-slate-400 opacity-50";
                     }
                   } else if (isThisSelected) {
-                    cardStyle = "bg-indigo-600/15 border-indigo-500 text-white shadow-sm ring-1 ring-indigo-500/30";
+                    cardStyle = isDark 
+                      ? "bg-indigo-600/15 border-indigo-500 text-white shadow-sm ring-1 ring-indigo-500/30" 
+                      : "bg-indigo-50 border-indigo-500 text-indigo-950 shadow-sm ring-1 ring-indigo-500/30";
                   }
 
                   return (
@@ -726,7 +710,7 @@ export default function CoursePlayer({
                         <span className={`w-6 h-6 rounded-md font-mono font-bold text-xs flex items-center justify-center flex-shrink-0 transition-colors ${
                           isThisSelected 
                             ? 'bg-indigo-600 text-white' 
-                            : 'bg-slate-800 text-slate-400'
+                            : isDark ? 'bg-slate-800 text-slate-400' : 'bg-slate-200 text-slate-600'
                         }`}>
                           {letter}
                         </span>
@@ -734,33 +718,37 @@ export default function CoursePlayer({
                       </div>
 
                       {quizSubmitted && isThisCorrect && (
-                        <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                        <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0" />
                       )}
                       {quizSubmitted && isThisSelected && !isThisCorrect && (
-                        <XCircle className="w-4 h-4 text-rose-400 flex-shrink-0" />
+                        <XCircle className="w-4 h-4 text-rose-500 flex-shrink-0" />
                       )}
                     </button>
                   );
                 })}
               </div>
 
-              {/* Forensic Explanation Card */}
+              {/* Forensic Explanation */}
               {quizSubmitted && (
-                <div className="p-4 bg-indigo-950/30 border border-indigo-500/20 rounded-xl text-xs text-indigo-200 leading-relaxed">
-                  <div className="font-bold text-amber-400 uppercase tracking-wider mb-1 flex items-center space-x-1.5">
-                    <ShieldAlert className="w-3.5 h-3.5 text-amber-400" />
+                <div className={`p-4 rounded-xl text-xs leading-relaxed border ${
+                  isDark ? 'bg-indigo-950/30 border-indigo-500/20 text-indigo-200' : 'bg-indigo-50 border-indigo-200 text-indigo-900'
+                }`}>
+                  <div className="font-bold text-amber-500 uppercase tracking-wider mb-1 flex items-center space-x-1.5">
+                    <ShieldAlert className="w-3.5 h-3.5 text-amber-500" />
                     <span>{t('cyberAnalysisTag')}</span>
                   </div>
                   {currentQuestion.explanation}
                 </div>
               )}
 
-              {/* Question Footer Navigation */}
-              <div className="flex items-center justify-between pt-3 border-t border-slate-800/60">
+              {/* Navigation */}
+              <div className={`flex items-center justify-between pt-3 border-t ${isDark ? 'border-slate-800/60' : 'border-slate-200'}`}>
                 <button
                   onClick={() => setActiveQuestionIndex(prev => Math.max(0, prev - 1))}
                   disabled={activeQuestionIndex === 0}
-                  className="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 disabled:opacity-30 text-xs font-semibold text-slate-300 rounded-xl border border-slate-700/60 flex items-center space-x-1.5 cursor-pointer transition-colors"
+                  className={`px-3.5 py-2 disabled:opacity-30 text-xs font-semibold rounded-xl border flex items-center space-x-1.5 cursor-pointer transition-colors ${
+                    isDark ? 'bg-slate-900 hover:bg-slate-800 border-slate-700/60 text-slate-300' : 'bg-slate-100 hover:bg-slate-200 border-slate-300 text-slate-700'
+                  }`}
                 >
                   <ArrowLeft className="w-3.5 h-3.5" />
                   <span>{t('prevQuestion')}</span>
@@ -796,50 +784,107 @@ export default function CoursePlayer({
         </div>
       )}
 
-      {/* ── 4. TAB 3: ESSENTIAL READING / OVERVIEW (No Boxiness / Clean Whitespace) ── */}
+      {/* ── 4. TAB 3: ESSENTIAL READING / OVERVIEW (Rich Forensic Study Guide) ── */}
       {activeTab === 'overview' && (
-        <div className="bg-[#091124]/90 border border-slate-800/80 p-6 sm:p-8 rounded-3xl shadow-xl backdrop-blur-xl space-y-6">
-          <div className="border-b border-slate-800/60 pb-3">
-            <h3 className="text-base font-bold text-white flex items-center space-x-2">
-              <FileText className="w-4 h-4 text-indigo-400" />
-              <span>{t('overviewTitle')}</span>
-            </h3>
-            <p className="text-xs text-slate-400 mt-0.5">
-              {t('overviewDesc')}
-            </p>
+        <div className={`${cardBg} border p-6 sm:p-8 rounded-3xl shadow-xl backdrop-blur-xl space-y-6`}>
+          
+          <div className={`border-b pb-3 flex items-start justify-between ${isDark ? 'border-slate-800/60' : 'border-slate-200'}`}>
+            <div>
+              <div className="flex items-center space-x-2 text-indigo-500 text-xs font-mono font-semibold uppercase tracking-wider mb-1">
+                <FileText className="w-4 h-4 text-indigo-500" />
+                <span>{t('overviewTitle')}</span>
+              </div>
+              <h3 className="text-base sm:text-lg font-bold">
+                {module.title}
+              </h3>
+              <p className={`text-xs mt-0.5 ${subText}`}>
+                {t('overviewDesc')}
+              </p>
+            </div>
           </div>
 
-          <div className="space-y-5 text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
-            <div className="bg-slate-900/40 p-4 rounded-xl space-y-2">
-              <h4 className="text-xs font-bold text-indigo-400 uppercase tracking-wider">{t('moduleSummary')}</h4>
-              <p>{module.description}</p>
+          <div className="space-y-5 text-xs sm:text-sm leading-relaxed font-normal">
+            
+            {/* Golden Key Rule Callout Banner */}
+            {module.overview?.keyRule && (
+              <div className="bg-gradient-to-r from-amber-500/15 via-indigo-500/10 to-transparent border-l-4 border-amber-500 p-4 rounded-xl flex items-start space-x-3 shadow-sm">
+                <ShieldAlert className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
+                <div>
+                  <span className="text-[11px] font-mono font-bold text-amber-500 uppercase tracking-wider block mb-0.5">
+                    {t('keyRuleTag')}
+                  </span>
+                  <p className="text-xs sm:text-sm font-bold leading-normal text-amber-400 dark:text-amber-300">
+                    "{module.overview.keyRule}"
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* Module Core Summary Card */}
+            <div className={`${innerCard} p-4 sm:p-5 rounded-2xl border space-y-2`}>
+              <h4 className="text-xs font-bold text-indigo-500 uppercase tracking-wider flex items-center space-x-1.5">
+                <Info className="w-3.5 h-3.5" />
+                <span>{t('moduleSummary')}</span>
+              </h4>
+              <p className={`text-xs sm:text-sm leading-relaxed ${subText}`}>
+                {module.overview?.summary || module.description}
+              </p>
             </div>
 
+            {/* 2-Column DOs and DONTs Matrix (Dynamic Localized Content) */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="bg-emerald-950/20 border border-emerald-500/20 p-4 rounded-xl space-y-2.5">
-                <div className="text-xs font-mono font-bold text-emerald-400 uppercase tracking-wide flex items-center space-x-1.5">
-                  <Check className="w-4 h-4" />
+              
+              {/* Strict Recommendations (DOs) */}
+              <div className={`p-4 sm:p-5 rounded-2xl border space-y-3 ${
+                isDark ? 'bg-emerald-950/20 border-emerald-500/30' : 'bg-emerald-50/80 border-emerald-200'
+              }`}>
+                <div className="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wide flex items-center space-x-2">
+                  <ShieldCheck className="w-4 h-4 text-emerald-500" />
                   <span>{t('strictRecommendations')}</span>
                 </div>
-                <ul className="text-xs text-slate-300 space-y-2 list-disc list-inside pl-1">
-                  <li>Har bir xizmat uchun alohida, kamida 12-16 belgili parol qo'llang.</li>
-                  <li>2FA (Authenticator) dasturini barcha asosiy akkauntlarga ulang.</li>
-                  <li>Shubhali havolalarni ochishdan oldin domen manzilini tekshiring.</li>
+                
+                <ul className="space-y-2.5">
+                  {(module.overview?.dos || []).map((item, idx) => (
+                    <li key={idx} className="flex items-start space-x-2.5 text-xs">
+                      <Check className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0 mt-0.5" />
+                      <span className={isDark ? 'text-slate-200' : 'text-slate-800'}>{item}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
 
-              <div className="bg-rose-950/20 border border-rose-500/20 p-4 rounded-xl space-y-2.5">
-                <div className="text-xs font-mono font-bold text-rose-400 uppercase tracking-wide flex items-center space-x-1.5">
-                  <ShieldAlert className="w-4 h-4" />
+              {/* Strictly Forbidden (DONTs) */}
+              <div className={`p-4 sm:p-5 rounded-2xl border space-y-3 ${
+                isDark ? 'bg-rose-950/20 border-rose-500/30' : 'bg-rose-50/80 border-rose-200'
+              }`}>
+                <div className="text-xs font-mono font-bold text-rose-600 dark:text-rose-400 uppercase tracking-wide flex items-center space-x-2">
+                  <AlertTriangle className="w-4 h-4 text-rose-500" />
                   <span>{t('strictlyForbidden')}</span>
                 </div>
-                <ul className="text-xs text-slate-300 space-y-2 list-disc list-inside pl-1">
-                  <li>SMS orqali kelgan tasdiq kodlarini begonalarga berish.</li>
-                  <li>Noma'lum Telegram bot yoki guruhlardan APK fayllarni o'rnatish.</li>
-                  <li>Bir xil parolni barcha tizimlarda takrorlash.</li>
+
+                <ul className="space-y-2.5">
+                  {(module.overview?.donts || []).map((item, idx) => (
+                    <li key={idx} className="flex items-start space-x-2.5 text-xs">
+                      <XCircle className="w-3.5 h-3.5 text-rose-500 flex-shrink-0 mt-0.5" />
+                      <span className={isDark ? 'text-slate-200' : 'text-slate-800'}>{item}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
+
             </div>
+
+            {/* Quick Action to Quiz */}
+            <div className="pt-2 flex justify-end">
+              <button
+                onClick={() => setActiveTab('quiz')}
+                className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-md cursor-pointer transition-all flex items-center space-x-2"
+              >
+                <span>{t('takeQuizBtn')}</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+
           </div>
         </div>
       )}

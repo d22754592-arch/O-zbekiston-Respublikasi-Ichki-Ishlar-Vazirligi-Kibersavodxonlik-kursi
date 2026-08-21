@@ -21,6 +21,8 @@ export const translations = {
     completed: "O'tilgan",
     slidesAndQuestions: "{slides} Slayd • {questions} Savol",
     language: "Til",
+    lightMode: "Kunduzgi rejim",
+    darkMode: "Tungi rejim",
 
     // Welcome Screen
     officialCurriculum: "Rasmiy O'quv Dasturi",
@@ -65,7 +67,7 @@ export const translations = {
     // Course Player
     moduleTag: "O'quv Moduli #{id} • IIB Maxsus Kursi",
     moduleCompletedBadge: "Muvaffaqiyatli O'tilgan ({score}%)",
-    tabSlides: "1. Taqdimot Slaydlari ({count})",
+    tabSlides: "1. Slaydlar ({count})",
     tabQuiz: "2. Modul Testi ({count} Savol)",
     tabOverview: "3. Qisqacha O'quv Qo'llanmasi",
     slideOf: "Slayd {current} / {total}",
@@ -105,8 +107,9 @@ export const translations = {
     overviewTitle: "Modul O'quv Rejasi va Asosiy Qoidalar",
     overviewDesc: "Ushbu modul doirasida o'zlashtirilishi shart bo'lgan axborot xavfsizligi qoidalari.",
     moduleSummary: "Modul Xulosasi:",
-    strictRecommendations: "Qat'iy Tavsiyalar",
-    strictlyForbidden: "Qat'iyan Taqiqlanadi",
+    keyRuleTag: "Oltin Qoida:",
+    strictRecommendations: "Qat'iy Tavsiyalar (Amal qiling)",
+    strictlyForbidden: "Qat'iyan Taqiqlanadi (Saqlaning)",
 
     // Dashboard
     studentCabinet: "Tinglovchi Shaxsiy Kabineti",
@@ -163,6 +166,8 @@ export const translations = {
     completed: "Ўтилган",
     slidesAndQuestions: "{slides} Слайд • {questions} Савол",
     language: "Тил",
+    lightMode: "Кундузги режим",
+    darkMode: "Тунги режим",
 
     // Welcome Screen
     officialCurriculum: "Расмий Ўқув Дастури",
@@ -207,7 +212,7 @@ export const translations = {
     // Course Player
     moduleTag: "Ўқув Модули #{id} • ИИБ Махсус Курси",
     moduleCompletedBadge: "Муваффақиятли Ўтилган ({score}%)",
-    tabSlides: "1. Тақдимот Слайдлари ({count})",
+    tabSlides: "1. Слайдлар ({count})",
     tabQuiz: "2. Модул Тести ({count} Савол)",
     tabOverview: "3. Қисқача Ўқув Қўлланмаси",
     slideOf: "Слайд {current} / {total}",
@@ -247,8 +252,9 @@ export const translations = {
     overviewTitle: "Модул Ўқув Режаси ва Асосий Қоидалар",
     overviewDesc: "Ушбу модул доирасида ўзлаштирилиши шарт бўлган ахборот хавфсизлиги қоидалари.",
     moduleSummary: "Модул Хулосаси:",
-    strictRecommendations: "Қатъий Тавсиялар",
-    strictlyForbidden: "Қатъиян Тақиқланади",
+    keyRuleTag: "Олтин Қоида:",
+    strictRecommendations: "Қатъий Тавсиялар (Амал қилинг)",
+    strictlyForbidden: "Қатъиян Тақиқланади (Сақланинг)",
 
     // Dashboard
     studentCabinet: "Тингловчи Шахсий Кабинети",
@@ -305,6 +311,8 @@ export const translations = {
     completed: "Пройдено",
     slidesAndQuestions: "{slides} Слайдов • {questions} Вопросов",
     language: "Язык",
+    lightMode: "Дневной режим",
+    darkMode: "Ночной режим",
 
     // Welcome Screen
     officialCurriculum: "Официальная учебная программа",
@@ -349,7 +357,7 @@ export const translations = {
     // Course Player
     moduleTag: "Учебный модуль #{id} • Специальный курс МВД",
     moduleCompletedBadge: "Успешно пройден ({score}%)",
-    tabSlides: "1. Слайды презентации ({count})",
+    tabSlides: "1. Слайды ({count})",
     tabQuiz: "2. Тест модуля ({count} Вопросов)",
     tabOverview: "3. Краткое руководство",
     slideOf: "Слайд {current} / {total}",
@@ -389,8 +397,9 @@ export const translations = {
     overviewTitle: "Учебный план модуля и основные правила",
     overviewDesc: "Правила информационной безопасности, обязательные к освоению в рамках данного модуля.",
     moduleSummary: "Итоги модуля:",
-    strictRecommendations: "Строгие рекомендации",
-    strictlyForbidden: "Категорически запрещено",
+    keyRuleTag: "Золотое правило:",
+    strictRecommendations: "Строгие рекомендации (Соблюдайте)",
+    strictlyForbidden: "Категорически запрещено (Опасайтесь)",
 
     // Dashboard
     studentCabinet: "Личный кабинет слушателя",

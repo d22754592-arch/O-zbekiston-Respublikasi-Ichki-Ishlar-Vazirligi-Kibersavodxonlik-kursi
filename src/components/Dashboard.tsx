@@ -16,6 +16,7 @@ import { ModuleData, UserProgress } from '../types';
 import { logger } from '../utils/logger';
 import { formatStudyTime, formatStudyTimeShort } from '../utils/timeTracker';
 import { useLanguage } from '../i18n/LanguageContext';
+import { useTheme } from '../theme/ThemeContext';
 
 interface DashboardProps {
   modules: ModuleData[];
@@ -36,6 +37,7 @@ export default function Dashboard({
   onRestoreProgress,
 }: DashboardProps) {
   const { t } = useLanguage();
+  const { isDark } = useTheme();
   const [importError, setImportError] = useState(false);
 
   const completedCount = modules.filter(
@@ -87,41 +89,45 @@ export default function Dashboard({
     }
   };
 
-  return (
-    <div className="space-y-6 text-slate-100 font-sans">
+  const cardBg = isDark ? 'bg-[#091124]/90 border-slate-800/80 text-white' : 'bg-white border-slate-200 text-slate-900 shadow-sm';
+  const subText = isDark ? 'text-slate-300' : 'text-slate-600';
+  const metricCardBg = isDark ? 'bg-slate-900/50 border-slate-800/80' : 'bg-slate-50 border-slate-200';
 
-      {/* Hero Welcome Banner - Clean Proportional SaaS Card */}
-      <div className="bg-[#091124]/90 border border-slate-800/80 p-6 sm:p-7 rounded-3xl text-white shadow-xl backdrop-blur-xl space-y-2.5">
-        <div className="inline-flex items-center space-x-1.5 bg-indigo-500/10 px-3 py-1 rounded-full text-indigo-300 text-xs font-mono font-semibold uppercase tracking-wider">
-          <ShieldCheck className="w-3.5 h-3.5 text-indigo-400" />
+  return (
+    <div className="space-y-6 font-sans">
+
+      {/* Hero Welcome Banner */}
+      <div className={`${cardBg} border p-6 sm:p-7 rounded-3xl shadow-xl backdrop-blur-xl space-y-2.5`}>
+        <div className="inline-flex items-center space-x-1.5 bg-indigo-500/10 px-3 py-1 rounded-full text-indigo-500 text-xs font-mono font-semibold uppercase tracking-wider">
+          <ShieldCheck className="w-3.5 h-3.5" />
           <span>{t('studentCabinet')}</span>
         </div>
 
-        <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-white">
+        <h1 className="text-xl sm:text-2xl font-bold tracking-tight">
           {userProgress.fullName ? t('greeting', { name: userProgress.fullName }) : t('resultsPanel')}
         </h1>
 
-        <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal max-w-3xl">
+        <p className={`text-xs sm:text-sm leading-relaxed font-normal max-w-3xl ${subText}`}>
           {t('dashboardDesc')}
         </p>
       </div>
 
-      {/* 4 Metric Cards - Clean Baseline Alignment & No Truncation */}
+      {/* 4 Metric Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         
         {/* Metric 1 */}
-        <div className="bg-slate-900/50 border border-slate-800/80 p-5 rounded-2xl space-y-2 shadow-sm">
+        <div className={`${metricCardBg} border p-5 rounded-2xl space-y-2 shadow-sm`}>
           <div className="flex items-center justify-between">
-            <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">{t('completedModules')}</span>
-            <div className="w-7 h-7 rounded-lg bg-indigo-600/20 flex items-center justify-center text-indigo-400">
+            <span className="text-xs font-medium uppercase tracking-wider text-slate-400">{t('completedModules')}</span>
+            <div className="w-7 h-7 rounded-lg bg-indigo-600/20 flex items-center justify-center text-indigo-500">
               <BookOpen className="w-3.5 h-3.5" />
             </div>
           </div>
           <div className="flex items-baseline space-x-1.5">
-            <span className="text-2xl sm:text-3xl font-black text-white font-mono">{completedCount}</span>
+            <span className="text-2xl sm:text-3xl font-black font-mono">{completedCount}</span>
             <span className="text-sm font-medium text-slate-400 font-mono">/ {totalModules}</span>
           </div>
-          <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+          <div className={`w-full h-1.5 rounded-full overflow-hidden ${isDark ? 'bg-slate-800' : 'bg-slate-200'}`}>
             <div 
               className="h-full bg-indigo-500 rounded-full transition-all duration-500" 
               style={{ width: `${overallPercent}%` }}
@@ -130,14 +136,14 @@ export default function Dashboard({
         </div>
 
         {/* Metric 2 */}
-        <div className="bg-slate-900/50 border border-slate-800/80 p-5 rounded-2xl space-y-2 shadow-sm">
+        <div className={`${metricCardBg} border p-5 rounded-2xl space-y-2 shadow-sm`}>
           <div className="flex items-center justify-between">
-            <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">{t('averageScore')}</span>
-            <div className="w-7 h-7 rounded-lg bg-emerald-600/20 flex items-center justify-center text-emerald-400">
+            <span className="text-xs font-medium uppercase tracking-wider text-slate-400">{t('averageScore')}</span>
+            <div className="w-7 h-7 rounded-lg bg-emerald-600/20 flex items-center justify-center text-emerald-500">
               <BarChart2 className="w-3.5 h-3.5" />
             </div>
           </div>
-          <div className="text-2xl sm:text-3xl font-black text-emerald-400 font-mono">
+          <div className="text-2xl sm:text-3xl font-black text-emerald-500 font-mono">
             {averageScore}%
           </div>
           <div className="text-xs text-slate-400 font-medium">
@@ -145,15 +151,15 @@ export default function Dashboard({
           </div>
         </div>
 
-        {/* Metric 3: Active Study Time Tracker (No Truncation) */}
-        <div className="bg-slate-900/50 border border-slate-800/80 p-5 rounded-2xl space-y-2 shadow-sm">
+        {/* Metric 3: Active Study Time Tracker */}
+        <div className={`${metricCardBg} border p-5 rounded-2xl space-y-2 shadow-sm`}>
           <div className="flex items-center justify-between">
-            <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">{t('totalStudyTime')}</span>
-            <div className="w-7 h-7 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-400">
+            <span className="text-xs font-medium uppercase tracking-wider text-slate-400">{t('totalStudyTime')}</span>
+            <div className="w-7 h-7 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-500">
               <Clock className="w-3.5 h-3.5" />
             </div>
           </div>
-          <div className="text-lg sm:text-xl font-bold text-white font-mono">
+          <div className="text-lg sm:text-xl font-bold font-mono">
             {formatStudyTime(userProgress.totalStudySeconds || 0)}
           </div>
           <div className="text-xs text-slate-400 font-medium">
@@ -162,18 +168,18 @@ export default function Dashboard({
         </div>
 
         {/* Metric 4: Certificate Status */}
-        <div className="bg-slate-900/50 border border-slate-800/80 p-5 rounded-2xl space-y-2 shadow-sm">
+        <div className={`${metricCardBg} border p-5 rounded-2xl space-y-2 shadow-sm`}>
           <div className="flex items-center justify-between">
-            <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">{t('certificateStatus')}</span>
-            <div className="w-7 h-7 rounded-lg bg-amber-600/20 flex items-center justify-center text-amber-400">
+            <span className="text-xs font-medium uppercase tracking-wider text-slate-400">{t('certificateStatus')}</span>
+            <div className="w-7 h-7 rounded-lg bg-amber-600/20 flex items-center justify-center text-amber-500">
               <Award className="w-3.5 h-3.5" />
             </div>
           </div>
           <div className="text-base sm:text-lg font-bold font-mono">
             {allModulesCompleted ? (
-              <span className="text-amber-400 font-bold">{t('certReady')}</span>
+              <span className="text-amber-500 font-bold">{t('certReady')}</span>
             ) : (
-              <span className="text-slate-300 font-medium">{t('modulesLeft', { count: totalModules - completedCount })}</span>
+              <span className="font-medium text-slate-400">{t('modulesLeft', { count: totalModules - completedCount })}</span>
             )}
           </div>
           <div className="text-xs text-slate-400">
@@ -184,14 +190,14 @@ export default function Dashboard({
       </div>
 
       {/* Modules Detailed Breakdown */}
-      <div className="bg-[#091124]/90 border border-slate-800/80 p-6 sm:p-7 rounded-3xl shadow-xl backdrop-blur-xl space-y-4">
-        <div className="border-b border-slate-800/60 pb-3 flex items-center justify-between">
+      <div className={`${cardBg} border p-6 sm:p-7 rounded-3xl shadow-xl backdrop-blur-xl space-y-4`}>
+        <div className={`border-b pb-3 flex items-center justify-between ${isDark ? 'border-slate-800/60' : 'border-slate-200'}`}>
           <div>
-            <h3 className="text-base font-bold text-white flex items-center space-x-2">
-              <Layers className="w-4 h-4 text-indigo-400" />
+            <h3 className="text-base font-bold flex items-center space-x-2">
+              <Layers className="w-4 h-4 text-indigo-500" />
               <span>{t('modulesBreakdown')}</span>
             </h3>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className={`text-xs mt-0.5 ${subText}`}>
               {t('modulesBreakdownDesc')}
             </p>
           </div>
@@ -209,30 +215,30 @@ export default function Dashboard({
                 key={m.id}
                 className={`p-4 rounded-2xl border transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 ${
                   isCompleted
-                    ? 'bg-slate-900/40 border-emerald-500/20'
+                    ? isDark ? 'bg-slate-900/40 border-emerald-500/20' : 'bg-emerald-50/50 border-emerald-200'
                     : isUnlocked
-                    ? 'bg-slate-900/40 border-slate-800/80 hover:border-slate-700'
-                    : 'bg-slate-900/20 border-slate-800/40 opacity-75'
+                    ? isDark ? 'bg-slate-900/40 border-slate-800/80 hover:border-slate-700' : 'bg-slate-50 border-slate-200 hover:border-slate-300'
+                    : isDark ? 'bg-slate-900/20 border-slate-800/40 opacity-70' : 'bg-slate-100 border-slate-200 opacity-70'
                 }`}
               >
                 <div className="flex items-start space-x-3">
                   <div className="mt-1 flex-shrink-0">
                     {isCompleted ? (
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                      <CheckCircle2 className="w-4 h-4 text-emerald-500" />
                     ) : isUnlocked ? (
-                      <BookOpen className="w-4 h-4 text-indigo-400" />
+                      <BookOpen className="w-4 h-4 text-indigo-500" />
                     ) : (
-                      <Clock className="w-4 h-4 text-slate-500" />
+                      <Clock className="w-4 h-4 text-slate-400" />
                     )}
                   </div>
                   <div>
-                    <div className="font-semibold text-white text-xs sm:text-sm">
+                    <div className="font-semibold text-xs sm:text-sm">
                       {m.title}
                     </div>
                     <div className="flex items-center space-x-3 text-xs text-slate-400 mt-0.5 font-mono">
                       <span>{t('slidesAndQuestions', { slides: m.slideCount, questions: m.quizQuestions.length })}</span>
                       {modTime > 0 && (
-                        <span className="text-indigo-300 flex items-center space-x-1">
+                        <span className="text-indigo-500 flex items-center space-x-1">
                           <Clock className="w-3 h-3" />
                           <span>{formatStudyTimeShort(modTime)}</span>
                         </span>
@@ -244,7 +250,7 @@ export default function Dashboard({
                 <div className="flex items-center space-x-3 self-end sm:self-center">
                   {isCompleted && (
                     <div className="text-right font-mono">
-                      <span className="text-emerald-400 font-bold text-xs sm:text-sm">{score}%</span>
+                      <span className="text-emerald-500 font-bold text-xs sm:text-sm">{score}%</span>
                       <span className="text-[10px] text-slate-400 block">{t('completed')}</span>
                     </div>
                   )}
@@ -254,7 +260,7 @@ export default function Dashboard({
                       onClick={() => onSelectModule(m.id)}
                       className={`px-3.5 py-2 rounded-xl text-xs font-semibold transition-all flex items-center space-x-1.5 cursor-pointer ${
                         isCompleted
-                          ? 'bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700/60'
+                          ? isDark ? 'bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700/60' : 'bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 shadow-sm'
                           : 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-sm'
                       }`}
                     >
@@ -270,22 +276,26 @@ export default function Dashboard({
       </div>
 
       {/* Data Backup / Export / Import Controls */}
-      <div className="bg-slate-900/40 border border-slate-800/80 p-4 sm:p-5 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+      <div className={`${cardBg} border p-4 sm:p-5 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 text-xs ${subText}`}>
         <div>
-          <span className="font-semibold text-slate-300 block">{t('backupProgress')}</span>
+          <span className="font-semibold block">{t('backupProgress')}</span>
           <span>{t('backupDesc')}</span>
         </div>
 
         <div className="flex items-center space-x-2">
           <button
             onClick={handleExportProgress}
-            className="px-3.5 py-2 bg-slate-800/80 hover:bg-slate-700 text-slate-200 rounded-xl border border-slate-700/60 flex items-center space-x-1.5 cursor-pointer transition-colors"
+            className={`px-3.5 py-2 rounded-xl border flex items-center space-x-1.5 cursor-pointer transition-colors ${
+              isDark ? 'bg-slate-800/80 hover:bg-slate-700 text-slate-200 border-slate-700/60' : 'bg-slate-100 hover:bg-slate-200 text-slate-800 border-slate-300'
+            }`}
           >
             <Download className="w-3.5 h-3.5" />
             <span>{t('downloadJson')}</span>
           </button>
 
-          <label className="px-3.5 py-2 bg-slate-800/80 hover:bg-slate-700 text-slate-200 rounded-xl border border-slate-700/60 flex items-center space-x-1.5 cursor-pointer transition-colors">
+          <label className={`px-3.5 py-2 rounded-xl border flex items-center space-x-1.5 cursor-pointer transition-colors ${
+            isDark ? 'bg-slate-800/80 hover:bg-slate-700 text-slate-200 border-slate-700/60' : 'bg-slate-100 hover:bg-slate-200 text-slate-800 border-slate-300'
+          }`}>
             <Upload className="w-3.5 h-3.5" />
             <span>{t('restoreJson')}</span>
             <input

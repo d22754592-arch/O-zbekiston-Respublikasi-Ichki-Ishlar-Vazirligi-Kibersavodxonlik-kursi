@@ -7,6 +7,7 @@ import WelcomeScreen from './components/WelcomeScreen';
 import VerificationModal from './components/VerificationModal';
 import LanguageSelector from './components/LanguageSelector';
 import { LanguageProvider, useLanguage } from './i18n/LanguageContext';
+import { ThemeProvider, useTheme } from './theme/ThemeContext';
 import { getModules } from './modulesData';
 import { UserProgress } from './types';
 import { logger } from './utils/logger';
@@ -26,30 +27,13 @@ import {
 } from 'lucide-react';
 
 const LOCAL_STORAGE_KEY = 'kibersavodxonlik_user_progress_v2';
-const THEME_STORAGE_KEY = 'kibersavodxonlik_theme_v2';
 
 function AppContent() {
   const { language, t } = useLanguage();
+  const { isDark, toggleTheme } = useTheme();
   const { isInstallable, installApp } = usePWAInstall();
 
   const modules = getModules(language);
-
-  // Theme State: 'dark' (Default Officer Midnight) or 'light' (UniAthena Paper)
-  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
-    try {
-      const saved = localStorage.getItem(THEME_STORAGE_KEY);
-      if (saved === 'light' || saved === 'dark') return saved;
-    } catch (e) {}
-    return 'dark';
-  });
-
-  const toggleTheme = () => {
-    const nextTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(nextTheme);
-    try {
-      localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
-    } catch (e) {}
-  };
 
   const [showVerificationModal, setShowVerificationModal] = useState(() => {
     return typeof window !== 'undefined' && window.location.search.includes('verify=1');
@@ -210,9 +194,9 @@ function AppContent() {
 
   return (
     <div className={`min-h-screen flex flex-col font-sans antialiased transition-colors duration-200 ${
-      theme === 'dark' 
+      isDark 
         ? 'bg-[#060d1f] text-slate-100 selection:bg-indigo-500 selection:text-white' 
-        : 'bg-slate-100 text-slate-900 selection:bg-rose-500 selection:text-white'
+        : 'bg-slate-100 text-slate-900 selection:bg-indigo-500 selection:text-white'
     }`}>
       
       {/* Verification Modal (Triggers when QR code is scanned) */}
@@ -230,8 +214,8 @@ function AppContent() {
       ) : (
         <>
           {/* Executive Top Header */}
-          <header className={`px-4 py-3 shadow-xl backdrop-blur-xl sticky top-0 z-30 print:hidden border-b ${
-            theme === 'dark' 
+          <header className={`px-4 py-3 shadow-xl backdrop-blur-xl sticky top-0 z-30 print:hidden border-b transition-colors duration-200 ${
+            isDark 
               ? 'bg-[#0b1633]/90 border-slate-800/80 text-white' 
               : 'bg-white/95 border-slate-200 text-slate-900 shadow-slate-200/50'
           }`}>
@@ -248,7 +232,7 @@ function AppContent() {
                     {t('courseTitle')}
                   </h1>
                   <p className={`text-[10px] font-mono font-medium tracking-wider uppercase ${
-                    theme === 'dark' ? 'text-amber-400' : 'text-indigo-700'
+                    isDark ? 'text-amber-400' : 'text-indigo-600'
                   }`}>
                     {t('iibTitle')}
                   </p>
@@ -263,7 +247,7 @@ function AppContent() {
 
                 {/* Active Learning Timer Badge */}
                 <div className={`hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-xl border text-xs font-mono font-bold ${
-                  theme === 'dark' 
+                  isDark 
                     ? 'bg-[#070e24] border-slate-800 text-slate-300' 
                     : 'bg-slate-50 border-slate-200 text-slate-700'
                 }`} title={t('activeStudyTime')}>
@@ -286,26 +270,26 @@ function AppContent() {
                 {/* Light / Dark Mode Toggle */}
                 <button
                   onClick={toggleTheme}
-                  className={`p-2 rounded-xl border transition-all cursor-pointer shadow ${
-                    theme === 'dark'
+                  className={`p-2 rounded-xl border transition-all cursor-pointer shadow-sm ${
+                    isDark
                       ? 'bg-[#070e24] border-slate-800 text-amber-400 hover:bg-slate-800'
                       : 'bg-slate-100 border-slate-300 text-indigo-700 hover:bg-slate-200'
                   }`}
-                  title={theme === 'dark' ? "Kunduzgi rejim" : "Tungi rejim"}
+                  title={isDark ? t('lightMode') : t('darkMode')}
                 >
-                  {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                  {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
                 </button>
 
                 <button
                   onClick={() => setViewMode('welcome')}
                   className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-semibold border transition-all cursor-pointer flex items-center space-x-1.5 ${
-                    theme === 'dark'
+                    isDark
                       ? 'bg-slate-900/40 text-slate-300 hover:text-white hover:bg-slate-800 border-slate-800/60'
                       : 'bg-white text-slate-700 hover:text-slate-900 hover:bg-slate-50 border-slate-200 shadow-sm'
                   }`}
                   title={t('home')}
                 >
-                  <Home className="w-3.5 h-3.5 text-indigo-400" />
+                  <Home className="w-3.5 h-3.5 text-indigo-500" />
                   <span className="hidden sm:inline">{t('home')}</span>
                 </button>
 
@@ -313,13 +297,13 @@ function AppContent() {
                   onClick={() => setActiveTab('dashboard')}
                   className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer flex items-center space-x-1.5 border ${
                     activeTab === 'dashboard'
-                      ? 'bg-indigo-600 text-white border-indigo-500 shadow-md'
-                      : theme === 'dark'
+                      ? 'bg-indigo-600 text-white border-indigo-500 shadow-md font-bold'
+                      : isDark
                       ? 'bg-slate-900/40 text-slate-300 border-slate-800/60 hover:bg-slate-800 hover:text-white'
                       : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300'
                   }`}
                 >
-                  <BarChart2 className="w-3.5 h-3.5 text-indigo-300" />
+                  <BarChart2 className="w-3.5 h-3.5" />
                   <span>{t('dashboard')}</span>
                 </button>
 
@@ -330,15 +314,15 @@ function AppContent() {
                     activeTab === 'certificate'
                       ? 'bg-amber-500 text-slate-950 border-amber-400 shadow-md font-bold'
                       : allModulesCompleted
-                      ? 'bg-amber-500/10 text-amber-300 border-amber-500/40 hover:bg-amber-500/20 cursor-pointer'
-                      : theme === 'dark'
-                      ? 'bg-slate-900/40 text-slate-400 border-slate-800/60 cursor-not-allowed'
+                      ? 'bg-amber-500/10 text-amber-500 border-amber-500/40 hover:bg-amber-500/20 cursor-pointer'
+                      : isDark
+                      ? 'bg-slate-900/40 text-slate-500 border-slate-800/60 cursor-not-allowed'
                       : 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed'
                   }`}
                 >
-                  <Award className="w-3.5 h-3.5 text-amber-400" />
+                  <Award className="w-3.5 h-3.5 text-amber-500" />
                   <span>{t('certificate')}</span>
-                  {allModulesCompleted && <Sparkles className="w-3 h-3 text-amber-400 animate-pulse" />}
+                  {allModulesCompleted && <Sparkles className="w-3 h-3 text-amber-500 animate-pulse" />}
                 </button>
               </div>
 
@@ -411,8 +395,10 @@ function AppContent() {
 
 export default function App() {
   return (
-    <LanguageProvider>
-      <AppContent />
-    </LanguageProvider>
+    <ThemeProvider>
+      <LanguageProvider>
+        <AppContent />
+      </LanguageProvider>
+    </ThemeProvider>
   );
 }
