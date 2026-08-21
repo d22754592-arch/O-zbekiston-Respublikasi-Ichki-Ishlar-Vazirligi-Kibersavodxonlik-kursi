@@ -37,7 +37,7 @@ export default function IntroModal({ isOpen, onClose }: IntroModalProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md overflow-y-auto">
-      <div className="bg-slate-900 border-4 border-indigo-600 rounded-2xl shadow-2xl w-full max-w-3xl my-8 overflow-hidden text-white font-sans space-y-0 relative animate-in fade-in zoom-in duration-200">
+      <div className="bg-slate-900 border-4 border-indigo-600 rounded-3xl shadow-2xl w-full max-w-3xl my-8 overflow-hidden text-white font-sans space-y-0 relative animate-in fade-in zoom-in duration-200">
         
         {/* Header Branding */}
         <div className="bg-slate-950 p-5 border-b-2 border-slate-800 flex items-center justify-between">
@@ -50,7 +50,7 @@ export default function IntroModal({ isOpen, onClose }: IntroModalProps) {
                 O'ZBEKISTON RESPUBLIKASI IIB FARG'ONA VILOYATI KIBERJINOYATLARGA QARSHI KURASHISH BOSHQARMASI
               </h3>
               <p className="text-[11px] text-amber-400 font-mono font-bold tracking-wider uppercase">
-                Kibersavodxonlik Maxsus O'quv Kursi — Video Instruksiya
+                Kibersavodxonlik Maxsus O'quv Kursi — Video Darslik
               </p>
             </div>
           </div>
@@ -66,7 +66,7 @@ export default function IntroModal({ isOpen, onClose }: IntroModalProps) {
         {/* Video Player Container */}
         <div className="p-6 space-y-6 max-h-[75vh] overflow-y-auto">
           
-          <div className="relative bg-slate-950 rounded-xl border-2 border-indigo-500/80 overflow-hidden shadow-2xl">
+          <div className="relative bg-slate-950 rounded-2xl border-2 border-indigo-500/80 overflow-hidden shadow-2xl">
             <video
               ref={videoRef}
               controls
@@ -86,13 +86,13 @@ export default function IntroModal({ isOpen, onClose }: IntroModalProps) {
               <div className="absolute inset-0 bg-slate-950/65 flex flex-col items-center justify-center p-4 text-center backdrop-blur-[2px] transition-all">
                 <button
                   onClick={handlePlayVideo}
-                  className="w-16 h-16 bg-indigo-600 hover:bg-indigo-500 text-white rounded-full flex items-center justify-center shadow-2xl border-2 border-indigo-300 hover:scale-110 active:scale-95 transition-all cursor-pointer mb-3 group"
-                  title="Videoni Ijro Etish"
+                  className="w-16 h-16 bg-gradient-to-br from-amber-400 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-slate-950 rounded-full flex items-center justify-center shadow-2xl border-2 border-amber-200 hover:scale-110 active:scale-95 transition-all cursor-pointer mb-3 group"
+                  title="Video Darslikni Ijro Etish"
                 >
-                  <Play className="w-8 h-8 ml-1 text-white fill-white group-hover:scale-105 transition-transform" />
+                  <Play className="w-8 h-8 ml-1 text-slate-950 fill-slate-950 group-hover:scale-105 transition-transform" />
                 </button>
-                <span className="text-xs font-black uppercase text-white tracking-widest bg-slate-900/90 border border-slate-700 px-3.5 py-1.5 rounded-full shadow">
-                  🎬 RASMIY YO'RIQNOMA VIDEOSINI KO'RISH
+                <span className="text-xs font-black uppercase text-amber-300 tracking-widest bg-slate-900/90 border border-amber-400/50 px-4 py-1.5 rounded-full shadow">
+                  🎬 RASMIY VIDEO DARSLIKNI KO'RISH
                 </span>
                 <p className="text-[11px] text-slate-300 font-medium max-w-sm mt-2">
                   (Videoni ijro etish uchun Play tugmasini bosing. Video yakunlangach, avtomatik darsga o'tiladi)
@@ -107,7 +107,7 @@ export default function IntroModal({ isOpen, onClose }: IntroModalProps) {
                   <Check className="w-9 h-9 stroke-[3]" />
                 </div>
                 <span className="text-sm font-black uppercase text-emerald-400 tracking-wider">
-                  VIDEO-INSTRUKSIYA YAKUNLANDI!
+                  VIDEO DARSLIK YAKUNLANDI!
                 </span>
                 <p className="text-xs text-slate-200 font-bold mt-1">
                   E'tiboringiz uchun rahmat. Endi darslarga o'tilmoqda...
@@ -120,7 +120,7 @@ export default function IntroModal({ isOpen, onClose }: IntroModalProps) {
           <div className="bg-slate-950 border-2 border-slate-800 p-5 rounded-xl space-y-3">
             <div className="flex items-center space-x-2 text-indigo-400 font-black text-xs uppercase tracking-wider border-b border-slate-800 pb-2">
               <FileText className="w-4 h-4 text-indigo-400" />
-              <span>Rasmiy Video-Instruksiya Nutqi (Matn):</span>
+              <span>Rasmiy Video Darslik Nutqi (Matn):</span>
             </div>
             
             <div className="text-xs text-slate-200 font-medium leading-relaxed space-y-2.5 max-h-48 overflow-y-auto pr-2">

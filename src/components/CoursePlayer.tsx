@@ -4,7 +4,7 @@ import {
   CheckCircle2, 
   XCircle, 
   ArrowRight, 
-  ArrowLeft,
+  ArrowLeft, 
   RotateCcw, 
   FileText, 
   HelpCircle, 
@@ -20,7 +20,8 @@ import {
   ChevronLeft,
   Layers,
   Info,
-  X
+  X,
+  Play
 } from 'lucide-react';
 import { logger } from '../utils/logger';
 import { validateFullName } from '../utils/cyberUtils';
@@ -185,7 +186,7 @@ export default function CoursePlayer({
 
     logger.info(`Quiz submitted for module #${module.id}. Score: ${calculatedScore}%`);
 
-    if (calculatedScore >= 65) {
+    if (calculatedScore >= 80) {
       onCompleteModule(module.id, calculatedScore);
     }
   };
@@ -212,7 +213,7 @@ export default function CoursePlayer({
     }
   };
 
-  const passed = scorePercent >= 65;
+  const passed = scorePercent >= 80;
   const answeredCount = module.quizQuestions.filter(q => selectedAnswers[q.id] !== undefined).length;
   const allQuestionsAnswered = answeredCount === module.quizQuestions.length;
   const currentQuestion = module.quizQuestions[activeQuestionIndex];
@@ -264,7 +265,7 @@ export default function CoursePlayer({
               onClick={() => setActiveTab('quiz')}
               className={`px-5 py-2.5 text-xs font-black rounded-xl transition-all flex items-center space-x-2 cursor-pointer border ${
                 activeTab === 'quiz' 
-                  ? 'bg-gradient-to-r from-rose-600 to-pink-600 text-white border-rose-400 shadow-lg shadow-rose-900/50 scale-[1.02]' 
+                  ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white border-emerald-400 shadow-lg shadow-emerald-950/50 scale-[1.02]' 
                   : 'bg-[#070e24] text-slate-300 border-slate-800 hover:border-slate-700 hover:text-white'
               }`}
             >
@@ -474,18 +475,22 @@ export default function CoursePlayer({
             </div>
           )}
 
-          {/* Bottom Action / Quiz Transition Callout (In Normal View) */}
+          {/* Bottom Action / Quiz Transition Callout (In Normal View - 1-RASM TUZATILDI: YASHIL TASDIQLASH TUGMASI) */}
           {!isFullscreen && (
-            <div className="bg-[#0b1633]/90 border border-indigo-500/30 p-6 rounded-3xl shadow-xl backdrop-blur-xl flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div>
-                <h4 className="text-base font-black text-white">Slaydlarni to'liq o'rganib bo'ldingizmi?</h4>
-                <p className="text-xs text-slate-300 mt-1">
-                  Bilimingizni sinash va keyingi modulni ochish uchun <b>Modul Testi (8 ta savol)</b> topshiring.
+            <div className="bg-[#0b1633]/90 border border-emerald-500/40 p-6 sm:p-7 rounded-3xl shadow-2xl backdrop-blur-xl flex flex-col sm:flex-row items-center justify-between gap-5 transition-all">
+              <div className="space-y-1">
+                <div className="flex items-center space-x-2 text-emerald-400 text-xs font-mono font-bold uppercase tracking-wider">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                  <span>Slaydlar yakunlandi</span>
+                </div>
+                <h4 className="text-base sm:text-lg font-black text-white">Slaydlarni to'liq o'rganib bo'ldingizmi?</h4>
+                <p className="text-xs text-slate-300">
+                  Bilimingizni sinash va keyingi modulni ochish uchun <b>Modul Testi ({module.quizQuestions.length} ta savol)</b> topshiring.
                 </p>
               </div>
               <button
                 onClick={() => setActiveTab('quiz')}
-                className="w-full sm:w-auto px-7 py-3.5 bg-gradient-to-r from-rose-600 via-pink-600 to-rose-600 hover:from-rose-500 hover:to-pink-500 text-white font-black text-xs uppercase tracking-wider rounded-xl shadow-xl shadow-rose-950/80 flex items-center justify-center space-x-2 cursor-pointer transition-all hover:scale-105 active:scale-95 border border-rose-400/40"
+                className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black text-xs uppercase tracking-wider rounded-2xl shadow-xl shadow-emerald-950/80 flex items-center justify-center space-x-2.5 cursor-pointer transition-all hover:scale-105 active:scale-95 border border-emerald-400/50 flex-shrink-0"
               >
                 <span>MODUL TESTINI TOPSHIRISH</span>
                 <ArrowRight className="w-4 h-4 text-white" />
@@ -496,7 +501,7 @@ export default function CoursePlayer({
         </div>
       )}
 
-      {/* ── 3. TAB 2: TACTICAL ASSESSMENT QUIZ ENGINE (PROFESSIONAL SUITE) ── */}
+      {/* ── 3. TAB 2: TACTICAL ASSESSMENT QUIZ ENGINE (2-RASM TUZATILDI: NEYTRAL VA INSTITUTIONAL RANGLAR) ── */}
       {activeTab === 'quiz' && (
         <div className="space-y-6">
 
@@ -511,7 +516,7 @@ export default function CoursePlayer({
                 {module.title} — Bilim Sinovi
               </h3>
               <p className="text-xs text-slate-300 mt-1">
-                Modulni muvaffaqiyatli topshirish uchun kamida <b>65%</b> natija ko'rsatishingiz shart.
+                Modulni muvaffaqiyatli topshirish uchun kamida <b>80%</b> natija ko'rsatishingiz shart.
               </p>
             </div>
 
@@ -526,7 +531,7 @@ export default function CoursePlayer({
                 <span>Cheksiz Qayta Topshirish</span>
               </div>
               <div className="bg-indigo-600/20 border border-indigo-400/40 px-3.5 py-2 rounded-xl text-xs font-mono font-black text-indigo-300">
-                O'tish balli: 65%
+                O'tish balli: 80%
               </div>
             </div>
           </div>
@@ -552,7 +557,7 @@ export default function CoursePlayer({
                     {passed ? 'TABRIKLAYMIZ! MODUL TESTI MUVAFFAQIYATLI TOPSHIRILDI' : 'TEST NATIJASI YETARLI EMAS'}
                   </h4>
                   <p className="text-sm text-slate-200 mt-1">
-                    Sizning yakuniy ko'rsatkichingiz: <b className="text-lg font-mono font-black text-amber-300 px-2 py-0.5 rounded bg-black/40 border border-amber-400/30">{scorePercent}%</b> (Minimal o'tish talabi: 65%)
+                    Sizning yakuniy ko'rsatkichingiz: <b className="text-lg font-mono font-black text-amber-300 px-2 py-0.5 rounded bg-black/40 border border-amber-400/30">{scorePercent}%</b> (Minimal o'tish talabi: 80%)
                   </p>
                 </div>
               </div>
@@ -623,7 +628,7 @@ export default function CoursePlayer({
                   </span>
                   <button
                     onClick={handleRetakeQuiz}
-                    className="w-full sm:w-auto px-6 py-3 bg-rose-600 hover:bg-rose-500 text-white text-xs font-black uppercase tracking-wider rounded-xl shadow-lg cursor-pointer transition-all flex items-center justify-center space-x-2 border border-rose-400/40"
+                    className="w-full sm:w-auto px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-black uppercase tracking-wider rounded-xl shadow-lg cursor-pointer transition-all flex items-center justify-center space-x-2 border border-indigo-400/40"
                   >
                     <RotateCcw className="w-4 h-4" />
                     <span>Qayta Topshirish</span>
@@ -633,7 +638,7 @@ export default function CoursePlayer({
             </div>
           )}
 
-          {/* Interactive Question Navigator Matrix */}
+          {/* Interactive Question Navigator Matrix (NEYTRAL VA ANIQ RANGLAR) */}
           <div className="bg-[#0b1633]/90 border border-slate-800 p-4 rounded-2xl shadow-xl flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center space-x-2">
               <span className="text-xs font-mono text-slate-400">Savollar:</span>
@@ -642,14 +647,14 @@ export default function CoursePlayer({
                   const isAnswered = selectedAnswers[q.id] !== undefined;
                   const isCurrent = activeQuestionIndex === idx;
 
-                  let btnColor = "bg-[#070e24] text-slate-400 border-slate-800";
+                  let btnColor = "bg-[#070e24] text-slate-400 border-slate-800 hover:border-slate-700";
                   if (quizSubmitted) {
                     const isCorrect = selectedAnswers[q.id] === q.correctAnswer;
                     btnColor = isCorrect ? "bg-emerald-600 text-white border-emerald-400" : "bg-rose-600 text-white border-rose-400";
                   } else if (isCurrent) {
-                    btnColor = "bg-rose-600 text-white border-rose-400 ring-2 ring-rose-400/40 scale-105";
+                    btnColor = "bg-indigo-600 text-white border-indigo-400 ring-2 ring-indigo-400/50 scale-105 shadow-md shadow-indigo-950/80";
                   } else if (isAnswered) {
-                    btnColor = "bg-indigo-950 text-indigo-200 border-indigo-700";
+                    btnColor = "bg-indigo-950/80 text-indigo-300 border-indigo-700/80";
                   }
 
                   return (
@@ -666,7 +671,7 @@ export default function CoursePlayer({
             </div>
 
             <div className="text-xs font-mono text-slate-400">
-              Belgilandi: <b className="text-rose-400">{answeredCount}</b> / {module.quizQuestions.length}
+              Belgilandi: <b className="text-indigo-400 font-bold">{answeredCount}</b> / {module.quizQuestions.length}
             </div>
           </div>
 
@@ -674,14 +679,14 @@ export default function CoursePlayer({
           {currentQuestion && (
             <div className="bg-[#0b1633]/90 border border-indigo-500/30 p-6 sm:p-8 rounded-3xl shadow-2xl space-y-6 backdrop-blur-xl">
               
-              {/* Question Header */}
+              {/* Question Header (NEYTRAL KO'K/INDIGO NISHON) */}
               <div className="border-b border-slate-800 pb-4 flex items-start justify-between gap-4">
                 <div className="flex items-start space-x-3.5">
-                  <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-rose-600 to-pink-600 text-white font-mono font-black text-sm flex items-center justify-center shadow-lg flex-shrink-0 mt-0.5 border border-rose-400/40">
+                  <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 text-white font-mono font-black text-sm flex items-center justify-center shadow-lg flex-shrink-0 mt-0.5 border border-indigo-400/40">
                     {activeQuestionIndex + 1}
                   </div>
                   <div>
-                    <span className="text-[11px] font-mono text-rose-400 font-bold uppercase tracking-wider block mb-1">
+                    <span className="text-[11px] font-mono text-indigo-400 font-bold uppercase tracking-wider block mb-1">
                       Savol {activeQuestionIndex + 1} / {module.quizQuestions.length}
                     </span>
                     <h3 className="text-base sm:text-lg font-bold text-white leading-snug">
@@ -691,7 +696,7 @@ export default function CoursePlayer({
                 </div>
               </div>
 
-              {/* Tactile Option Cards (A, B, C, D) */}
+              {/* Tactile Option Cards (A, B, C, D) - 2-RASM TUZATILDI: NEYTRAL INDIGO/BLUE SELECTION */}
               <div className="space-y-3">
                 {currentQuestion.options.map((opt, oIdx) => {
                   const optionLetters = ['A', 'B', 'C', 'D'];
@@ -699,7 +704,7 @@ export default function CoursePlayer({
                   const isThisSelected = selectedAnswers[currentQuestion.id] === oIdx;
                   const isThisCorrect = oIdx === currentQuestion.correctAnswer;
 
-                  let cardStyle = "bg-[#070e24] border-slate-800 text-slate-200 hover:border-rose-500/60 hover:bg-slate-900/90";
+                  let cardStyle = "bg-[#070e24] border-slate-800 text-slate-200 hover:border-indigo-500/60 hover:bg-slate-900/90";
 
                   if (quizSubmitted) {
                     if (isThisCorrect) {
@@ -710,7 +715,8 @@ export default function CoursePlayer({
                       cardStyle = "bg-[#070e24]/50 border-slate-900 text-slate-500 opacity-60";
                     }
                   } else if (isThisSelected) {
-                    cardStyle = "bg-rose-600/25 border-rose-400 text-white shadow-xl shadow-rose-950/80 ring-2 ring-rose-400/40";
+                    // Sokin, ishonchli va neytral ko'k-indigo tanlov foni
+                    cardStyle = "bg-indigo-600/20 border-indigo-400 text-white shadow-xl shadow-indigo-950/80 ring-2 ring-indigo-400/30";
                   }
 
                   return (
@@ -723,7 +729,7 @@ export default function CoursePlayer({
                       <div className="flex items-center space-x-3.5 pr-3">
                         <span className={`w-7 h-7 rounded-lg font-mono font-black text-xs flex items-center justify-center flex-shrink-0 border transition-all ${
                           isThisSelected 
-                            ? 'bg-rose-600 text-white border-white/40 shadow' 
+                            ? 'bg-indigo-600 text-white border-indigo-300 shadow' 
                             : 'bg-slate-800 text-slate-400 border-slate-700'
                         }`}>
                           {letter}
@@ -767,7 +773,7 @@ export default function CoursePlayer({
                 {activeQuestionIndex < module.quizQuestions.length - 1 ? (
                   <button
                     onClick={() => setActiveQuestionIndex(prev => prev + 1)}
-                    className="px-5 py-2.5 bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-xs font-black text-white rounded-xl shadow-lg flex items-center space-x-2 cursor-pointer transition-all border border-rose-400/40"
+                    className="px-6 py-2.5 bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-500 hover:to-blue-500 text-xs font-black text-white rounded-xl shadow-lg flex items-center space-x-2 cursor-pointer transition-all border border-indigo-400/40"
                   >
                     <span>Keyingi savol</span>
                     <ArrowRight className="w-4 h-4" />

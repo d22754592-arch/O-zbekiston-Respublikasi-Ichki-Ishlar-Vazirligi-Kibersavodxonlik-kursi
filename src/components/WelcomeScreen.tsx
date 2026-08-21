@@ -9,9 +9,10 @@ import {
   Video, 
   Lock, 
   Clock, 
-  Sparkles,
-  AlertCircle,
-  FileCheck2
+  Sparkles, 
+  AlertCircle, 
+  FileCheck2, 
+  Play 
 } from 'lucide-react';
 import iibLogo from './iib.jpg';
 import IntroModal from './IntroModal';
@@ -87,24 +88,59 @@ export default function WelcomeScreen({
             </div>
           </div>
 
-          {/* Quick Action Badges */}
-          <div className="flex items-center space-x-3 w-full sm:w-auto justify-end">
+          {/* Quick Action Badges (3-RASM TUZATILDI: KATTA VA KO'ZGA TASHLANADIGAN VIDEO DARSLIK TUGMASI) */}
+          <div className="flex items-center space-x-3 w-full sm:w-auto justify-end flex-wrap gap-2">
             {isInstallable && onInstallApp && (
               <button
                 onClick={onInstallApp}
-                className="w-full sm:w-auto bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white px-4 py-2.5 rounded-xl text-xs font-bold font-mono flex items-center justify-center space-x-2 transition-all cursor-pointer shadow-lg shadow-emerald-950/80 hover:scale-105 border border-emerald-400/40"
+                className="w-full sm:w-auto bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white px-4 py-3 rounded-2xl text-xs font-bold font-mono flex items-center justify-center space-x-2 transition-all cursor-pointer shadow-lg shadow-emerald-950/80 hover:scale-105 border border-emerald-400/40"
               >
                 <span>📲 Ilovani O'rnatish</span>
               </button>
             )}
             <button
               onClick={() => setIsIntroOpen(true)}
-              className="w-full sm:w-auto bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-400/40 text-indigo-200 hover:text-white px-4 py-2.5 rounded-xl text-xs font-bold font-mono flex items-center justify-center space-x-2 transition-all cursor-pointer hover:shadow-lg hover:shadow-indigo-900/40"
+              className="w-full sm:w-auto bg-gradient-to-r from-amber-500/20 via-indigo-600/30 to-blue-600/30 hover:from-amber-500/30 hover:to-indigo-600/40 border-2 border-amber-400/70 text-amber-300 hover:text-white px-5 py-3 rounded-2xl text-xs sm:text-sm font-black font-mono flex items-center justify-center space-x-3 transition-all cursor-pointer shadow-xl shadow-amber-950/40 hover:scale-105 active:scale-95 group"
+              title="Rasmiy Video Darslikni Ko'rish"
             >
-              <Video className="w-4 h-4 text-amber-400 animate-pulse" />
-              <span>Video Instruksiya</span>
+              <div className="w-7 h-7 rounded-full bg-amber-400 text-slate-950 flex items-center justify-center font-bold shadow-md group-hover:scale-110 transition-transform">
+                <Play className="w-3.5 h-3.5 ml-0.5 fill-slate-950" />
+              </div>
+              <div className="text-left">
+                <div className="leading-none text-white font-black text-xs uppercase tracking-wide">Video Darslik</div>
+                <div className="text-[10px] text-amber-400 font-normal mt-0.5">Rasmiy Yo'riqnoma</div>
+              </div>
             </button>
           </div>
+        </div>
+
+        {/* PROMINENT VIDEO DARSLIK CALLOUT BANNER (MARKETING O'LIK HUDUDINI BARTARAF ETISH) */}
+        <div 
+          onClick={() => setIsIntroOpen(true)}
+          className="bg-gradient-to-r from-slate-900/95 via-[#0c183a] to-slate-900/95 border-2 border-amber-400/60 hover:border-amber-400 p-4 sm:p-5 rounded-2xl shadow-2xl flex items-center justify-between gap-4 cursor-pointer hover:scale-[1.01] active:scale-[0.99] transition-all duration-200 group"
+        >
+          <div className="flex items-center space-x-4">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-amber-400 via-amber-500 to-amber-600 text-slate-950 flex items-center justify-center shadow-xl shadow-amber-950/80 flex-shrink-0 group-hover:scale-110 transition-transform border border-amber-200">
+              <Play className="w-6 h-6 sm:w-7 sm:h-7 ml-1 fill-slate-950 text-slate-950" />
+            </div>
+            <div>
+              <div className="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full bg-amber-400/15 border border-amber-400/30 text-[10px] font-mono font-bold text-amber-400 uppercase tracking-wider mb-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping"></span>
+                <span>🎬 Rasmiy Video Darslik (20 soniya)</span>
+              </div>
+              <h4 className="text-sm sm:text-base font-black text-white group-hover:text-amber-300 transition-colors">
+                Kursni Boshlashdan Oldin Video Darslikni Ko'ring!
+              </h4>
+              <p className="text-[11px] sm:text-xs text-slate-300 mt-0.5 line-clamp-1">
+                IIB Kiberjinoyatlarga qarshi kurashish boshqarmasining rasmiy instruktor nutqi va ko'rsatmalari.
+              </p>
+            </div>
+          </div>
+          
+          <button className="hidden sm:flex px-5 py-2.5 bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-black uppercase tracking-wider rounded-xl shadow-md flex-shrink-0 items-center space-x-1.5 transition-all group-hover:scale-105">
+            <span>Tomosha Qilish</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
         </div>
 
         {/* 2-Column Hero & Onboarding Section */}
