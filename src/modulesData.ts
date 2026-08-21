@@ -3,15 +3,122 @@ import { ModuleData } from './types';
 export const modules: ModuleData[] = [
   {
     id: 1,
-    title: "1-Modul: Parollar xavfsizligi va boshqaruvi",
-    subtitle: "Kuchli parollar yaratish, parol iboralari va parol menejerlari",
-    description: "Ushbu modulda kuchli parollar yaratish, parol iboralari (Passphrase) tamoyili hamda Bitwarden va KeePassXC kabi parol menejerlaridan foydalanishni o'rganasiz.",
-    iconName: "KeyRound",
+    title: "1-Modul: Kiberfiribgarlardan Himoyalanishning 5 Oltin Qoidasi",
+    subtitle: "IIV rasmiy ogohlantiruvi, 5 ta oltin qoida va firibgarlarni aniqlash",
+    description: "O'zbekiston Respublikasi Ichki ishlar vazirligi tomonidan ishlab chiqilgan kiberfiribgarlardan himoyalanishning 5 ta oltin qoidasi: begona qo'ng'iroqlar, noma'lum havolalar, Telegramdagi xavfli fayllar, soxta investitsiyalar va oldindan to'lov qilmaslik tamoyillari.",
+    iconName: "ShieldAlert",
     slideCount: 10,
     slideFolder: "./slides/module_1",
     quizQuestions: [
       {
         id: 101,
+        question: "Kiberfiribgarlarning psixologik bosimiga duch kelganda IIV tomonidan tavsiya etilgan asosiy himoya tamoyili qaysi?",
+        options: [
+          "Zudlik bilan pul o'tkazish",
+          "To'xtang — O'ylang — Tekshiring",
+          "Xabarni guruhlarga tarqatish",
+          "Parolni o'chirib tashlash"
+        ],
+        correctAnswer: 1,
+        explanation: "Slayd 2 va 10 ga ko'ra: Kiberxavfsizlikning eng muhim shiori: To'xtang — O'ylang — Tekshiring."
+      },
+      {
+        id: 102,
+        question: "1-Qoida: Telefon orqali o'zini bank yoki davlat organi vakili deb tanishtirgan shaxsga qanday ma'lumotlarni aytish qat'iyan taqiqlanadi?",
+        options: [
+          "Faqat o'z ism-familiyasini",
+          "PIN-kod, SMS-tasdiq kodi, parollar va pasport ma'lumotlarini",
+          "Faqat ob-havo haqida",
+          "Tashkilotning rasmiy manzilini"
+        ],
+        correctAnswer: 1,
+        explanation: "Slayd 3 ga ko'ra: Hech bir rasmiy tashkilot telefon orqali PIN-kod, SMS-kod yoki parollarni so'ramaydi."
+      },
+      {
+        id: 103,
+        question: "2-Qoida: Shubhali havola (link) kelganda uni bosishdan oldin birinchi navbatda nima tekshirilishi shart?",
+        options: [
+          "Kompyuter monitori",
+          "Havolaning domen manzili (URL) rasmiy saytga mosligi",
+          "Telefon quvvati",
+          "Internet tezligi"
+        ],
+        correctAnswer: 1,
+        explanation: "Slayd 4 ga ko'ra: Havolani bosishdan oldin uning domen manzilini sinchkovlik bilan tekshirish shart."
+      },
+      {
+        id: 104,
+        question: "3-Qoida: Telegramda notanish yoki tanish akkauntdan 'rasmingiz tarqaldi', 'sovrin yutdingiz' deb yuborilgan APK yoki ZIP fayllar bo'yicha qat'iy qoida qanday?",
+        options: [
+          "Faylni zudlik bilan ochib ko'rish",
+          "Faylni ochmaslik, yuboruvchini boshqa kanal orqali tasdiqlash va xavfli bo'lsa darhol o'chirish",
+          "Faylni barcha tanishlarga ulashish",
+          "Telefonni qayta yoqish"
+        ],
+        correctAnswer: 1,
+        explanation: "Slayd 5 ga ko'ra: APK, EXE, ZIP fayllar zararli dastur bo'lishi mumkin. Faylni ochmasdan tekshirish va o'chirish shart."
+      },
+      {
+        id: 105,
+        question: "4-Qoida: 'Pulingizni 2 barobarga ko'paytirib beraman', kafolatlangan katta daromad yoki soxta investitsiya takliflari nimaning belgisidir?",
+        options: [
+          "Haqiqiy davlat subsidiyasi",
+          "Klassik kiberfiribgarlikning qizil bayrog'i (aldov)",
+          "Xayriya aksiyasi",
+          "Bank krediti"
+        ],
+        correctAnswer: 1,
+        explanation: "Slayd 6 ga ko'ra: Hech kim pulingizni osonlikcha ko'paytirib bermaydi. Kafolatlangan katta daromad va'dasi — bu 100% firibgarlikdir."
+      },
+      {
+        id: 106,
+        question: "5-Qoida: Onlayn savdoda (masalan, OLX yoki Telegram bozorlarida) firibgarlarga aldanib qolmaslikning oltin qoidasi qanday?",
+        options: [
+          "Oldindan to'liq to'lov qilish",
+          "Tovarni ko'rmay, tekshirmay va qo'lga yetmasdan turib oldindan pul o'tkazmaslik",
+          "Karta PIN-kodini sotuvchiga yuborish",
+          "Har qanday havolaga karta ma'lumotlarini kiritish"
+        ],
+        correctAnswer: 1,
+        explanation: "Slayd 7 ga ko'ra: Mahsulot qo'lingizga tegmasdan turib hech qachon oldindan to'lov qilmang."
+      },
+      {
+        id: 107,
+        question: "Firibgarlarning jabrlanuvchini tez xatoga yo'llashdagi asosiy psixologik taktikasi nima?",
+        options: [
+          "Kitob o'qishni tavsiya qilish",
+          "'Hozir harakat qilmasangiz hisobingiz bloklanadi' deb shoshiltirish va qo'rqitish",
+          "Uzoq o'ylab qaror chiqarishni so'rash",
+          "Rasm chizish"
+        ],
+        correctAnswer: 1,
+        explanation: "Slayd 8 ga ko'ra: Firibgarlar shoshiltiradi va qo'rqitadi, maqsad — sizni tekshirishga vaqt topolmasdan xato qilishga undash."
+      },
+      {
+        id: 108,
+        question: "Kiberfiribgarlarga duch kelganda yoki zarar ko'rganda dalillarni (skrinshotlarni) saqlab qaysi IIV ishonch telefoniga murojaat qilinadi?",
+        options: [
+          "101",
+          "102",
+          "1102 — IIV Ishonch telefoni",
+          "104"
+        ],
+        correctAnswer: 2,
+        explanation: "Slayd 9 ga ko'ra: 1102 — O'zbekiston Respublikasi IIV Ishonch telefoni orqali kiberjinoyatlar bo'yicha murojaat qilinadi."
+      }
+    ]
+  },
+  {
+    id: 2,
+    title: "2-Modul: Parollar xavfsizligi va boshqaruvi",
+    subtitle: "Kuchli parollar yaratish, parol iboralari va parol menejerlari",
+    description: "Ushbu modulda kuchli parollar yaratish, parol iboralari (Passphrase) tamoyili hamda Bitwarden va KeePassXC kabi parol menejerlaridan foydalanishni o'rganasiz.",
+    iconName: "KeyRound",
+    slideCount: 10,
+    slideFolder: "./slides/module_2",
+    quizQuestions: [
+      {
+        id: 201,
         question: "Slaydga ko'ra, kuchli parol kamida nechta belgidan iborat bo'lishi shart?",
         options: [
           "Kamida 6 ta belgi",
@@ -23,7 +130,7 @@ export const modules: ModuleData[] = [
         explanation: "Slayd 3 ga ko'ra: Parol uzunligi kamida 12 ta belgi bo'lishi shart. Qancha uzun bo'lsa, parol shuncha mustahkam bo'ladi."
       },
       {
-        id: 102,
+        id: 202,
         question: "Zaif parollar (masalan: '123456', 'password') qaysi hujum turlari orqali soniyalar ichida buzilishi mumkin?",
         options: [
           "Brute-force va Dictionary (lug'at) hujumlari",
@@ -35,7 +142,7 @@ export const modules: ModuleData[] = [
         explanation: "Slayd 4 ga ko'ra: Zaif parollar brute-force va dictionary hujumlari orqali avtomatik dasturlarda soniyalar ichida buziladi."
       },
       {
-        id: 103,
+        id: 203,
         question: "Slaydda tavsiya etilgan 'Tasodifiy so'zlar kombinatsiyasi' (Passphrase) paroli qanday ko'rinishda bo'ladi?",
         options: [
           "admin12345",
@@ -47,7 +154,7 @@ export const modules: ModuleData[] = [
         explanation: "Slayd 5 da keltirilgan misol: Bir-biri bilan bog'liq bo'lmagan 4-6 ta so'zni birlashtirish (masalan: kitob-osmon-qush-daryo) juda kuchli va esda qolishi oson."
       },
       {
-        id: 104,
+        id: 204,
         question: "KeePassXC dasturining Bitwarden dasturidan asosiy texnik farqi nimada?",
         options: [
           "KeePassXC parollarni internetga chiqarmasdan to'liq lokal (offline) kompyuterda shifrlab saqlaydi",
@@ -59,7 +166,7 @@ export const modules: ModuleData[] = [
         explanation: "Slayd 6 ga ko'ra: KeePassXC — lokal (offline) parol menejeri, Bitwarden esa bulutli sinxronizatsiyaga ega."
       },
       {
-        id: 105,
+        id: 205,
         question: "Kuchli parol tarkibida qanday belgilar aralashmasi bo'lishi kerak?",
         options: [
           "Faqat kichik harflar va raqamlar",
@@ -71,7 +178,7 @@ export const modules: ModuleData[] = [
         explanation: "Slayd 3 ga ko'ra: Murakkablik uchun katta/kichik harflar, raqamlar va maxsus belgilar (@, #, $, !) aralashmasi shart."
       },
       {
-        id: 106,
+        id: 206,
         question: "Bir xil parolni barcha ijtimoiy tarmoq va ishchi akkauntlarda ishlatish qanday oqibatga olib keladi?",
         options: [
           "Kompyuter xotirasi to'lib qoladi",
@@ -83,7 +190,7 @@ export const modules: ModuleData[] = [
         explanation: "Slayd 7 ga ko'ra: Parollarni takrorlash barcha akkauntlarni bitta zaiflik bilan xavf ostiga qo'yadi."
       },
       {
-        id: 107,
+        id: 207,
         question: "Parollarni xavfsiz saqlash va eslab qolish majburiyatidan qutulish uchun nima ishlatiladi?",
         options: [
           "Ekranga stiker qog'oz yopishtirish",
@@ -95,7 +202,7 @@ export const modules: ModuleData[] = [
         explanation: "Slayd 6 ga ko'ra: Parol menejerlari barcha murakkab parollarni shifrlangan ma'lumotlar bazasida saqlaydi."
       },
       {
-        id: 108,
+        id: 208,
         question: "Akkaunt xavfsizligini ta'minlashda birinchi mudofaa chizig'i (First line of defense) nima hisoblanadi?",
         options: [
           "Monitor o'lchami",
@@ -109,642 +216,642 @@ export const modules: ModuleData[] = [
     ]
   },
   {
-    id: 2,
-    title: "2-Modul: Ikki Faktorli Autentifikatsiya (2FA)",
+    id: 3,
+    title: "3-Modul: Ikki Faktorli Autentifikatsiya (2FA)",
     subtitle: "2FA, Authenticator ilovalari va zaxira kalitlari",
     description: "Ushbu modulda ikki faktorli autentifikatsiya (2FA) ishlash tamoyili, Authenticator ilovalari va zaxira kalitlari haqida bilim olasiz.",
     iconName: "ShieldCheck",
     slideCount: 10,
-    slideFolder: "./slides/module_2",
+    slideFolder: "./slides/module_3",
     quizQuestions: [
       {
-        id: 201,
+        id: 301,
         question: "Ikki faktorli autentifikatsiya (2FA) qaysi ikki bosqichga asoslanadi?",
         options: [
-      "Faqat ikkita har xil parol",
-      "Biror narsa bilasiz (parol) va biror narsaga egasiz (kod/qurilma)",
-      "Faqat ikkita har xil email",
-      "Ism va familiya"
-    ],
+          "Faqat ikkita har xil parol",
+          "Biror narsa bilasiz (parol) va biror narsaga egasiz (kod/qurilma)",
+          "Faqat ikkita har xil email",
+          "Ism va familiya"
+        ],
         correctAnswer: 1,
         explanation: "Slayd 2 ga ko'ra: 2FA — biror narsa bilasiz (parol) va biror narsaga egasiz (bir martalik kod yoki qurilma) tamoyiliga asoslanadi."
       },
       {
-        id: 202,
+        id: 302,
         question: "Slaydga ko'ra, SMS orqali keladigan 2FA kodi qanday kiber-tahdidga zaif hisoblanadi?",
         options: [
-      "Faqat Wi-Fi o'chib qolishiga",
-      "Faqat kompyuter ekranining sinishiga",
-      "SIM-swapping va SMS ushlab qolish hujumlari",
-      "Hech qanday zaifligi yo'q"
-    ],
+          "Faqat Wi-Fi o'chib qolishiga",
+          "Faqat kompyuter ekranining sinishiga",
+          "SIM-swapping va SMS ushlab qolish hujumlari",
+          "Hech qanday zaifligi yo'q"
+        ],
         correctAnswer: 2,
         explanation: "Slayd 4 ga ko'ra: SMS kodlar SIM-swapping va simsiz aloqada SMS ushlab qolish hujumlariga zaifdir."
       },
       {
-        id: 203,
+        id: 303,
         question: "Google Authenticator va Microsoft Authenticator ilovalarining SMS dan ustunligi nimada?",
         options: [
-      "Ular parollarni o'chiradi",
-      "Ular pul beradi",
-      "Ular SMS jo'natadi",
-      "Ular offline ishlaydi va vaqtga asoslangan (TOTP) kodlarni xavfsiz generatsiya qiladi"
-    ],
+          "Ular parollarni o'chiradi",
+          "Ular pul beradi",
+          "Ular SMS jo'natadi",
+          "Ular offline ishlaydi va vaqtga asoslangan (TOTP) kodlarni xavfsiz generatsiya qiladi"
+        ],
         correctAnswer: 3,
         explanation: "Slayd 4 ga ko'ra: Authenticator ilovalari internetga bog'lanmagan holda vaqtga asoslangan offline TOTP kodlar yaratadi."
       },
       {
-        id: 204,
+        id: 304,
         question: "2FA yoqilganda beriladigan 'Zaxira kalitlari' (Backup codes) qayerda saqlanishi kerak?",
         options: [
-      "Xavfsiz, offline joyda (masalan, qog'ozda yoki shifrlangan faylda)",
-      "Ijtimoiy tarmoqdagi ochiq postda",
-      "Telefon galereyasida ochiq rasmda",
-      "Ekranga stiker qilib yopishtirib"
-    ],
+          "Xavfsiz, offline joyda (masalan, qog'ozda yoki shifrlangan faylda)",
+          "Ijtimoiy tarmoqdagi ochiq postda",
+          "Telefon galereyasida ochiq rasmda",
+          "Ekranga stiker qilib yopishtirib"
+        ],
         correctAnswer: 0,
         explanation: "Slayd 5 ga ko'ra: Zaxira kalitlari bir martalik bo'lib, telefon yo'qolganda kirishni tiklash uchun offline xavfsiz joyda saqlanadi."
       },
       {
-        id: 205,
+        id: 305,
         question: "Telegramda 2FA ni yoqish uchun ilovaning qaysi bo'limiga kiriladi?",
         options: [
-      "Calls > Recent",
-      "Chats > Archive",
-      "Settings > Privacy and Security > Two-Step Verification (Bulutli parol)",
-      "Stickers and Emoji"
-    ],
+          "Calls > Recent",
+          "Chats > Archive",
+          "Settings > Privacy and Security > Two-Step Verification (Bulutli parol)",
+          "Stickers and Emoji"
+        ],
         correctAnswer: 2,
         explanation: "Slayd 6 ga ko'ra: Telegramda 2FA Sozlamalar > Maxfiylik va Xavfsizlik > Ikki bosqichli tasdiqlash bo'limidan yoqiladi."
       },
       {
-        id: 206,
+        id: 306,
         question: "Telegramdagi 'Active Sessions' (Faol seanslar) bo'limi nima uchun tekshirib turiladi?",
         options: [
-      "Akkauntingizga kirgan notanish qurilmalarni aniqlash va ularni zudlik bilan o'chirish uchun",
-      "Musiqa tinglash uchun",
-      "Rasmlar hajmini kichraytirish uchun",
-      "Stikerlar yuklash uchun"
-    ],
+          "Akkauntingizga kirgan notanish qurilmalarni aniqlash va ularni zudlik bilan o'chirish uchun",
+          "Musiqa tinglash uchun",
+          "Rasmlar hajmini kichraytirish uchun",
+          "Stikerlar yuklash uchun"
+        ],
         correctAnswer: 0,
         explanation: "Slayd 5 (Telegram) ga ko'ra: Faol seanslarda notanish qurilmalar yoki joylashuvlar aniqlansa, seans darhol yakunlanadi."
       },
       {
-        id: 207,
+        id: 307,
         question: "Instagramda kirish joylari va qurilmalarni tekshirish uchun qaysi bo'limga kiriladi?",
         options: [
-      "Edit Profile > Bio",
-      "Settings > Security > Login Activity",
-      "Close Friends",
-      "Notifications > Pause All"
-    ],
+          "Edit Profile > Bio",
+          "Settings > Security > Login Activity",
+          "Close Friends",
+          "Notifications > Pause All"
+        ],
         correctAnswer: 1,
         explanation: "Slayd 7 (Instagram) ga ko'ra: Login Activity bo'limida barcha shubhali kirishlar ko'rinadi."
       },
       {
-        id: 208,
+        id: 308,
         question: "Telefoningizga kutilmaganda 2FA SMS kodi kelsa va birov uni so'rasa nima qilish kerak?",
         options: [
-      "SMS ni guruhga tashlash kerak",
-      "Zudlik bilan berish kerak",
-      "Do'stlarga ulashish kerak",
-      "Hech qachon va hech kimga 2FA kodini bermaslik kerak"
-    ],
+          "SMS ni guruhga tashlash kerak",
+          "Zudlik bilan berish kerak",
+          "Do'stlarga ulashish kerak",
+          "Hech qachon va hech kimga 2FA kodini bermaslik kerak"
+        ],
         correctAnswer: 3,
         explanation: "Slayd 8 ga ko'ra: SMS 2FA kodini birovga berish akkauntdan to'liq mahrum bo'lishga olib keladi."
       }
     ]
   },
   {
-    id: 3,
-    title: "3-Modul: Ijtimoiy muhandislik va psixologik tuzoqlar",
+    id: 4,
+    title: "4-Modul: Ijtimoiy muhandislik va psixologik tuzoqlar",
     subtitle: "Manipulyatsiya usullari, shoshilinchlik va ishonchni suiiste'mol qilish",
     description: "Ushbu modulda ijtimoiy muhandislik hujumlarining 4 ta asosiy psixologik quroli va ulardan himoyalanish usullarini o'rganasiz.",
     iconName: "UserX",
     slideCount: 10,
-    slideFolder: "./slides/module_3",
+    slideFolder: "./slides/module_4",
     quizQuestions: [
       {
-        id: 301,
+        id: 401,
         question: "Ijtimoiy muhandislik (Social Engineering) ning asosiy ta'rifi nima?",
         options: [
-      "Kompyuter platasini kavsharlash",
-      "Texnik zaifliklardan emas, balki inson psixologiyasidan foydalanib maxfiy ma'lumotlarni qo'lga kiritish usuli",
-      "Dasturlash tillarini o'rganish",
-      "Tarmoq kabelini tortish"
-    ],
+          "Kompyuter platasini kavsharlash",
+          "Texnik zaifliklardan emas, balki inson psixologiyasidan foydalanib maxfiy ma'lumotlarni qo'lga kiritish usuli",
+          "Dasturlash tillarini o'rganish",
+          "Tarmoq kabelini tortish"
+        ],
         correctAnswer: 1,
         explanation: "Slayd 1-2 ga ko'ra: Ijtimoiy muhandislik — inson psixologiyasidan (ishonch, qo'rquv, shoshqaloqlik) foydalanadigan hujumdir."
       },
       {
-        id: 302,
+        id: 402,
         question: "Psixologik qurol #1 — 'Shoshilinchlik' (Urgency) taktikasi qanday ishlaydi?",
         options: [
-      "Kitob o'qishni so'raydi",
-      "Sekin qaror qabul qilishni maslahat beradi",
-      "'Hozir harakat qilmasangiz, 10 daqiqada o'chiriladi!' deb mantiqiy o'ylashga vaqt qoldirmaydi",
-      "Faqat sovg'alar beradi"
-    ],
+          "Kitob o'qishni so'raydi",
+          "Sekin qaror qabul qilishni maslahat beradi",
+          "'Hozir harakat qilmasangiz, 10 daqiqada o'chiriladi!' deb mantiqiy o'ylashga vaqt qoldirmaydi",
+          "Faqat sovg'alar beradi"
+        ],
         correctAnswer: 2,
         explanation: "Slayd 4 ga ko'ra: Shoshilinchlik vaqt bosimini sun'iy yaratib, qurbonni diqqatni chalg'itib xatoga undaydi."
       },
       {
-        id: 303,
+        id: 403,
         question: "Psixologik qurol #2 — 'Qo'rquv' (Fear) ta'siri ostida inson miyasida nima sodir bo'ladi?",
         options: [
-      "Parol avtomatik o'zgaradi",
-      "Mantiqiy fikrlash 10 baravar oshadi",
-      "Kompyuter o'zi o'chadi",
-      "Miya 'kurash yoki qochish' rejimiga o'tadi va tanqidiy tahlil hamda mantiqiy fikrlash susayadi"
-    ],
+          "Parol avtomatik o'zgaradi",
+          "Mantiqiy fikrlash 10 baravar oshadi",
+          "Kompyuter o'zi o'chadi",
+          "Miya 'kurash yoki qochish' rejimiga o'tadi va tanqidiy tahlil hamda mantiqiy fikrlash susayadi"
+        ],
         correctAnswer: 3,
         explanation: "Slayd 5 ga ko'ra: Qo'rquv hissiy bosim yaratib, mantiqiy fikrlashni to'xtatadi va shoshqaloq qaror qildiradi."
       },
       {
-        id: 304,
+        id: 404,
         question: "Psixologik qurol #3 — 'Ochko'zlik' (Greed) tuzog'ida qanday xabarlar ishlatiladi?",
         options: [
-      "'Siz 1,000,000 so'm yutdingiz!' yoki '90% chegirma!' kabi soxta mukofot va'dalari",
-      "Jarima to'lash haqida bildirishnoma",
-      "Kompyuterni o'chirish buyrug'i",
-      "Ob-havo ma'lumoti"
-    ],
+          "'Siz 1,000,000 so'm yutdingiz!' yoki '90% chegirma!' kabi soxta mukofot va'dalari",
+          "Jarima to'lash haqida bildirishnoma",
+          "Kompyuterni o'chirish buyrug'i",
+          "Ob-havo ma'lumoti"
+        ],
         correctAnswer: 0,
         explanation: "Slayd 6 ga ko'ra: Ochko'zlik soxta sovrinlar va katta foyda va'dasi bilan ehtiyotkorlikni susaytiradi."
       },
       {
-        id: 305,
+        id: 405,
         question: "Psixologik qurol #4 — 'Obro'' (Authority) taktikasi nima?",
         options: [
-      "Virus yaratish",
-      "Faqat do'stlar nomidan yozish",
-      "Jinoyatchi o'zini bank xodimi, IT mutaxassisi yoki davlat amaldori sifatida ko'rsatib itoat qildirishga urinadi",
-      "Reklama tarqatish"
-    ],
+          "Virus yaratish",
+          "Faqat do'stlar nomidan yozish",
+          "Jinoyatchi o'zini bank xodimi, IT mutaxassisi yoki davlat amaldori sifatida ko'rsatib itoat qildirishga urinadi",
+          "Reklama tarqatish"
+        ],
         correctAnswer: 2,
         explanation: "Slayd 7 ga ko'ra: Odamlar rasmiy shaxslarga avtomatik itoat etishga moyilligidan foydalaniladi."
       },
       {
-        id: 306,
+        id: 406,
         question: "Telefon qo'ng'irog'i orqali o'zini bank yoki politsiya xodimi deb taqdim etuvchi firibgarlik turi nima deyiladi?",
         options: [
-      "Vishing (Ovozli firibgarlik)",
-      "Smishing",
-      "Doxxing",
-      "Skimming"
-    ],
+          "Vishing (Ovozli firibgarlik)",
+          "Smishing",
+          "Doxxing",
+          "Skimming"
+        ],
         correctAnswer: 0,
         explanation: "Slayd 8 ga ko'ra: Vishing — telefon qo'ng'iroqlari orqali soxta shaxsiyat bilan ma'lumot o'g'irlash."
       },
       {
-        id: 307,
+        id: 407,
         question: "Zararli dastur yuklatish uchun ko'chada tashlab ketilgan shubhali USB-fleshka qaysi usulga kiradi?",
         options: [
-      "Phishing",
-      "Baiting (Xo'rak tashlash)",
-      "Vishing",
-      "Passphrase"
-    ],
+          "Phishing",
+          "Baiting (Xo'rak tashlash)",
+          "Vishing",
+          "Passphrase"
+        ],
         correctAnswer: 1,
         explanation: "Slayd 8 ga ko'ra: Baiting — qiziqish uyg'otuvchi fiziki vositalar (USB) orqali kiberhujum qilish."
       },
       {
-        id: 308,
+        id: 408,
         question: "Ijtimoiy muhandislik hujumlarining birinchi bosqichi nima hisoblanadi?",
         options: [
-      "Kompyuterni buzish",
-      "Zudlik bilan pul talab qilish",
-      "Parolni o'zgartirish",
-      "Ma'lumot yig'ish — qurbonni o'rganish va zaif joylarni aniqlash"
-    ],
+          "Kompyuterni buzish",
+          "Zudlik bilan pul talab qilish",
+          "Parolni o'zgartirish",
+          "Ma'lumot yig'ish — qurbonni o'rganish va zaif joylarni aniqlash"
+        ],
         correctAnswer: 3,
         explanation: "Slayd 3 ga ko'ra: Birinchi bosqich — Ma'lumot yig'ish va qurbonning zaif joylarini o'rganishdir."
       }
     ]
   },
   {
-    id: 4,
-    title: "4-Modul: Shaxsiy ma'lumotlar va ijtimoiy tarmoqlar xavfsizligi",
+    id: 5,
+    title: "5-Modul: Shaxsiy ma'lumotlar va ijtimoiy tarmoqlar xavfsizligi",
     subtitle: "Pasport, JSHSHIR (PINFL), Doxxing va maxfiylik",
     description: "Ushbu modulda pasport va PINFL ma'lumotlarini himoyalash, Doxxing xavfi hamda ijtimoiy tarmoqlardagi maxfiylik qoidalarini o'rganasiz.",
     iconName: "Lock",
     slideCount: 10,
-    slideFolder: "./slides/module_4",
+    slideFolder: "./slides/module_5",
     quizQuestions: [
       {
-        id: 401,
+        id: 501,
         question: "JSHSHIR (PINFL) nima va u nechta raqamli noyob identifikatordir?",
         options: [
-      "8 raqamli karta PIN kodi",
-      "14 raqamli fuqarolik identifikatsiyalash kodi",
-      "16 raqamli karta raqami",
-      "4 raqamli SMS kod"
-    ],
+          "8 raqamli karta PIN kodi",
+          "14 raqamli fuqarolik identifikatsiyalash kodi",
+          "16 raqamli karta raqami",
+          "4 raqamli SMS kod"
+        ],
         correctAnswer: 1,
         explanation: "Slayd 3 ga ko'ra: JSHSHIR (PINFL) — har bir fuqaroga beriladigan 14 raqamli noyob identifikator."
       },
       {
-        id: 402,
+        id: 502,
         question: "Pasport rasmi yoki PINFL raqami internetga tushib qolsa firibgarlar undan qanday foydalanishi mumkin?",
         options: [
-      "Internet tezligini oshirish uchun",
-      "Faqat ob-havoni ko'rish uchun",
-      "Soxta hujjat yasash, bank kreditlari olish va shartnomalar tuzish uchun",
-      "Hech narsada foydalana olmaydi"
-    ],
+          "Internet tezligini oshirish uchun",
+          "Faqat ob-havoni ko'rish uchun",
+          "Soxta hujjat yasash, bank kreditlari olish va shartnomalar tuzish uchun",
+          "Hech narsada foydalana olmaydi"
+        ],
         correctAnswer: 2,
         explanation: "Slayd 4 ga ko'ra: Pasport va PINFL soxta kredit va moliyaviy aldovlar uchun asosiy vositadir."
       },
       {
-        id: 403,
+        id: 503,
         question: "'Doxxing' (Doksing) atamasi nimani anglatadi?",
         options: [
-      "Dasturiy ta'minotni yangilash",
-      "Kompyuterni antivirus bilan tozalash",
-      "Hujjatlarni chop etish",
-      "Shaxsning shaxsiy ma'lumotlarini uning roziligisiz ommaga oshkor qilish"
-    ],
+          "Dasturiy ta'minotni yangilash",
+          "Kompyuterni antivirus bilan tozalash",
+          "Hujjatlarni chop etish",
+          "Shaxsning shaxsiy ma'lumotlarini uning roziligisiz ommaga oshkor qilish"
+        ],
         correctAnswer: 3,
         explanation: "Slayd 5 ga ko'ra: Doxxing — shaxsiy ma'lumotlarni roziliksiz tarqatib ta'qib va zarar yetkazishdir."
       },
       {
-        id: 404,
+        id: 504,
         question: "Doxxing hujumining salbiy oqibatlariga qaysilar kiradi?",
         options: [
-      "Ta'qib, tahdidlar, psixologik zarar va obro'ga putur yetish",
-      "Telefon quvvati oshishi",
-      "Faqat layklar ko'payishi",
-      "Internet tekin bo'lishi"
-    ],
+          "Ta'qib, tahdidlar, psixologik zarar va obro'ga putur yetish",
+          "Telefon quvvati oshishi",
+          "Faqat layklar ko'payishi",
+          "Internet tekin bo'lishi"
+        ],
         correctAnswer: 0,
         explanation: "Slayd 5 ga ko'ra: Doxxing ta'qib, tahdid va jiddiy ruhiy va jismoniy zarar keltiradi."
       },
       {
-        id: 405,
+        id: 505,
         question: "Ijtimoiy tarmoqlarda eng ko'p uchraydigan xavfli xatolardan biri nima?",
         options: [
-      "Profil rasmini yangilash",
-      "Tungi rejimni yoqish",
-      "Pasport va shaxsiy hujjatlar suratlarini ochiq postlarga yuklash",
-      "Musiqa ulashish"
-    ],
+          "Profil rasmini yangilash",
+          "Tungi rejimni yoqish",
+          "Pasport va shaxsiy hujjatlar suratlarini ochiq postlarga yuklash",
+          "Musiqa ulashish"
+        ],
         correctAnswer: 2,
         explanation: "Slayd 7-9 da ko'rsatilganidek: Shaxsiy hujjatlarni internetda ulashish og'ir oqibatlarga olib keladi."
       },
       {
-        id: 406,
+        id: 506,
         question: "Ijtimoiy tarmoqlardagi 'Maxfiylik Sozlamalari' (Privacy Settings) nima uchun kerak?",
         options: [
-      "Post va ma'lumotlarni notanish shaxslardan yashirish va faqat do'stlar uchun cheklash",
-      "Klaviatura rangini o'zgartirish",
-      "Kamera sifatini oshirish",
-      "Parolni bekor qilish"
-    ],
+          "Post va ma'lumotlarni notanish shaxslardan yashirish va faqat do'stlar uchun cheklash",
+          "Klaviatura rangini o'zgartirish",
+          "Kamera sifatini oshirish",
+          "Parolni bekor qilish"
+        ],
         correctAnswer: 0,
         explanation: "Slayd 4 (Telegram/Instagram) ga ko'ra: Maxfiylik sozlamalari shaxsiy doirani himoyalaydi."
       },
       {
-        id: 407,
+        id: 507,
         question: "Shaxsiy ma'lumotlar xavfsizligining oltin qoidasi nima?",
         options: [
-      "Har kuni pasportni almashtirish",
-      "Pasport, PINFL va karta ma'lumotlarini hech qachon tarmoqda ochiq ulashmaslik",
-      "Telefonni o'chirib qo'yish",
-      "Faqat bitta paroldan foydalanish"
-    ],
+          "Har kuni pasportni almashtirish",
+          "Pasport, PINFL va karta ma'lumotlarini hech qachon tarmoqda ochiq ulashmaslik",
+          "Telefonni o'chirib qo'yish",
+          "Faqat bitta paroldan foydalanish"
+        ],
         correctAnswer: 1,
         explanation: "Slayd 10 ga ko'ra: Pasportingiz va PINFL raqamingizni hech kim bilan ulashmang."
       },
       {
-        id: 408,
+        id: 508,
         question: "Slayddagi hayotiy misolda foydalanuvchi pasport suratini ulashgach nima sodir bo'lgan?",
         options: [
-      "Hech narsa bo'lmagan",
-      "Unga pul sovg'a qilishgan",
-      "Akkaunti bloklangan",
-      "Firibgarlar uning nomidan kredit rasmiylashtirgan"
-    ],
+          "Hech narsa bo'lmagan",
+          "Unga pul sovg'a qilishgan",
+          "Akkaunti bloklangan",
+          "Firibgarlar uning nomidan kredit rasmiylashtirgan"
+        ],
         correctAnswer: 3,
         explanation: "Slayd 9 dagi real holat: Pasport surati tarqalgach, firibgarlar u inson nomidan kredit olgan."
       }
     ]
   },
   {
-    id: 5,
-    title: "5-Modul: Bank kartalari va moliyaviy kiber-firibgarlik",
+    id: 6,
+    title: "6-Modul: Bank kartalari va moliyaviy kiber-firibgarlik",
     subtitle: "Skimming, OTP firibgarligi va soxta investitsiya platformalari",
     description: "Ushbu modulda ATM skimming, OTP kodlar o'g'riligi, Telegram soxta treyderlari va STOP metodikasi bo'yicha bilimlaringizni sinaysiz.",
     iconName: "CreditCard",
     slideCount: 10,
-    slideFolder: "./slides/module_5",
+    slideFolder: "./slides/module_6",
     quizQuestions: [
       {
-        id: 501,
+        id: 601,
         question: "ATM yoki POS-terminalga maxsus noqonuniy qurilma o'rnatib karta ma'lumotlarini o'g'irlash usuli nima deyiladi?",
         options: [
-      "Phishing",
-      "Skimming Hujumi",
-      "Doxxing",
-      "Passphrase"
-    ],
+          "Phishing",
+          "Skimming Hujumi",
+          "Doxxing",
+          "Passphrase"
+        ],
         correctAnswer: 1,
         explanation: "Slayd 2 ga ko'ra: Skimming — ATM qurilmalariga yashirin o'quvchi o'rnatib karta va PIN nusxalashdir."
       },
       {
-        id: 502,
+        id: 602,
         question: "Bank kartasining orqa tarafidagi 3 xonali maxfiy kod nima deyiladi?",
         options: [
-      "OTP kod",
-      "PINFL",
-      "CVV / CVC kodi",
-      "IP manzil"
-    ],
+          "OTP kod",
+          "PINFL",
+          "CVV / CVC kodi",
+          "IP manzil"
+        ],
         correctAnswer: 2,
         explanation: "Slayd 3 ga ko'ra: Karta orqasidagi CVV raqami onlayn to'lovlarni tasdiqlash vositasidir."
       },
       {
-        id: 503,
+        id: 603,
         question: "Soxta investitsiya platformalari va moliyaviy piramidalarning asosiy belgilariga qaysilar kiradi?",
         options: [
-      "Past daromad stavkasi",
-      "Rasmiy bank litsenziyasi va davlat kafolati",
-      "Faqat rasmiy davlat sayti bo'lishi",
-      "Litsenziyasiz platforma, Piramidasimon tuzilma va 'Kafolatlangan daromad' va'dasi"
-    ],
+          "Past daromad stavkasi",
+          "Rasmiy bank litsenziyasi va davlat kafolati",
+          "Faqat rasmiy davlat sayti bo'lishi",
+          "Litsenziyasiz platforma, Piramidasimon tuzilma va 'Kafolatlangan daromad' va'dasi"
+        ],
         correctAnswer: 3,
         explanation: "Slayd 4 ga ko'ra: Litsenziyasiz faoliyat va 100% kafolatlangan daromad va'dasi piramida belgisidir."
       },
       {
-        id: 504,
+        id: 604,
         question: "Telegramdagi soxta treyderlar ishonch qozonish uchun qanday hiylalardan foydalanadi?",
         options: [
-      "Soxta daromad skrinshotlari, admin firibgarligi va pullik signal guruhlari",
-      "Rasmiy hujjatlar ko'rsatish",
-      "Shartnoma tuzish",
-      "Bank litsenziyasini taqdim etish"
-    ],
+          "Soxta daromad skrinshotlari, admin firibgarligi va pullik signal guruhlari",
+          "Rasmiy hujjatlar ko'rsatish",
+          "Shartnoma tuzish",
+          "Bank litsenziyasini taqdim etish"
+        ],
         correctAnswer: 0,
         explanation: "Slayd 5 ga ko'ra: Soxta skrinshotlar va fake botlar orqali odamlar aldab kelinadi."
       },
       {
-        id: 505,
+        id: 605,
         question: "Firibgarlikni aniqlashning 4 bosqichli metodikasi tartibi qanday?",
         options: [
-      "Faqat to'lov qil",
-      "To'lov qil -> Keyin tekshir -> Afsuslan",
-      "TASDIQLA -> TAQQOSLA -> TEKSHIR -> TO'LOV QIL",
-      "Do'stingga ayt -> To'lov qil"
-    ],
+          "Faqat to'lov qil",
+          "To'lov qil -> Keyin tekshir -> Afsuslan",
+          "TASDIQLA -> TAQQOSLA -> TEKSHIR -> TO'LOV QIL",
+          "Do'stingga ayt -> To'lov qil"
+        ],
         correctAnswer: 2,
         explanation: "Slayd 7 ga ko'ra: Tasdiqla, taqqosla va tekshir bosqichlaridan o'tgachgina to'lov qilinadi."
       },
       {
-        id: 506,
+        id: 606,
         question: "Qaysi va'da 100% moliyaviy firibgarlikning yaqqol belgisidir?",
         options: [
-      "'100% daromad kafolati' va 'Faqat bugun ulgurib qoling!'",
-      "Xavf xatarlar haqida ogohlantirish",
-      "Shartnoma tuzish taklifi",
-      "Bank litsenziyasi raqami"
-    ],
+          "'100% daromad kafolati' va 'Faqat bugun ulgurib qoling!'",
+          "Xavf xatarlar haqida ogohlantirish",
+          "Shartnoma tuzish taklifi",
+          "Bank litsenziyasi raqami"
+        ],
         correctAnswer: 0,
         explanation: "Slayd 6 ga ko'ra: Hech bir qonuniy investitsiya 100% kafolatlangan daromad bermaydi."
       },
       {
-        id: 507,
+        id: 607,
         question: "Bank kartasidan SMS orqali keladigan OTP bir martalik parolni kimgadir aytish mumkinmi?",
         options: [
-      "Faqat bank xodimi so'rasa mumkin",
-      "ASLO MUMKIN ERMAS! U faqat sizga tegishli shaxsiy kalit",
-      "Faqat telegram adminga mumkin",
-      "Ha, agar u do'stingiz bo'lsa"
-    ],
+          "Faqat bank xodimi so'rasa mumkin",
+          "ASLO MUMKIN EMAS! U faqat sizga tegishli shaxsiy kalit",
+          "Faqat telegram adminga mumkin",
+          "Ha, agar u do'stingiz bo'lsa"
+        ],
         correctAnswer: 1,
         explanation: "Slayd 9 ga ko'ra: OTP SMS kodini hech kimga berish mumkin emas."
       },
       {
-        id: 508,
+        id: 608,
         question: "Onlayn kartangiz shubhali saytda osilib qolganini bilsangiz nima qilish kerak?",
         options: [
-      "Saytga rahmat aytish",
-      "Erta tungacha kutish",
-      "Telefonni zaryadga qo'yish",
-      "Mobil bank ilovasidan kartani zudlik bilan bloklash va 2FA/limit qo'yish"
-    ],
+          "Saytga rahmat aytish",
+          "Erta tungacha kutish",
+          "Telefonni zaryadga qo'yish",
+          "Mobil bank ilovasidan kartani zudlik bilan bloklash va 2FA/limit qo'yish"
+        ],
         correctAnswer: 3,
         explanation: "Slayd 9 ga ko'ra: Karta limitlarini qo'yish va bloklash pul yechilishini to'xtatadi."
       }
     ]
   },
   {
-    id: 6,
-    title: "6-Modul: Phishing va soxta havolalarni aniqlash",
+    id: 7,
+    title: "7-Modul: Phishing va soxta havolalarni aniqlash",
     subtitle: "Fishing turlari, soxta domenlar va STOP metodikasi",
     description: "Ushbu modulda soxta havolalarni aniqlash, domen nomlarini taqqoslash (Typosquatting) va STOP metodikasini o'rganasiz.",
     iconName: "Fish",
     slideCount: 10,
-    slideFolder: "./slides/module_6",
+    slideFolder: "./slides/module_7",
     quizQuestions: [
       {
-        id: 601,
+        id: 701,
         question: "Fishing (Phishing) hujumining asosiy maqsadi nima?",
         options: [
-      "Kompyuter ekranini tozalash",
-      "Foydalanuvchilarni soxta sahifalar bilan aldab shaxsiy ma'lumotlar va parollarni o'g'irlash",
-      "Faqat ob-havoni ko'rsatish",
-      "Internet tezligini oshirish"
-    ],
+          "Kompyuter ekranini tozalash",
+          "Foydalanuvchilarni soxta sahifalar bilan aldab shaxsiy ma'lumotlar va parollarni o'g'irlash",
+          "Faqat ob-havoni ko'rsatish",
+          "Internet tezligini oshirish"
+        ],
         correctAnswer: 1,
         explanation: "Slayd 2 ga ko'ra: Fishing — ishonchli tashkilotlar nomidan aldadab ma'lumot o'g'irlashdir."
       },
       {
-        id: 602,
+        id: 702,
         question: "SMS xabarlari orqali zudlik bilan havolaga bosishga undaydigan fishing turi nima deyiladi?",
         options: [
-      "Skimming",
-      "Vishing",
-      "Smishing (SMS Fishing)",
-      "Doxxing"
-    ],
+          "Skimming",
+          "Vishing",
+          "Smishing (SMS Fishing)",
+          "Doxxing"
+        ],
         correctAnswer: 2,
         explanation: "Slayd 3 ga ko'ra: Smishing — SMS xabarlar orqali amalga oshiriladigan fishing hujumidir."
       },
       {
-        id: 603,
+        id: 703,
         question: "Soxta saytni aniqlashda qaysi texnik belgilarga e'tibor berish shart?",
         options: [
-      "Faqat kompyuter brendiga",
-      "Faqat sayt rangiga",
-      "Faqat brauzer versiyasiga",
-      "HTTPS va qulf belgisi, SSL sertifikati, sayt dizayni va URL domen manziliga"
-    ],
+          "Faqat kompyuter brendiga",
+          "Faqat sayt rangiga",
+          "Faqat brauzer versiyasiga",
+          "HTTPS va qulf belgisi, SSL sertifikati, sayt dizayni va URL domen manziliga"
+        ],
         correctAnswer: 3,
         explanation: "Slayd 4 ga ko'ra: HTTP = xavfli. SSL sertifikati va domen nomi sinchkovlik bilan tekshiriladi."
       },
       {
-        id: 604,
+        id: 704,
         question: "Quyidagi domen juftligida qaysi biri soxta domen (Typosquatting) hisoblanadi?",
         options: [
-      "payme-verify.xyz (Rasmiy domen: payme.uz)",
-      "my.gov.uz",
-      "id.egov.uz",
-      "uzcard.uz"
-    ],
+          "payme-verify.xyz (Rasmiy domen: payme.uz)",
+          "my.gov.uz",
+          "id.egov.uz",
+          "uzcard.uz"
+        ],
         correctAnswer: 0,
         explanation: "Slayd 5 ga ko'ra: payme-verify.xyz — soxta domen, rasmiysi esa payme.uz."
       },
       {
-        id: 605,
+        id: 705,
         question: "Click.uz domenini soxtalashtirishda harflar o'rnini almashtirish (cIick.uz) harfiy hiylasi nima deyiladi?",
         options: [
-      "Vishing",
-      "Skimming",
-      "Typosquatting (Katta 'I' harfini kichik 'l' ga o'xshatish)",
-      "Passphrase"
-    ],
+          "Vishing",
+          "Skimming",
+          "Typosquatting (Katta 'I' harfini kichik 'l' ga o'xshatish)",
+          "Passphrase"
+        ],
         correctAnswer: 2,
         explanation: "Slayd 5 da keltirilgan misol: cIick.uz (I -> l almashtirish) ko'z aldash uchun ishlatiladi."
       },
       {
-        id: 606,
+        id: 706,
         question: "Telegramdagi fishing hujumlarining keng tarqalgan turlariga qaysilar kiradi?",
         options: [
-      "Soxta botlar, Premium sovg'a aldovlari, Zararli APK/ZIP fayllar va Noma'lum qisqartirilgan havolalar",
-      "Faqat ovozli xabarlar",
-      "Faqat stikerlar",
-      "Faqat guruh nomlari"
-    ],
+          "Soxta botlar, Premium sovg'a aldovlari, Zararli APK/ZIP fayllar va Noma'lum qisqartirilgan havolalar",
+          "Faqat ovozli xabarlar",
+          "Faqat stikerlar",
+          "Faqat guruh nomlari"
+        ],
         correctAnswer: 0,
         explanation: "Slayd 6 ga ko'ra: Telegramda soxta botlar va Premium sovg'alar asosiy fishing vositalaridir."
       },
       {
-        id: 607,
+        id: 707,
         question: "Fishingni aniqlash bo'yicha 'STOP' metodikasidagi 'T' harfi nimani anglatadi?",
         options: [
-      "TO'LOV QIL",
-      "TEKSHIR — URL, domen nomi va sertifikatni diqqat bilan tekshir",
-      "TELEFON QIL",
-      "TAKRORLA"
-    ],
+          "TO'LOV QIL",
+          "TEKSHIR — URL, domen nomi va sertifikatni diqqat bilan tekshir",
+          "TELEFON QIL",
+          "TAKRORLA"
+        ],
         correctAnswer: 1,
         explanation: "Slayd 8 ga ko'ra: S - STOP (To'xta), T - TEKSHIR, O - O'YLA/TASDIQLA, P - KEYIN BOS."
       },
       {
-        id: 608,
+        id: 708,
         question: "Havolaga bormasdan (click qilmasdan) uning haqiqiy manzilini ko'rish usuli qanday?",
         options: [
-      "Brauzerni yopish",
-      "Havolani rasmini olish",
-      "Kompyuterni o'chirish",
-      "Sichqoncha ko'rsatkichini havola ustiga olib borish (Hover qilish)"
-    ],
+          "Brauzerni yopish",
+          "Havolani rasmini olish",
+          "Kompyuterni o'chirish",
+          "Sichqoncha ko'rsatkichini havola ustiga olib borish (Hover qilish)"
+        ],
         correctAnswer: 3,
         explanation: "Slayd 4-8 ga ko'ra: Hover qilinganda brauzer pastida haqiqiy yo'naltirilgan URL ko'rinadi."
       }
     ]
   },
   {
-    id: 7,
-    title: "7-Modul: Troyan, APK va zararli fayllar xavfsizligi",
+    id: 8,
+    title: "8-Modul: Troyan, APK va zararli fayllar xavfsizligi",
     subtitle: "Zararli dasturlar, APK xavflari va operatsion tizim yangilanishi",
     description: "Ushbu modulda troyan dasturlari, Android APK fayllari xavfi, Ransomware shifrlagichlar va antivirus himoyasini o'rganasiz.",
     iconName: "Bug",
     slideCount: 10,
-    slideFolder: "./slides/module_7",
+    slideFolder: "./slides/module_8",
     quizQuestions: [
       {
-        id: 701,
+        id: 801,
         question: "Troyan (Trojan) dasturining asosiy yashirin xususiyati nimada?",
         options: [
-      "Kompyuterni tezlashtiradi",
-      "O'zini zararsiz yoki foydali dastur ko'rinishida ko'rsatib, orqa fonda zararli kodni ishga tushiradi",
-      "Faqat fayllarni chop etadi",
-      "Ekran rangini chiroyli qiladi"
-    ],
+          "Kompyuterni tezlashtiradi",
+          "O'zini zararsiz yoki foydali dastur ko'rinishida ko'rsatib, orqa fonda zararli kodni ishga tushiradi",
+          "Faqat fayllarni chop etadi",
+          "Ekran rangini chiroyli qiladi"
+        ],
         correctAnswer: 1,
         explanation: "Slayd 4 ga ko'ra: Troyan foydali ilova niqobida kirib keladi va ma'lumotlarni o'g'irlaydi."
       },
       {
-        id: 702,
+        id: 802,
         question: "Android telefonlarga Play Market bo'lmagan shubhali saytlardan `.APK` yuklash nima uchun o'ta xavfli?",
         options: [
-      "Faqat batareya sekin zaryad oladi",
-      "Faqat xotira to'ladi",
-      "APK ichida troyan bo'lib, u SMS, galereya va bank ilovalariga yashirin ruxsat olishi mumkin",
-      "Hech qanday xavfi yo'q"
-    ],
+          "Faqat batareya sekin zaryad oladi",
+          "Faqat xotira to'ladi",
+          "APK ichida troyan bo'lib, u SMS, galereya va bank ilovalariga yashirin ruxsat olishi mumkin",
+          "Hech qanday xavfi yo'q"
+        ],
         correctAnswer: 2,
         explanation: "Slayd 5 ga ko'ra: Noma'lum APK fayllar qurilmaga to'liq kiber-tovlamachilik huquqini berib qo'yishi mumkin."
       },
       {
-        id: 703,
+        id: 803,
         question: "Ransomware (Tovlamachi-shifrlagich) dasturi kompyuterga tushsa nima sodir bo'ladi?",
         options: [
-      "Faqat musiqani o'chiradi",
-      "Windows ni yangilaydi",
-      "Ekran rasmini o'zgartiradi",
-      "Fayllarni shifrlab qo'yadi va ularni ochish uchun to'lov (kriptovalyuta) talab qiladi"
-    ],
+          "Faqat musiqani o'chiradi",
+          "Windows ni yangilaydi",
+          "Ekran rasmini o'zgartiradi",
+          "Fayllarni shifrlab qo'yadi va ularni ochish uchun to'lov (kriptovalyuta) talab qiladi"
+        ],
         correctAnswer: 3,
         explanation: "Slayd 6 ga ko'ra: Ransomware barcha hujjat va rasmlarni shifrlab blocklaydi."
       },
       {
-        id: 704,
+        id: 804,
         question: "Ransomware hujumidan himoyalanishning eng birinchi va samarali chorasi nima?",
         options: [
-      "Muhim ma'lumotlarning muntazam zaxira nusxalarini (Backup) offline saqlash",
-      "Kompyuter simini sug'urish",
-      "Parolni osonlashtirish",
-      "Antivirusni o'chirib qo'yish"
-    ],
+          "Muhim ma'lumotlarning muntazam zaxira nusxalarini (Backup) offline saqlash",
+          "Kompyuter simini sug'urish",
+          "Parolni osonlashtirish",
+          "Antivirusni o'chirib qo'yish"
+        ],
         correctAnswer: 0,
         explanation: "Slayd 6 ga ko'ra: Offline zaxira nusxasi (Backup) shifrlangan fayllarni tiklashning yagona kafolatidir."
       },
       {
-        id: 705,
+        id: 805,
         question: "Operatsion tizim va antivirus dasturlarini muntazam yangilab (Update) turishning asosiy maqsadi nima?",
         options: [
-      "Klaviatura chirog'ini yoqish",
-      "Faqat yangi o'yinlar yuklash",
-      "Tizimdagi aniqlangan yangi xavfsizlik tirqishlari (Vulnerabilities) va zaifliklarni yopish",
-      "Ekran sig'imini oshirish"
-    ],
+          "Klaviatura chirog'ini yoqish",
+          "Faqat yangi o'yinlar yuklash",
+          "Tizimdagi aniqlangan yangi xavfsizlik tirqishlari (Vulnerabilities) va zaifliklarni yopish",
+          "Ekran sig'imini oshirish"
+        ],
         correctAnswer: 2,
         explanation: "Slayd 7 ga ko'ra: Yangilanishlar (Updates) yangi topilgan zaiflik tirqishlarini yopadi."
       },
       {
-        id: 706,
+        id: 806,
         question: "Telegram yoki emailingizga kelgan shubhali `.exe`, `.vbs`, `.scr` yoki `.apk` fayllarga qanday munosabatda bo'lish kerak?",
         options: [
-      "Aslo ishga tushirmaslik, tekshirish yoki darhol o'chirib tashlash",
-      "Ustiga bosib ochish",
-      "Do'stga jo'natish",
-      "Fayl kengaytmasini ko'rmay ochish"
-    ],
+          "Aslo ishga tushirmaslik, tekshirish yoki darhol o'chirib tashlash",
+          "Ustiga bosib ochish",
+          "Do'stga jo'natish",
+          "Fayl kengaytmasini ko'rmay ochish"
+        ],
         correctAnswer: 0,
         explanation: "Slayd 3-5 ga ko'ra: Bular ijro etiluvchi (executable) zararli fayllardir."
       },
       {
-        id: 707,
+        id: 807,
         question: "Zararli dasturlarga qarshi raqamli mudofaa zanjirida eng birinchi o'rinda nima turadi?",
         options: [
-      "Faqat antivirus narxi",
-      "Insonning kiber-ongliligi va ehtiyotkorligi",
-      "Kompyuter rangi",
-      "Internet tezligi"
-    ],
+          "Faqat antivirus narxi",
+          "Insonning kiber-ongliligi va ehtiyotkorligi",
+          "Kompyuter rangi",
+          "Internet tezligi"
+        ],
         correctAnswer: 1,
         explanation: "Slayd 10 ga ko'ra: Eng kuchli himoyachi — foydalanuvchining bilimi va hushyorligidir."
       },
       {
-        id: 708,
+        id: 808,
         question: "Mobil ilovalarni yuklashda qaysi qoidaga qat'iy amal qilish shart?",
         options: [
-      "SMS dagi havoladan yuklash",
-      "Har qanday Telegram kanaldan yuklash",
-      "Forumlardagi havola orqali yuklash",
-      "Faqat rasmiy do'konlardan (Google Play Market / App Store) yuklash"
-    ],
+          "SMS dagi havoladan yuklash",
+          "Har qanday Telegram kanaldan yuklash",
+          "Forumlardagi havola orqali yuklash",
+          "Faqat rasmiy do'konlardan (Google Play Market / App Store) yuklash"
+        ],
         correctAnswer: 3,
         explanation: "Slayd 9 ga ko'ra: Faqat tekshirilgan rasmiy dasturlar do'konidan ilova o'rnatish shart."
       }

@@ -167,8 +167,8 @@ export default function WelcomeScreen({
             {/* Quick Metrics Grid */}
             <div className="grid grid-cols-3 gap-3 pt-2">
               <div className="bg-[#070e24] border border-slate-800 p-3.5 rounded-2xl">
-                <div className="text-xl font-black text-indigo-400">7 Modul</div>
-                <div className="text-[11px] font-medium text-slate-400 mt-0.5">70 Ta Slayd</div>
+                <div className="text-xl font-black text-indigo-400">8 Modul</div>
+                <div className="text-[11px] font-medium text-slate-400 mt-0.5">80 Ta Slayd</div>
               </div>
               <div className="bg-[#070e24] border border-slate-800 p-3.5 rounded-2xl">
                 <div className="text-xl font-black text-emerald-400">80%</div>

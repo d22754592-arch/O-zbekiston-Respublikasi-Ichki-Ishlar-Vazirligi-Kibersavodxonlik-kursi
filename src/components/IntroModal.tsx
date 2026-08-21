@@ -128,10 +128,10 @@ export default function IntroModal({ isOpen, onClose }: IntroModalProps) {
                 "Assalomu alaykum va xush kelibsiz! Ushbu kurs O'zbekiston Respublikasi Ichki ishlar vazirligi Farg'ona viloyati Kiberjinoyatlarga qarshi kurashish boshqarmasi tomonidan xodimlarning kibersavodxonligini va raqamli xavfsizlik madaniyatini oshirish maqsadida maxsus ishlab chiqilgan."
               </p>
               <p>
-                "O'quv kursi 7 ta asosiy moduldan iborat bo'lib, axborot xavfsizligi asoslari, murakkab parollar gigiyenasi, 2-bosqichli autentifikatsiya, Phishing va ijtimoiy muhandislik xujumlaridan himoyalanish hamda VPN va maxfiylik qoidalarini amaliy tarzda o'rgatadi."
+                "O'quv kursi 8 ta asosiy moduldan iborat bo'lib, kiberfiribgarlardan himoyalanishning 5 oltin qoidasi, axborot xavfsizligi asoslari, murakkab parollar gigiyenasi, 2-bosqichli autentifikatsiya, Phishing va ijtimoiy muhandislik xujumlaridan himoyalanish hamda VPN va maxfiylik qoidalarini amaliy tarzda o'rgatadi."
               </p>
               <p>
-                "Har bir modul yakunida bilimlarni sinovdan o'tkazish uchun 8 tadan test savollari beriladi. Sertifikat olish uchun barcha 7 ta modul testlarini kamida 80 foizlik natija bilan muvaffaqiyatli topshirishingiz shart."
+                "Har bir modul yakunida bilimlarni sinovdan o'tkazish uchun 8 tadan test savollari beriladi. Sertifikat olish uchun barcha 8 ta modul testlarini kamida 80 foizlik natija bilan muvaffaqiyatli topshirishingiz shart."
               </p>
               <p className="font-bold text-amber-400">
                 "Darslarni diqqat bilan puxta o'rganing va kiberxavfsizlik qoidalariga amalda qat'iy rioya qiling. Barchangizga muvaffaqiyat tilayman!"
@@ -143,7 +143,7 @@ export default function IntroModal({ isOpen, onClose }: IntroModalProps) {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
             <div className="bg-slate-950 p-3 rounded-lg border border-slate-800 flex items-center space-x-2.5">
               <BookOpen className="w-5 h-5 text-indigo-400 flex-shrink-0" />
-              <span className="font-bold text-slate-200">7 Ta Modul (70 Slayd)</span>
+              <span className="font-bold text-slate-200">8 Ta Modul (80 Slayd)</span>
             </div>
             <div className="bg-slate-950 p-3 rounded-lg border border-slate-800 flex items-center space-x-2.5">
               <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0" />

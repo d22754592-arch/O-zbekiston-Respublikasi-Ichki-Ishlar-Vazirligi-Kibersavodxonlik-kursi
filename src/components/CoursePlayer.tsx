@@ -583,7 +583,7 @@ export default function CoursePlayer({
                     <div className="bg-[#070e24] border-2 border-amber-400/60 p-6 rounded-2xl space-y-4 shadow-2xl">
                       <div className="flex items-center space-x-3 text-amber-400 font-black text-base">
                         <Award className="w-7 h-7 flex-shrink-0" />
-                        <span>BARCHA 7 TA MODUL TAMOMLANDI! RASMIY IIB SERTIFIKATI TAYYOR!</span>
+                        <span>BARCHA 8 TA MODUL TAMOMLANDI! RASMIY IIB SERTIFIKATI TAYYOR!</span>
                       </div>
                       <p className="text-xs text-slate-300">
                         Sertifikatga yoziladigan to'liq Ism va Familiyangizni (F.I.Sh) tekshiring:
