@@ -149,19 +149,26 @@ export default function Sidebar({
 
           <button
             onClick={() => setActiveTab('certificate')}
-            className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all border cursor-pointer ${
+            disabled={!allModulesCompleted}
+            className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all border ${
               activeTab === 'certificate'
                 ? 'bg-amber-500 text-slate-950 border-amber-400 shadow-md font-bold'
+                : allModulesCompleted
+                ? 'bg-amber-500/10 text-amber-500 border-amber-500/30 hover:bg-amber-500/20 cursor-pointer'
                 : isDark
-                ? 'bg-amber-500/10 text-amber-400 border-amber-500/30 hover:bg-amber-500/20'
-                : 'bg-amber-50 text-amber-800 border-amber-300 hover:bg-amber-100'
+                ? 'bg-slate-900/20 text-slate-500 border-slate-800/40 cursor-not-allowed'
+                : 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed'
             }`}
           >
             <div className="flex items-center space-x-2.5">
               <Award className="w-4 h-4 text-amber-500" />
               <span>{t('certificate')}</span>
             </div>
-            <Sparkles className="w-3.5 h-3.5 text-amber-500 animate-pulse" />
+            {allModulesCompleted ? (
+              <Sparkles className="w-3.5 h-3.5 text-amber-500 animate-pulse" />
+            ) : (
+              <Lock className="w-3.5 h-3.5 text-slate-400" />
+            )}
           </button>
         </div>
 
