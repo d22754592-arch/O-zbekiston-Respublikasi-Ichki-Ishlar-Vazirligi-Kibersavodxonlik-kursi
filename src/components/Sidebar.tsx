@@ -14,6 +14,7 @@ import {
 import { ModuleData, UserProgress } from '../types';
 import { useLanguage } from '../i18n/LanguageContext';
 import { useTheme } from '../theme/ThemeContext';
+import cyberLogo from './KIBERXAVFSIZLIK.jpg';
 
 interface SidebarProps {
   modules: ModuleData[];
@@ -58,15 +59,15 @@ export default function Sidebar({
       
       {/* Sidebar Header Branding */}
       <div className={`p-4 sm:p-5 border-b flex items-center space-x-3 backdrop-blur-md ${headerBg}`}>
-        <div className="w-10 h-10 bg-gradient-to-br from-indigo-600 to-blue-700 rounded-xl flex items-center justify-center shadow-md flex-shrink-0">
-          <ShieldCheck className="w-5 h-5 text-white" />
+        <div className="w-10 h-10 rounded-xl overflow-hidden border border-slate-700 bg-slate-900 flex-shrink-0 p-0.5">
+          <img src={cyberLogo} alt="Kiberxavfsizlik Gerbi" className="w-full h-full object-cover rounded-lg" />
         </div>
         <div className="min-w-0 flex-1">
           <h2 className="font-bold text-xs sm:text-sm tracking-tight leading-tight uppercase truncate">
-            {t('academyTitle')}
+            {t('sidebarHeaderTitle')}
           </h2>
-          <p className={`text-[10px] font-medium truncate ${subText}`}>
-            {t('portalSubtitle')}
+          <p className={`text-[10px] font-medium tracking-wide uppercase truncate ${isDark ? 'text-indigo-400' : 'text-indigo-600'}`}>
+            {t('iibTitle')}
           </p>
         </div>
       </div>
@@ -253,7 +254,7 @@ export default function Sidebar({
 
       {/* Footer Info */}
       <div className={`p-4 border-t text-[11px] font-mono text-center ${isDark ? 'border-slate-800/70 text-slate-500' : 'border-slate-200 text-slate-400'}`}>
-        IIB Kiberxavfsizlik v2.0
+        {t('academyTitle')}
       </div>
 
     </aside>

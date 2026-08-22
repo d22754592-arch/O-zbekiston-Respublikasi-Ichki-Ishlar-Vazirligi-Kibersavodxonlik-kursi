@@ -14,7 +14,7 @@ import {
   Sun,
   Moon
 } from 'lucide-react';
-import iibLogo from './iib.jpg';
+import cyberLogo from './KIBERXAVFSIZLIK.jpg';
 import IntroModal from './IntroModal';
 import LanguageSelector from './LanguageSelector';
 import { useLanguage } from '../i18n/LanguageContext';
@@ -60,8 +60,8 @@ export default function WelcomeScreen({
     ? 'bg-[#091124]/90 border-slate-800/80 text-white' 
     : 'bg-white/95 border-slate-200 text-slate-900 shadow-xl';
   const subText = isDark ? 'text-slate-300' : 'text-slate-600';
-  const statBox = isDark ? 'bg-slate-900/50' : 'bg-slate-50 border border-slate-200';
-  const rightFormBg = isDark ? 'bg-slate-900/60' : 'bg-slate-50/80 border border-slate-200';
+  const statBox = isDark ? 'bg-slate-900/50 border border-slate-800/80' : 'bg-slate-50 border border-slate-200';
+  const rightFormBg = isDark ? 'bg-slate-900/60 border border-slate-800/80' : 'bg-slate-50/80 border border-slate-200';
 
   return (
     <div className={`min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 md:p-10 font-sans transition-colors duration-200 ${
@@ -82,8 +82,8 @@ export default function WelcomeScreen({
           isDark ? 'border-slate-800/60' : 'border-slate-200'
         }`}>
           <div className="flex items-center space-x-4">
-            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden border border-slate-700/60 bg-[#050b18] shadow-md flex-shrink-0 flex items-center justify-center">
-              <img src={iibLogo} alt="IIB Logo" className="w-full h-full object-cover" />
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden border border-slate-700/60 bg-[#050b18] shadow-md flex-shrink-0 flex items-center justify-center p-0.5">
+              <img src={cyberLogo} alt="Kiberxavfsizlik Gerbi" className="w-full h-full object-cover rounded-xl" />
             </div>
             <div>
               <div className="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-[10px] font-mono font-semibold text-indigo-500 uppercase tracking-widest mb-1">
@@ -93,9 +93,6 @@ export default function WelcomeScreen({
               <h1 className="text-base sm:text-lg md:text-xl font-bold tracking-tight uppercase">
                 {t('departmentTitle')}
               </h1>
-              <p className={`text-xs font-medium mt-0.5 ${subText}`}>
-                {t('portalSubtitle')}
-              </p>
             </div>
           </div>
 
@@ -126,21 +123,10 @@ export default function WelcomeScreen({
                 <span>📲 {t('installApp')}</span>
               </button>
             )}
-
-            <button
-              onClick={() => setIsIntroOpen(true)}
-              className="bg-indigo-600/15 hover:bg-indigo-600/25 border border-indigo-500/30 text-indigo-500 hover:text-indigo-600 px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center space-x-2.5 transition-all cursor-pointer shadow-sm hover:scale-[1.02] active:scale-[0.98]"
-              title={t('videoLessonBtn')}
-            >
-              <div className="w-5 h-5 rounded-full bg-indigo-600 text-white flex items-center justify-center flex-shrink-0">
-                <Play className="w-2.5 h-2.5 ml-0.5 fill-white" />
-              </div>
-              <span>{t('videoLessonBtn')}</span>
-            </button>
           </div>
         </div>
 
-        {/* PROMINENT VIDEO DARSLIK CALLOUT BANNER */}
+        {/* PROMINENT VIDEO TANISHTIRUV CALLOUT BANNER */}
         <div 
           onClick={() => setIsIntroOpen(true)}
           className={`border p-4 sm:p-5 rounded-2xl shadow-lg flex items-center justify-between gap-4 cursor-pointer hover:scale-[1.005] active:scale-[0.995] transition-all duration-200 group ${

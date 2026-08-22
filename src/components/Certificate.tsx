@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { Award, Printer, Calendar, User, Download, Loader2 } from 'lucide-react';
 import html2canvas from 'html2canvas-pro';
-import iibLogo from './iib.jpg';
+import cyberLogo from './KIBERXAVFSIZLIK.jpg';
 import { validateFullName } from '../utils/cyberUtils';
 import { useLanguage } from '../i18n/LanguageContext';
 
@@ -287,8 +287,8 @@ export default function Certificate({
                 marginBottom: '1.5%',
               }}>
                 <img
-                  src={iibLogo}
-                  alt="IIB Gerbi"
+                  src={cyberLogo}
+                  alt="Kiberxavfsizlik Gerbi"
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
               </div>

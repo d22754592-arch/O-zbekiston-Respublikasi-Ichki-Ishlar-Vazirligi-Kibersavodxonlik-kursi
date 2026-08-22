@@ -13,7 +13,7 @@ import { UserProgress } from './types';
 import { logger } from './utils/logger';
 import { usePWAInstall } from './utils/usePWAInstall';
 import { formatStudyTimeShort } from './utils/timeTracker';
-import iibLogo from './components/iib.jpg';
+import cyberLogo from './components/KIBERXAVFSIZLIK.jpg';
 import { 
   ShieldCheck, 
   Home, 
@@ -222,10 +222,8 @@ function AppContent() {
             <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
               
               <div className="flex items-center space-x-3.5">
-                <div className="w-10 h-10 rounded-xl p-0.5 bg-gradient-to-br from-indigo-500 to-blue-700 shadow-md flex-shrink-0">
-                  <div className="w-full h-full rounded-lg overflow-hidden bg-slate-900 border border-white/20">
-                    <img src={iibLogo} alt="IIB Logo" className="w-full h-full object-cover" />
-                  </div>
+                <div className="w-10 h-10 rounded-xl overflow-hidden border border-slate-700 bg-slate-900 shadow-md flex-shrink-0 p-0.5">
+                  <img src={cyberLogo} alt="Kiberxavfsizlik Gerbi" className="w-full h-full object-cover rounded-lg" />
                 </div>
                 <div>
                   <h1 className="text-sm sm:text-base font-bold tracking-tight uppercase font-sans">

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
-import { Play, X, BookOpen, CheckCircle2, Award, FileText, Check } from 'lucide-react';
-import iibLogo from './iib.jpg';
+import { Play, X, BookOpen, CheckCircle2, Award, FileText, Check, ShieldCheck } from 'lucide-react';
+import cyberLogo from './KIBERXAVFSIZLIK.jpg';
 import { useLanguage } from '../i18n/LanguageContext';
 
 interface IntroModalProps {
@@ -31,7 +31,6 @@ export default function IntroModal({ isOpen, onClose }: IntroModalProps) {
   const handleVideoEnded = () => {
     setIsPlaying(false);
     setVideoEnded(true);
-    // Auto-close modal after video finishes, returning seamlessly to course
     setTimeout(() => {
       onClose();
     }, 1500);
@@ -39,20 +38,21 @@ export default function IntroModal({ isOpen, onClose }: IntroModalProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md overflow-y-auto">
-      <div className="bg-slate-900 border border-indigo-500/40 rounded-3xl shadow-2xl w-full max-w-3xl my-8 overflow-hidden text-white font-sans space-y-0 relative animate-in fade-in zoom-in duration-200">
+      <div className="bg-[#091124] border border-slate-700/70 rounded-3xl shadow-2xl w-full max-w-3xl my-8 overflow-hidden text-white font-sans space-y-0 relative animate-in fade-in zoom-in duration-200">
         
         {/* Header Branding */}
-        <div className="bg-slate-950 p-5 border-b border-slate-800 flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="w-11 h-11 rounded-2xl overflow-hidden border border-indigo-400 flex-shrink-0">
-              <img src={iibLogo} alt="IIB Logo" className="w-full h-full object-cover" />
+        <div className="bg-[#060c1c] p-4 sm:p-5 border-b border-slate-800 flex items-center justify-between">
+          <div className="flex items-center space-x-3.5">
+            <div className="w-11 h-11 rounded-2xl overflow-hidden border border-slate-700 bg-slate-900 flex-shrink-0 p-0.5">
+              <img src={cyberLogo} alt="Kiberxavfsizlik Gerbi" className="w-full h-full object-cover rounded-xl" />
             </div>
             <div>
               <h3 className="text-xs sm:text-sm font-bold text-white uppercase tracking-tight">
                 {t('departmentTitle')}
               </h3>
-              <p className="text-[11px] text-indigo-400 font-medium">
-                {t('introModalTitle')}
+              <p className="text-[11px] text-indigo-400 font-medium flex items-center space-x-1 mt-0.5">
+                <ShieldCheck className="w-3.5 h-3.5" />
+                <span>{t('introModalTitle')}</span>
               </p>
             </div>
           </div>
@@ -66,15 +66,15 @@ export default function IntroModal({ isOpen, onClose }: IntroModalProps) {
         </div>
 
         {/* Video Player Container */}
-        <div className="p-6 space-y-6 max-h-[75vh] overflow-y-auto">
+        <div className="p-5 sm:p-6 space-y-5 max-h-[75vh] overflow-y-auto">
           
-          <div className="relative bg-slate-950 rounded-2xl border border-indigo-500/40 overflow-hidden shadow-xl">
+          <div className="relative bg-black rounded-2xl border border-slate-800 overflow-hidden shadow-xl">
             <video
               ref={videoRef}
               controls
               playsInline
               preload="auto"
-              className="w-full max-h-[460px] aspect-video object-contain bg-black"
+              className="w-full max-h-[440px] aspect-video object-contain bg-black"
               onPlay={() => setIsPlaying(true)}
               onPause={() => setIsPlaying(false)}
               onEnded={handleVideoEnded}
@@ -118,49 +118,49 @@ export default function IntroModal({ isOpen, onClose }: IntroModalProps) {
             )}
           </div>
 
-          {/* Official Speech Text Script Section */}
-          <div className="bg-slate-950/80 border border-slate-800 p-5 rounded-2xl space-y-3">
-            <div className="flex items-center space-x-2 text-indigo-400 font-bold text-xs uppercase tracking-wider border-b border-slate-800 pb-2">
+          {/* Official Course Information Section */}
+          <div className="bg-[#050b18] border border-slate-800 p-5 rounded-2xl space-y-3.5 shadow-inner">
+            <div className="flex items-center space-x-2 text-indigo-400 font-bold text-xs uppercase tracking-wider border-b border-slate-800/80 pb-2">
               <FileText className="w-4 h-4 text-indigo-400" />
               <span>{t('introSpeechTag')}</span>
             </div>
             
-            <div className="text-xs text-slate-200 font-medium leading-relaxed space-y-2.5 max-h-48 overflow-y-auto pr-2">
-              <p className="font-bold text-white">
-                "{t('speechP1')}"
+            <div className="text-xs sm:text-[13px] text-slate-300 font-normal leading-relaxed space-y-3 max-h-52 overflow-y-auto pr-2">
+              <p className="font-semibold text-white">
+                {t('speechP1')}
               </p>
               <p>
-                "{t('speechP2')}"
+                {t('speechP2')}
               </p>
               <p>
-                "{t('speechP3')}"
+                {t('speechP3')}
               </p>
-              <p className="font-bold text-amber-400">
-                "{t('speechP4')}"
+              <p className="font-semibold text-amber-400">
+                {t('speechP4')}
               </p>
             </div>
           </div>
 
-          {/* Summary Checklist */}
+          {/* Summary Badges */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-            <div className="bg-slate-950 p-3 rounded-xl border border-slate-800 flex items-center space-x-2.5">
+            <div className="bg-[#050b18] p-3 rounded-xl border border-slate-800 flex items-center space-x-2.5">
               <BookOpen className="w-4 h-4 text-indigo-400 flex-shrink-0" />
-              <span className="font-medium text-slate-200">{t('modalBadge1')}</span>
+              <span className="font-semibold text-slate-200">{t('modalBadge1')}</span>
             </div>
-            <div className="bg-slate-950 p-3 rounded-xl border border-slate-800 flex items-center space-x-2.5">
+            <div className="bg-[#050b18] p-3 rounded-xl border border-slate-800 flex items-center space-x-2.5">
               <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
-              <span className="font-medium text-slate-200">{t('modalBadge2')}</span>
+              <span className="font-semibold text-slate-200">{t('modalBadge2')}</span>
             </div>
-            <div className="bg-slate-950 p-3 rounded-xl border border-slate-800 flex items-center space-x-2.5">
+            <div className="bg-[#050b18] p-3 rounded-xl border border-slate-800 flex items-center space-x-2.5">
               <Award className="w-4 h-4 text-amber-400 flex-shrink-0" />
-              <span className="font-medium text-slate-200">{t('modalBadge3')}</span>
+              <span className="font-semibold text-slate-200">{t('modalBadge3')}</span>
             </div>
           </div>
 
         </div>
 
         {/* Footer Actions */}
-        <div className="bg-slate-950 p-4 border-t border-slate-800 flex justify-between items-center">
+        <div className="bg-[#060c1c] p-4 border-t border-slate-800 flex justify-between items-center">
           <button
             onClick={onClose}
             className="text-xs text-slate-400 hover:text-white underline cursor-pointer font-medium"

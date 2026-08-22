@@ -480,17 +480,13 @@ export default function CoursePlayer({
       {activeTab === 'quiz' && (
         <div className="space-y-5">
 
-          {/* Quiz Briefing Bar */}
+          {/* Quiz Briefing Bar (Clean Minimal Header) */}
           <div className={`${cardBg} border p-5 sm:p-6 rounded-3xl shadow-xl backdrop-blur-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4`}>
             <div>
-              <div className="flex items-center space-x-1.5 text-xs font-mono font-semibold text-amber-500 uppercase tracking-wider mb-1">
-                <HelpCircle className="w-3.5 h-3.5" />
-                <span>{t('quizTestTitle')}</span>
-              </div>
               <h3 className="text-base sm:text-lg font-bold">
                 {module.title}
               </h3>
-              <p className={`text-xs mt-0.5 ${subText}`}>
+              <p className={`text-xs mt-1 ${subText}`}>
                 {t('quizTestDesc')}
               </p>
             </div>
