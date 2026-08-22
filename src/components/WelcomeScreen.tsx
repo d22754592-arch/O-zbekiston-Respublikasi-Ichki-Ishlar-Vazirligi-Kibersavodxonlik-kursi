@@ -14,7 +14,7 @@ import {
   Sun,
   Moon
 } from 'lucide-react';
-import cyberLogo from './KIBERXAVFSIZLIK.jpg';
+import cyberLogo from './cyber_emblem.png';
 import IntroModal from './IntroModal';
 import LanguageSelector from './LanguageSelector';
 import { useLanguage } from '../i18n/LanguageContext';

@@ -134,10 +134,11 @@ export const translations = {
     restoreJson: "Tiklash",
 
     // Certificate
+    certOrgTitle: "Fargʻona viloyati IIB",
     certMainTitle: "SERTIFIKAT",
     certAwardedTo: "USHBU SERTIFIKAT TOPSHIRILADI:",
     certReason: "Kibersavodxonlik kursini muvaffaqiyatli tamomlagani uchun",
-    certVerified: "O'ZBEKISTON RESPUBLIKASI IIV • RASMIY TEKSHIRILGAN",
+    certVerified: "FARGʻONA VILOYATI IIB • RASMIY TEKSHIRILGAN",
     certDate: "Sana",
     certId: "ID Raqam",
     certScore: "Natija",
@@ -278,10 +279,11 @@ export const translations = {
     restoreJson: "Тиклаш",
 
     // Certificate
+    certOrgTitle: "Фарғона вилояти ИИБ",
     certMainTitle: "СЕРТИФИКАТ",
     certAwardedTo: "УШБУ СЕРТИФИКАТ ТОПШИРИЛАДИ:",
     certReason: "Киберсаводхонлик курсини муваффақиятли тамомлагани учун",
-    certVerified: "ЎЗБЕКИСТОН РЕСПУБЛИКАСИ ИИВ • РАСМИЙ ТЕКШИРИЛГАН",
+    certVerified: "ФАРҒОНА ВИЛОЯТИ ИИБ • РАСМИЙ ТЕКШИРИЛГАН",
     certDate: "Сана",
     certId: "ID Рақам",
     certScore: "Натижа",
@@ -422,10 +424,11 @@ export const translations = {
     restoreJson: "Восстановить",
 
     // Certificate
+    certOrgTitle: "УВД Ферганской области",
     certMainTitle: "СЕРТИФИКАТ",
     certAwardedTo: "НАСТОЯЩИЙ СЕРТИФИКАТ ВЫДАН:",
     certReason: "За успешное окончание курса по киберграмотности",
-    certVerified: "МВД РЕСПУБЛИКИ УЗБЕКИСТАН • ОФИЦИАЛЬНО ВЕРИФИЦИРОВАНО",
+    certVerified: "УВД ФЕРГАНСКОЙ ОБЛАСТИ • ОФИЦИАЛЬНО ВЕРИФИЦИРОВАНО",
     certDate: "Дата",
     certId: "Номер ID",
     certScore: "Результат",

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Play, X, BookOpen, CheckCircle2, Award, FileText, Check, ShieldCheck } from 'lucide-react';
-import cyberLogo from './KIBERXAVFSIZLIK.jpg';
+import cyberLogo from './cyber_emblem.png';
 import { useLanguage } from '../i18n/LanguageContext';
 
 interface IntroModalProps {

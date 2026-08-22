@@ -14,7 +14,7 @@ import {
 import { ModuleData, UserProgress } from '../types';
 import { useLanguage } from '../i18n/LanguageContext';
 import { useTheme } from '../theme/ThemeContext';
-import cyberLogo from './KIBERXAVFSIZLIK.jpg';
+import cyberLogo from './cyber_emblem.png';
 
 interface SidebarProps {
   modules: ModuleData[];
@@ -149,26 +149,19 @@ export default function Sidebar({
 
           <button
             onClick={() => setActiveTab('certificate')}
-            disabled={!allModulesCompleted}
-            className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all border ${
+            className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all border cursor-pointer ${
               activeTab === 'certificate'
                 ? 'bg-amber-500 text-slate-950 border-amber-400 shadow-md font-bold'
-                : allModulesCompleted
-                ? 'bg-amber-500/10 text-amber-500 border-amber-500/30 hover:bg-amber-500/20 cursor-pointer'
                 : isDark
-                ? 'bg-slate-900/20 text-slate-500 border-slate-800/40 cursor-not-allowed'
-                : 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed'
+                ? 'bg-amber-500/10 text-amber-400 border-amber-500/30 hover:bg-amber-500/20'
+                : 'bg-amber-50 text-amber-800 border-amber-300 hover:bg-amber-100'
             }`}
           >
             <div className="flex items-center space-x-2.5">
               <Award className="w-4 h-4 text-amber-500" />
               <span>{t('certificate')}</span>
             </div>
-            {allModulesCompleted ? (
-              <Sparkles className="w-3.5 h-3.5 text-amber-500 animate-pulse" />
-            ) : (
-              <Lock className="w-3.5 h-3.5 text-slate-400" />
-            )}
+            <Sparkles className="w-3.5 h-3.5 text-amber-500 animate-pulse" />
           </button>
         </div>
 

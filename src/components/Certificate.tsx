@@ -1,7 +1,8 @@
 import React, { useMemo, useState } from 'react';
 import { Award, Printer, Calendar, User, Download, Loader2 } from 'lucide-react';
 import html2canvas from 'html2canvas-pro';
-import cyberLogo from './KIBERXAVFSIZLIK.jpg';
+import iibLogo from './iib.jpg';
+import certQrCode from './certificate_qr.png';
 import { validateFullName } from '../utils/cyberUtils';
 import { useLanguage } from '../i18n/LanguageContext';
 
@@ -58,10 +59,12 @@ export default function Certificate({
     setIsGenerating(true);
     try {
       const certElem = document.getElementById('official-iib-certificate');
-      if (!certElem) return;
+      if (!certElem) throw new Error('Sertifikat elementi topilmadi');
+
+      await new Promise((resolve) => setTimeout(resolve, 300));
 
       const canvas = await html2canvas(certElem, {
-        scale: 3,
+        scale: 4,
         useCORS: true,
         allowTaint: true,
         backgroundColor: '#ffffff',
@@ -69,89 +72,50 @@ export default function Certificate({
         imageTimeout: 0,
       });
 
-      const image = canvas.toDataURL('image/png', 1.0);
-      const sanitizedName = fullName.trim().toLowerCase().replace(/[^a-z0-9ʻ'-]/gi, '_');
-      const filename = `sertifikat-${sanitizedName || 'iib'}.png`;
-
+      const imageURI = canvas.toDataURL('image/png', 1.0);
       const link = document.createElement('a');
-      link.href = image;
-      link.download = filename;
-      document.body.appendChild(link);
+      link.download = `Sertifikat_${fullName.trim().replace(/\s+/g, '_')}.png`;
+      link.href = imageURI;
       link.click();
-      document.body.removeChild(link);
     } catch (err) {
-      console.error('PNG generatsiyasida xatolik:', err);
+      console.error('Sertifikat generatsiyasida xatolik:', err);
+      alert('Sertifikatni yuklab olishda xatolik yuz berdi. Iltimos qayta urinib ko‘ring.');
     } finally {
       setIsGenerating(false);
     }
   };
 
-  return (
-    <div className="space-y-6" id="certificate-view-container">
+  const handlePrint = () => {
+    window.print();
+  };
 
-      {/* ── Editor Panel (hidden in print) ── */}
-      <div className="bg-[#091124]/90 border border-slate-800/80 p-5 shadow-xl space-y-4 print:hidden rounded-3xl backdrop-blur-xl">
-        <div className="flex items-center space-x-3 border-b border-slate-800/60 pb-3">
-          <div className="w-8 h-8 bg-amber-500 flex items-center justify-center rounded-xl text-slate-950 font-bold">
-            <Award className="w-5 h-5" />
+  return (
+    <div className="space-y-6 max-w-5xl mx-auto font-sans pb-12">
+
+      {/* Top Action Toolbar (Print-Hidden) */}
+      <div className="bg-[#091124]/90 border border-slate-800/80 p-5 sm:p-6 rounded-3xl text-white shadow-xl backdrop-blur-xl flex flex-col md:flex-row items-center justify-between gap-4 print:hidden">
+        <div className="flex items-center space-x-3.5">
+          <div className="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center flex-shrink-0 border border-amber-500/30">
+            <Award className="w-6 h-6" />
           </div>
           <div>
-            <h3 className="text-sm font-bold text-white uppercase tracking-wide">
+            <h2 className="text-base sm:text-lg font-bold text-white tracking-tight">
               {t('certificate')}
-            </h3>
-            <p className="text-xs text-slate-400 font-medium">
-              {t('verifyCertName')}
+            </h2>
+            <p className="text-xs text-slate-400">
+              {t('certVerified')}
             </p>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-xs font-semibold text-slate-300 uppercase mb-1 flex items-center space-x-1">
-              <User className="w-3.5 h-3.5 text-indigo-400" />
-              <span>{t('fullNameInputLabel')} *</span>
-            </label>
-            <input
-              id="cert-name-input"
-              type="text"
-              value={fullName}
-              onChange={(e) => handleNameChange(e.target.value)}
-              className="w-full bg-slate-900 border border-slate-700 focus:border-amber-400 p-2.5 text-sm font-semibold text-white focus:outline-none rounded-xl transition-colors"
-              placeholder={t('fullNamePlaceholder')}
-            />
-          </div>
-          <div>
-            <label className="block text-xs font-semibold text-slate-300 uppercase mb-1 flex items-center space-x-1">
-              <Calendar className="w-3.5 h-3.5 text-indigo-400" />
-              <span>{t('certDate')}:</span>
-            </label>
-            <input
-              id="cert-date-input"
-              type="date"
-              value={completedDate}
-              onChange={(e) => setCompletedDate(e.target.value)}
-              className="w-full bg-slate-900 border border-slate-700 focus:border-amber-400 p-2.5 text-sm font-semibold text-white focus:outline-none rounded-xl transition-colors"
-            />
-          </div>
-        </div>
-
-        {!isReady && (
-          <div className="flex items-center space-x-2 bg-amber-500/10 border border-amber-500/30 rounded-xl p-2.5">
-            <span className="text-amber-300 text-xs font-semibold">
-              ⚠ {t('nameValidationRule')}
-            </span>
-          </div>
-        )}
-
-        <div className="flex flex-wrap gap-3 justify-end pt-1">
+        <div className="flex flex-wrap items-center gap-3 w-full md:w-auto justify-end">
           <button
             onClick={handleDownloadPNG}
             disabled={!isReady || isGenerating}
-            id="btn-download-png-certificate"
-            className={`px-5 py-2.5 font-bold text-xs flex items-center space-x-2 rounded-xl transition-all uppercase tracking-wider ${
+            className={`px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center space-x-2 transition-all cursor-pointer shadow-lg ${
               isReady && !isGenerating
-                ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-md cursor-pointer'
-                : 'bg-slate-800 text-slate-500 cursor-not-allowed'
+                ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-950/40 active:scale-95'
+                : 'bg-slate-800 text-slate-500 cursor-not-allowed border border-slate-700/50'
             }`}
           >
             {isGenerating ? (
@@ -168,13 +132,12 @@ export default function Certificate({
           </button>
 
           <button
-            onClick={() => window.print()}
-            disabled={!isReady}
-            id="btn-print-certificate"
-            className={`px-5 py-2.5 font-bold text-xs flex items-center space-x-2 rounded-xl transition-all uppercase tracking-wider ${
-              isReady
-                ? 'bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 shadow-md cursor-pointer'
-                : 'bg-slate-900 text-slate-600 cursor-not-allowed'
+            onClick={handlePrint}
+            disabled={!isReady || isGenerating}
+            className={`px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center space-x-2 transition-all cursor-pointer border ${
+              isReady && !isGenerating
+                ? 'bg-slate-800 hover:bg-slate-700 text-white border-slate-700 active:scale-95'
+                : 'bg-slate-900 text-slate-600 border-slate-800 cursor-not-allowed'
             }`}
           >
             <Printer className="w-4 h-4" />
@@ -183,20 +146,61 @@ export default function Certificate({
         </div>
       </div>
 
-      {/* ── Official High-DPI Certificate Render Container ── */}
-      <div className="w-full flex justify-center overflow-x-auto py-2">
+      {/* Interactive Live Input Bar (Print-Hidden) */}
+      <div className="bg-[#091124]/90 border border-slate-800/80 p-5 rounded-2xl text-white shadow-lg space-y-3 print:hidden">
+        <div className="text-xs font-semibold text-slate-300 uppercase tracking-wider flex items-center space-x-2">
+          <User className="w-4 h-4 text-indigo-400" />
+          <span>{t('fullNameHeading')}</span>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-12 gap-3">
+          <div className="sm:col-span-8">
+            <input
+              type="text"
+              value={fullName}
+              onChange={(e) => handleNameChange(e.target.value)}
+              placeholder="Masalan: Toshpulatov Behruz Alisherovich"
+              className="w-full bg-[#050b18] border border-slate-700 focus:border-amber-400 text-white font-bold px-4 py-2.5 text-sm rounded-xl focus:outline-none transition-colors"
+            />
+          </div>
+
+          <div className="sm:col-span-4 relative">
+            <div className="relative">
+              <Calendar className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
+              <input
+                type="date"
+                value={completedDate}
+                onChange={(e) => setCompletedDate(e.target.value)}
+                className="w-full bg-[#050b18] border border-slate-700 focus:border-amber-400 text-white font-bold pl-10 pr-3 py-2.5 text-xs rounded-xl focus:outline-none transition-colors"
+              />
+            </div>
+          </div>
+        </div>
+
+        {!validation.isValid && (
+          <p className="text-xs text-rose-400 font-medium">
+            {validation.error}
+          </p>
+        )}
+      </div>
+
+      {/* ══════════════════════════════════════════════════════════════════════
+          OFFICIAL HIGH-PRECISION CERTIFICATE CANVAS
+          Aspect Ratio: 1.414:1 (A4 Landscape Standard)
+          ══════════════════════════════════════════════════════════════════════ */}
+      <div className="w-full overflow-x-auto flex justify-center py-2">
         <div
           id="official-iib-certificate"
           style={{
             width: '100%',
-            maxWidth: '960px',
-            minWidth: '680px',
-            aspectRatio: '16 / 10.5',
-            backgroundColor: '#ffffff',
+            maxWidth: '920px',
+            aspectRatio: '1.414 / 1',
             position: 'relative',
+            background: '#ffffff',
+            borderRadius: '12px',
             overflow: 'hidden',
-            boxShadow: '0 20px 50px rgba(0,0,0,0.3)',
-            borderRadius: '4px',
+            boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.45)',
+            userSelect: 'none',
             boxSizing: 'border-box',
           }}
         >
@@ -268,7 +272,7 @@ export default function Certificate({
             zIndex: 10,
           }}>
 
-            {/* TOP EMBLEM & 2-LINE TITLE */}
+            {/* TOP EMBLEM (Original IIB Gerbi - Slightly Enlarged) & 2-LINE TITLE */}
             <div style={{
               display: 'flex',
               flexDirection: 'column',
@@ -277,18 +281,21 @@ export default function Certificate({
               zIndex: 10,
             }}>
               <div style={{
-                width: 'clamp(44px, 7.2vw, 68px)',
+                width: 'clamp(54px, 8.8vw, 86px)',
                 aspectRatio: '1 / 1',
                 borderRadius: '50%',
                 overflow: 'hidden',
-                boxShadow: '0 3px 12px rgba(0,0,0,0.18)',
-                border: '2px solid #1e3a8a',
+                boxShadow: '0 4px 14px rgba(0,0,0,0.22)',
+                border: '2.5px solid #1e3a8a',
                 background: '#ffffff',
                 marginBottom: '1.5%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}>
                 <img
-                  src={cyberLogo}
-                  alt="Kiberxavfsizlik Gerbi"
+                  src={iibLogo}
+                  alt="IIB Gerbi"
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
               </div>
@@ -296,15 +303,15 @@ export default function Certificate({
               <p style={{
                 fontFamily: "'Arial', sans-serif",
                 fontWeight: 900,
-                fontSize: 'clamp(7.5px, 1.2vw, 12px)',
+                fontSize: 'clamp(8px, 1.3vw, 13px)',
                 color: '#1e3a8a',
                 letterSpacing: '0.06em',
                 textTransform: 'uppercase',
                 margin: 0,
                 textAlign: 'center',
-                lineHeight: 1.3,
+                lineHeight: 1.35,
               }}>
-                {t('iibTitle')}<br />
+                {t('certOrgTitle')}<br />
                 {t('departmentTitle')}
               </p>
             </div>
@@ -414,25 +421,29 @@ export default function Certificate({
 
           </div>
 
-          {/* Clean Gold Medal Graphic */}
+          {/* OFFICIAL HIGH-RESOLUTION QR CODE (Bottom-Right) */}
           <div style={{
             position: 'absolute',
-            bottom: '7%',
+            bottom: '6%',
             right: '5%',
-            width: '12%',
+            width: '12.5%',
+            maxWidth: '110px',
             aspectRatio: '1 / 1',
             zIndex: 10,
+            background: '#ffffff',
+            padding: '1%',
+            borderRadius: '10px',
+            border: '2px solid #cbd5e1',
+            boxShadow: '0 6px 16px rgba(0,0,0,0.12)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}>
-            <svg viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%' }}>
-              <polygon points="43,80 47,98 50,88 53,98 57,80" fill="#d97706" />
-              <circle cx="50" cy="48" r="42" fill="#fbbf24" stroke="#d97706" strokeWidth="2.5" />
-              <circle cx="50" cy="48" r="34" fill="#f59e0b" stroke="#fffbeb" strokeWidth="1.5" />
-              <circle cx="50" cy="48" r="28" fill="#ffffff" />
-              <polygon
-                points="50,28 53.5,39 65,39 55.5,46 59,57 50,50 41,57 44.5,46 35,39 46.5,39"
-                fill="#d97706"
-              />
-            </svg>
+            <img
+              src={certQrCode}
+              alt="Rasmiy Sertifikat QR Kodingiz"
+              style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
+            />
           </div>
 
           {/* Date (Bottom-Left on Blue Wave) */}
@@ -449,37 +460,17 @@ export default function Certificate({
                 fontSize: 'clamp(5px, 0.85vw, 8.5px)',
                 color: '#1e3a8a',
                 letterSpacing: '0.05em',
-                display: 'block',
-                opacity: 0.85,
+                background: 'rgba(255,255,255,0.7)',
+                padding: '2px 5px',
+                borderRadius: '3px',
               }}>
-                {t('certDate')}: {displayDate}
+                Sana: {displayDate}
               </span>
             </div>
           )}
 
         </div>
       </div>
-
-      {/* Print styles */}
-      <style>{`
-        @media print {
-          body * { visibility: hidden !important; }
-          #official-iib-certificate,
-          #official-iib-certificate * { visibility: visible !important; }
-          #official-iib-certificate {
-            position: fixed !important;
-            top: 0 !important; left: 0 !important;
-            width: 100vw !important;
-            height: 100vh !important;
-            max-width: none !important;
-            min-width: unset !important;
-            box-shadow: none !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            aspect-ratio: auto !important;
-          }
-        }
-      `}</style>
 
     </div>
   );
