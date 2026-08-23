@@ -1,12 +1,15 @@
 export type Language = 'uz' | 'oz' | 'ru';
 export type Theme = 'dark' | 'light';
 
+export type Unvon = 'Leytenant' | 'Katta Leytenant' | 'Kapitan' | 'Mayor' | 'Podpolkovnik' | 'Polkovnik';
+
 export interface QuizQuestion {
   id: number;
   question: string;
   options: string[];
   correctAnswer: number; // 0-indexed
   explanation: string;
+  type?: 'choice' | 'drag-drop' | 'hotspot';
 }
 
 export interface ModuleOverview {
@@ -46,3 +49,24 @@ export interface UserProgress {
   moduleStudySeconds?: Record<number, number>;
   hasStarted?: boolean;
 }
+
+export interface FishingMail {
+  id: number;
+  sender: string;
+  subject: string;
+  body: string;
+  isFishing: boolean;
+  explanation: string;
+}
+
+export interface EvidenceItem {
+  id: string;
+  name: string;
+  type: string;
+  isRelevant: boolean;
+  description: string;
+  correctBagIndex?: number;
+  bagged?: boolean;
+}
+
+

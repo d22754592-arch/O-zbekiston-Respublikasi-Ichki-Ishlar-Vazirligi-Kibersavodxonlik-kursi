@@ -464,8 +464,9 @@ export default function Certificate({
                 padding: '2px 5px',
                 borderRadius: '3px',
               }}>
-                Sana: {displayDate}
+                {t('certDate')}: {displayDate}
               </span>
+
             </div>
           )}
 

@@ -15,12 +15,14 @@ import {
 } from 'lucide-react';
 import iibLogo from './iib.jpg';
 import { verifyCertificateFromUrl, CertificateRecord } from '../utils/cryptoVerification';
+import { useLanguage } from '../i18n/LanguageContext';
 
 interface VerificationModalProps {
   onClose: () => void;
 }
 
 export default function VerificationModal({ onClose }: VerificationModalProps) {
+  const { t } = useLanguage();
   const [loading, setLoading] = useState(true);
   const [result, setResult] = useState<{
     isValid: boolean;
@@ -50,10 +52,10 @@ export default function VerificationModal({ onClose }: VerificationModalProps) {
             </div>
             <div>
               <div className="text-[11px] font-mono font-bold text-amber-400 uppercase tracking-widest">
-                O'zbekiston Respublikasi IIV
+                {t('iibTitle')}
               </div>
               <h2 className="text-sm sm:text-base font-black text-white uppercase tracking-tight">
-                Kibersavodxonlik Sertifikati Verifikatsiyasi
+                {t('verifyModalTitle')}
               </h2>
             </div>
           </div>
@@ -66,7 +68,7 @@ export default function VerificationModal({ onClose }: VerificationModalProps) {
             <div className="py-12 text-center space-y-4">
               <div className="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
               <p className="text-sm font-bold text-slate-300">
-                Kriptografik raqamli imzo tekshirilmoqda...
+                {t('verifyChecking')}
               </p>
             </div>
           ) : result?.isValid && result.cert ? (
@@ -82,13 +84,13 @@ export default function VerificationModal({ onClose }: VerificationModalProps) {
                 <div>
                   <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-[11px] font-mono font-bold uppercase tracking-wider mb-1 border border-emerald-400/30">
                     <Sparkles className="w-3.5 h-3.5" />
-                    <span>Raqamli Imzo Tasdiqlandi</span>
+                    <span>{t('verifySignatureValid')}</span>
                   </div>
                   <h3 className="text-lg sm:text-xl font-black text-white uppercase tracking-tight">
-                    SERTIFIKAT HAQIQIY VA QONUNIY
+                    {t('verifyCertAuthentic')}
                   </h3>
                   <p className="text-xs text-emerald-200 mt-1 max-w-md mx-auto">
-                    Ushbu sertifikat Farg'ona viloyati IIB Kiberjinoyatlarga qarshi kurashish boshqarmasi tomonidan rasman berilgan.
+                    {t('verifyOfficialStatement')}
                   </p>
                 </div>
               </div>
@@ -99,7 +101,7 @@ export default function VerificationModal({ onClose }: VerificationModalProps) {
                 <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
                   <span className="text-slate-400 font-medium flex items-center space-x-2">
                     <User className="w-4 h-4 text-indigo-400" />
-                    <span>Sertifikat Egasi (F.I.Sh):</span>
+                    <span>{t('verifyCertHolder')}</span>
                   </span>
                   <span className="font-bold text-white text-sm sm:text-base text-right">
                     {result.cert.fullName}
@@ -109,17 +111,17 @@ export default function VerificationModal({ onClose }: VerificationModalProps) {
                 <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
                   <span className="text-slate-400 font-medium flex items-center space-x-2">
                     <Award className="w-4 h-4 text-amber-400" />
-                    <span>O'quv Dasturi:</span>
+                    <span>{t('verifyCurriculum')}</span>
                   </span>
                   <span className="font-bold text-amber-300 text-right">
-                    Kibersavodxonlik Maxsus Kursi (7 Modul)
+                    {t('verifyCurriculumName')}
                   </span>
                 </div>
 
                 <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
                   <span className="text-slate-400 font-medium flex items-center space-x-2">
                     <Calendar className="w-4 h-4 text-indigo-400" />
-                    <span>Berilgan Sana:</span>
+                    <span>{t('verifyIssuedDate')}</span>
                   </span>
                   <span className="font-mono font-bold text-white text-right">
                     {result.cert.completedDate}
@@ -129,7 +131,7 @@ export default function VerificationModal({ onClose }: VerificationModalProps) {
                 <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
                   <span className="text-slate-400 font-medium flex items-center space-x-2">
                     <Hash className="w-4 h-4 text-indigo-400" />
-                    <span>Seriya Raqami:</span>
+                    <span>{t('verifySerialId')}</span>
                   </span>
                   <span className="font-mono font-black text-indigo-300 bg-indigo-950/80 px-2.5 py-1 rounded-lg border border-indigo-500/30 text-right">
                     {result.cert.certId}
@@ -139,10 +141,10 @@ export default function VerificationModal({ onClose }: VerificationModalProps) {
                 <div className="flex items-center justify-between pt-1">
                   <span className="text-slate-400 font-medium flex items-center space-x-2">
                     <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                    <span>Yakuniy Natija:</span>
+                    <span>{t('verifyFinalScore')}</span>
                   </span>
                   <span className="font-mono font-black text-emerald-400 text-sm">
-                    {result.cert.score}% (Muvaffaqiyatli)
+                    {result.cert.score}% ({t('verifySuccessful')})
                   </span>
                 </div>
 
@@ -152,7 +154,7 @@ export default function VerificationModal({ onClose }: VerificationModalProps) {
               <div className="p-3 bg-black/50 border border-slate-800 rounded-xl space-y-1">
                 <div className="text-[10px] font-mono text-slate-500 uppercase flex items-center space-x-1.5">
                   <Lock className="w-3 h-3 text-indigo-400" />
-                  <span>SHA-256 Kriptografik Himoya Imzosi:</span>
+                  <span>{t('verifyCryptoProof')}</span>
                 </div>
                 <div className="font-mono text-[10px] text-slate-400 break-all leading-tight">
                   {result.cert.signature}
@@ -171,7 +173,7 @@ export default function VerificationModal({ onClose }: VerificationModalProps) {
                 </div>
                 <div>
                   <h3 className="text-lg sm:text-xl font-black text-white uppercase tracking-tight">
-                    DIQQAT: SERTIFIKAT SOXTALASHTIRILGAN!
+                    {t('verifyForgeryTitle')}
                   </h3>
                   <p className="text-xs text-rose-200 mt-2 max-w-md mx-auto leading-relaxed">
                     {result?.error || "Ushbu sertifikatdagi ma'lumotlar o'zgartirilgan yoki uning raqamli kriptografik imzosi tasdiqlanmadi."}
@@ -180,7 +182,7 @@ export default function VerificationModal({ onClose }: VerificationModalProps) {
               </div>
 
               <div className="bg-[#070e24] p-4 rounded-xl border border-slate-800 text-xs text-slate-300 leading-relaxed">
-                ℹ️ <strong>Xavfsizlik eslatmasi:</strong> O'zbekiston Respublikasi IIV Kiberjinoyatlarga qarshi kurashish boshqarmasi sertifikatlari raqamli kriptografik imzo bilan himoyalangan. Sertifikatdagi ism, sana yoki ballni o'zboshimchalik bilan o'zgartirish javobgarlikka sabab bo'ladi.
+                ℹ️ {t('verifySecurityNotice')}
               </div>
             </div>
 
@@ -196,7 +198,7 @@ export default function VerificationModal({ onClose }: VerificationModalProps) {
               }}
               className="w-full py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-xl flex items-center justify-center space-x-2 cursor-pointer transition-all hover:scale-[1.01]"
             >
-              <span>Kiberxavfsizlik Kursi Bosh Sahifasiga O'tish</span>
+              <span>{t('verifyGoToHome')}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -207,3 +209,4 @@ export default function VerificationModal({ onClose }: VerificationModalProps) {
     </div>
   );
 }
+

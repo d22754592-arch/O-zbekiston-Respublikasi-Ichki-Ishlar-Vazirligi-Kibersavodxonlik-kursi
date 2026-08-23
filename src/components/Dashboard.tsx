@@ -10,7 +10,9 @@ import {
   Upload, 
   User, 
   Clock, 
-  Layers 
+  Layers,
+  AlertCircle,
+  Check
 } from 'lucide-react';
 import { ModuleData, UserProgress } from '../types';
 import { logger } from '../utils/logger';
@@ -38,7 +40,14 @@ export default function Dashboard({
 }: DashboardProps) {
   const { t } = useLanguage();
   const { isDark } = useTheme();
-  const [importError, setImportError] = useState(false);
+  const [notification, setNotification] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
+
+  const showNotification = (type: 'success' | 'error', message: string) => {
+    setNotification({ type, message });
+    setTimeout(() => {
+      setNotification(null);
+    }, 4000);
+  };
 
   const completedCount = modules.filter(
     m => userProgress.moduleProgress[m.id]?.completed
@@ -57,14 +66,19 @@ export default function Dashboard({
 
   // Export progress to JSON file
   const handleExportProgress = () => {
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(userProgress, null, 2));
-    const downloadAnchor = document.createElement('a');
-    downloadAnchor.setAttribute("href", dataStr);
-    downloadAnchor.setAttribute("download", `kibersavodxonlik_progress_${userProgress.fullName || 'user'}.json`);
-    document.body.appendChild(downloadAnchor);
-    downloadAnchor.click();
-    downloadAnchor.remove();
-    logger.info('Progress exported to JSON file');
+    try {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(userProgress, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `kibersavodxonlik_progress_${userProgress.fullName || 'user'}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+      logger.info('Progress exported to JSON file');
+      showNotification('success', t('exportSuccessMsg'));
+    } catch (e) {
+      showNotification('error', 'Eksport jarayonida xatolik yuz berdi.');
+    }
   };
 
   // Import progress from JSON file
@@ -75,15 +89,15 @@ export default function Dashboard({
       fileReader.onload = (event) => {
         try {
           const parsed = JSON.parse(event.target?.result as string);
-          if (parsed && parsed.moduleProgress && onRestoreProgress) {
+          if (parsed && typeof parsed === 'object' && parsed.moduleProgress && onRestoreProgress) {
             onRestoreProgress(parsed);
-            setImportError(false);
+            showNotification('success', t('importSuccessMsg'));
             logger.info('Progress restored from JSON file');
           } else {
-            setImportError(true);
+            showNotification('error', t('importErrorMsg'));
           }
         } catch (err) {
-          setImportError(true);
+          showNotification('error', t('importErrorMsg'));
         }
       };
     }
@@ -92,6 +106,7 @@ export default function Dashboard({
   const cardBg = isDark ? 'bg-[#091124]/90 border-slate-800/80 text-white' : 'bg-white border-slate-200 text-slate-900 shadow-sm';
   const subText = isDark ? 'text-slate-300' : 'text-slate-600';
   const metricCardBg = isDark ? 'bg-slate-900/50 border-slate-800/80' : 'bg-slate-50 border-slate-200';
+
 
   return (
     <div className="space-y-6 font-sans">
@@ -275,6 +290,22 @@ export default function Dashboard({
         </div>
       </div>
 
+      {/* Notification Toast Banner */}
+      {notification && (
+        <div className={`p-4 rounded-2xl border flex items-center space-x-3 text-xs font-semibold shadow-lg transition-all animate-in fade-in slide-in-from-top-2 ${
+          notification.type === 'success'
+            ? 'bg-emerald-950/80 border-emerald-500/60 text-emerald-200'
+            : 'bg-rose-950/80 border-rose-500/60 text-rose-200'
+        }`}>
+          {notification.type === 'success' ? (
+            <Check className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+          ) : (
+            <AlertCircle className="w-4 h-4 text-rose-400 flex-shrink-0" />
+          )}
+          <span>{notification.message}</span>
+        </div>
+      )}
+
       {/* Data Backup / Export / Import Controls */}
       <div className={`${cardBg} border p-4 sm:p-5 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 text-xs ${subText}`}>
         <div>
@@ -307,6 +338,7 @@ export default function Dashboard({
           </label>
         </div>
       </div>
+
 
     </div>
   );

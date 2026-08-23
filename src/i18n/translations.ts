@@ -150,6 +150,9 @@ export const translations = {
     backupDesc: "Natijalaringiz va o'qish vaqtingizni saqlab qo'yish yoki boshqa qurilmaga ko'chirish.",
     downloadJson: "Yuklab Olish (JSON)",
     restoreJson: "Tiklash",
+    importSuccessMsg: "O'quv jarayoni muvaffaqiyatli tiklandi!",
+    importErrorMsg: "Noto'g'ri yoki buzilgan JSON fayli!",
+    exportSuccessMsg: "O'quv natijalari faylga saqlandi!",
 
     // Certificate
     certOrgTitle: "Fargʻona viloyati IIB",
@@ -162,7 +165,26 @@ export const translations = {
     certScore: "Natija",
     downloadPng: "Sertifikatni Yuklab Olish (PNG)",
     printCert: "Chop Etish (Print)",
+
+    // Verification Modal
+    verifyModalTitle: "Kibersavodxonlik Sertifikati Verifikatsiyasi",
+    verifyChecking: "Kriptografik raqamli imzo tekshirilmoqda...",
+    verifySignatureValid: "Raqamli Imzo Tasdiqlandi",
+    verifyCertAuthentic: "SERTIFIKAT HAQIQIY VA QONUNIY",
+    verifyOfficialStatement: "Ushbu sertifikat Farg'ona viloyati IIB Kiberjinoyatlarga qarshi kurashish boshqarmasi tomonidan rasman berilgan.",
+    verifyCertHolder: "Sertifikat Egasi (F.I.Sh):",
+    verifyCurriculum: "O'quv Dasturi:",
+    verifyCurriculumName: "Kibersavodxonlik Maxsus Kursi (8 Modul)",
+    verifyIssuedDate: "Berilgan Sana:",
+    verifySerialId: "Seriya Raqami:",
+    verifyFinalScore: "Yakuniy Natija:",
+    verifySuccessful: "Muvaffaqiyatli",
+    verifyCryptoProof: "SHA-256 Kriptografik Himoya Imzosi:",
+    verifyForgeryTitle: "DIQQAT: SERTIFIKAT SOXTALASHTIRILGAN!",
+    verifySecurityNotice: "Xavfsizlik eslatmasi: O'zbekiston Respublikasi IIV Kiberjinoyatlarga qarshi kurashish boshqarmasi sertifikatlari raqamli kriptografik imzo bilan himoyalangan. Sertifikatdagi ism, sana yoki ballni o'zboshimchalik bilan o'zgartirish javobgarlikka sabab bo'ladi.",
+    verifyGoToHome: "Kiberxavfsizlik Kursi Bosh Sahifasiga O'tish",
   },
+
 
   oz: {
     // Branding & Header
@@ -313,6 +335,9 @@ export const translations = {
     backupDesc: "Натижаларингиз ва ўқиш вақтингизни сақлаб қўйиш ёки бошқа қурилмага кўчириш.",
     downloadJson: "Юклаб Олиш (JSON)",
     restoreJson: "Тиклаш",
+    importSuccessMsg: "Ўқув жараёни муваффақиятли тикланди!",
+    importErrorMsg: "Нотўғри ёки бузилган JSON файли!",
+    exportSuccessMsg: "Ўқув натижалари файлга сақланди!",
 
     // Certificate
     certOrgTitle: "Фарғона вилояти ИИБ",
@@ -325,7 +350,26 @@ export const translations = {
     certScore: "Натижа",
     downloadPng: "Сертификатни Юклаб Олиш (PNG)",
     printCert: "Чоп Этиш (Print)",
+
+    // Verification Modal
+    verifyModalTitle: "Киберсаводхонлик Сертификати Верификацияси",
+    verifyChecking: "Криптографик рақамли имзо текширилмоқда...",
+    verifySignatureValid: "Рақамли Имзо Тасдиқланди",
+    verifyCertAuthentic: "СЕРТИФИКАТ ҲАҚИҚИЙ ВА ҚОНУНИЙ",
+    verifyOfficialStatement: "Ушбу сертификат Фарғона вилояти ИИБ Кибержиноятларга қарши курашиш бошқармаси томонидан расман берилган.",
+    verifyCertHolder: "Сертификат Эгаси (Ф.И.Ш):",
+    verifyCurriculum: "Ўқув Дастури:",
+    verifyCurriculumName: "Киберсаводхонлик Махсус Курси (8 Модул)",
+    verifyIssuedDate: "Берилган Сана:",
+    verifySerialId: "Серия Рақами:",
+    verifyFinalScore: "Якуний Натижа:",
+    verifySuccessful: "Муваффақиятли",
+    verifyCryptoProof: "SHA-256 Криптографик Ҳимоя Имзоси:",
+    verifyForgeryTitle: "ДИҚҚАТ: СЕРТИФИКАТ СОХТАЛАШТИРИЛГАН!",
+    verifySecurityNotice: "Хавфсизлик эслатмаси: Ўзбекистон Республикаси ИИВ Кибержиноятларга қарши курашиш бошқармаси сертификатлари рақамли криптографик имзо билан ҳимояланган. Сертификатдаги исм, сана ёки баллни ўзбошимчалик билан ўзгартириш жавобгарликка сабаб бўлади.",
+    verifyGoToHome: "Киберхавфсизлик Курси Бош Саҳифасига Ўтиш",
   },
+
 
   ru: {
     // Branding & Header
@@ -476,6 +520,9 @@ export const translations = {
     backupDesc: "Сохранение ваших результатов и времени обучения или перенос на другое устройство.",
     downloadJson: "Скачать (JSON)",
     restoreJson: "Восстановить",
+    importSuccessMsg: "Учебный прогресс успешно восстановлен!",
+    importErrorMsg: "Неверный или поврежденный файл JSON!",
+    exportSuccessMsg: "Результаты обучения сохранены в файл!",
 
     // Certificate
     certOrgTitle: "УВД Ферганской области",
@@ -488,6 +535,24 @@ export const translations = {
     certScore: "Результат",
     downloadPng: "Скачать сертификат (PNG)",
     printCert: "Печать (Print)",
+
+    // Verification Modal
+    verifyModalTitle: "Верификация сертификата киберграмотности",
+    verifyChecking: "Проверка криптографической цифровой подписи...",
+    verifySignatureValid: "Цифровая подпись подтверждена",
+    verifyCertAuthentic: "СЕРТИФИКАТ ПОДЛИННЫЙ И ДЕЙСТВИТЕЛЬНЫЙ",
+    verifyOfficialStatement: "Настоящий сертификат официально выдан Управлением по борьбе с киберпреступлениями УВД Ферганской области.",
+    verifyCertHolder: "Владелец сертификата (Ф.И.О.):",
+    verifyCurriculum: "Учебная программа:",
+    verifyCurriculumName: "Специальный курс киберграмотности (8 Модулей)",
+    verifyIssuedDate: "Дата выдачи:",
+    verifySerialId: "Серийный номер:",
+    verifyFinalScore: "Итоговый результат:",
+    verifySuccessful: "Успешно",
+    verifyCryptoProof: "Криптографическая защитная подпись SHA-256:",
+    verifyForgeryTitle: "ВНИМАНИЕ: СЕРТИФИКАТ СФАЛЬСИФИЦИРОВАН!",
+    verifySecurityNotice: "Примечание по безопасности: Сертификаты Управления по борьбе с киберпреступлениями МВД Республики Узбекистан защищены цифровой криптографической подписью. Самовольное изменение имени, даты или баллов в сертификате влечет установленную законом ответственность.",
+    verifyGoToHome: "Перейти на главную страницу курса",
   }
 };
 

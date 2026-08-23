@@ -36,19 +36,19 @@ export function calculateQuizXP(scorePercent: number, rewardXP: number = 400): n
 export function checkQuizAnswer(q: QuizQuestion, userAns: any): boolean {
   if (userAns === undefined || userAns === null) return false;
 
-  if (q.type === 'choice') {
+  if (!q.type || q.type === 'choice') {
     return userAns === q.correctAnswer;
   }
 
   if (q.type === 'drag-drop') {
-    if (typeof q.correctAnswer !== 'object' || typeof userAns !== 'object') return false;
+    if (typeof q.correctAnswer !== 'object' || typeof userAns !== 'object' || !q.correctAnswer) return false;
     
-    const correctKeys = Object.keys(q.correctAnswer);
+    const correctKeys = Object.keys(q.correctAnswer as any);
     if (correctKeys.length === 0) return false;
 
     let allMatch = true;
     for (const key of correctKeys) {
-      if (userAns[key] !== q.correctAnswer[key]) {
+      if (userAns[key] !== (q.correctAnswer as any)[key]) {
         allMatch = false;
         break;
       }
@@ -57,9 +57,10 @@ export function checkQuizAnswer(q: QuizQuestion, userAns: any): boolean {
   }
 
   if (q.type === 'hotspot') {
-    // Hotspot koordinatalari uchun: userAns = { r, c } yoki shunga o'xshash koordinata
+    // Hotspot koordinatalari uchun: userAns = { r, c }
     if (typeof userAns === 'object' && q.correctAnswer && typeof q.correctAnswer === 'object') {
-      return userAns.r === q.correctAnswer.r && userAns.c === q.correctAnswer.c;
+      const correctAns = q.correctAnswer as any;
+      return userAns.r === correctAns.r && userAns.c === correctAns.c;
     }
   }
 
@@ -73,3 +74,4 @@ export function calculateModulePercent(correctAnswers: number, totalQuestions: n
   if (totalQuestions <= 0) return 0;
   return Math.floor((correctAnswers / totalQuestions) * 100);
 }
+
