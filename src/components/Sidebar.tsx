@@ -9,7 +9,8 @@ import {
   ShieldCheck, 
   Home, 
   User, 
-  Sparkles
+  Sparkles,
+  Info
 } from 'lucide-react';
 import { ModuleData, UserProgress } from '../types';
 import { useLanguage } from '../i18n/LanguageContext';
@@ -24,6 +25,7 @@ interface SidebarProps {
   onSelectModule: (moduleId: number) => void;
   onGoToWelcome: () => void;
   allModulesCompleted: boolean;
+  onOpenAbout?: () => void;
 }
 
 export default function Sidebar({
@@ -34,6 +36,7 @@ export default function Sidebar({
   onSelectModule,
   onGoToWelcome,
   allModulesCompleted,
+  onOpenAbout,
 }: SidebarProps) {
   const { t } = useLanguage();
   const { isDark } = useTheme();
@@ -253,8 +256,18 @@ export default function Sidebar({
       </div>
 
       {/* Footer Info */}
-      <div className={`p-4 border-t text-[11px] font-mono text-center ${isDark ? 'border-slate-800/70 text-slate-500' : 'border-slate-200 text-slate-400'}`}>
-        {t('academyTitle')}
+      <div className={`p-3.5 border-t text-[11px] font-mono flex items-center justify-between ${isDark ? 'border-slate-800/70 text-slate-500' : 'border-slate-200 text-slate-400'}`}>
+        <span>{t('academyTitle')}</span>
+        {onOpenAbout && (
+          <button
+            onClick={onOpenAbout}
+            className="hover:text-indigo-400 transition-colors cursor-pointer flex items-center space-x-1 font-sans font-semibold text-[10px] text-indigo-500/90"
+            title={t('aboutSystem')}
+          >
+            <Info className="w-3 h-3 text-indigo-500" />
+            <span>{t('aboutSystem')}</span>
+          </button>
+        )}
       </div>
 
     </aside>

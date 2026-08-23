@@ -5,6 +5,7 @@ import CoursePlayer from './components/CoursePlayer';
 import Certificate from './components/Certificate';
 import WelcomeScreen from './components/WelcomeScreen';
 import VerificationModal from './components/VerificationModal';
+import AboutModal from './components/AboutModal';
 import LanguageSelector from './components/LanguageSelector';
 import { LanguageProvider, useLanguage } from './i18n/LanguageContext';
 import { ThemeProvider, useTheme } from './theme/ThemeContext';
@@ -23,7 +24,8 @@ import {
   Sun,
   Moon,
   Clock,
-  DownloadCloud
+  DownloadCloud,
+  Info
 } from 'lucide-react';
 
 const LOCAL_STORAGE_KEY = 'kibersavodxonlik_user_progress_v2';
@@ -54,6 +56,7 @@ function AppContent() {
 
   const [activeTab, setActiveTab] = useState<'module' | 'dashboard' | 'certificate'>('module');
   const [currentModuleId, setCurrentModuleId] = useState<number>(1);
+  const [isAboutOpen, setIsAboutOpen] = useState(false);
 
   const [userProgress, setUserProgress] = useState<UserProgress>(() => {
     try {
@@ -265,6 +268,20 @@ function AppContent() {
                   </button>
                 )}
 
+                {/* About System Button */}
+                <button
+                  onClick={() => setIsAboutOpen(true)}
+                  className={`px-3 py-2 rounded-xl text-xs font-semibold border transition-all cursor-pointer flex items-center space-x-1.5 shadow-sm ${
+                    isDark
+                      ? 'bg-slate-900/40 text-indigo-400 hover:text-indigo-300 hover:bg-slate-800 border-slate-800/60'
+                      : 'bg-white text-indigo-700 hover:text-indigo-900 hover:bg-slate-50 border-slate-200'
+                  }`}
+                  title={t('aboutSystem')}
+                >
+                  <Info className="w-3.5 h-3.5 text-indigo-500" />
+                  <span className="hidden sm:inline">{t('aboutSystem')}</span>
+                </button>
+
                 {/* Light / Dark Mode Toggle */}
                 <button
                   onClick={toggleTheme}
@@ -337,26 +354,29 @@ function AppContent() {
               activeTab={activeTab === 'module' ? `module-${currentModuleId}` : activeTab}
               setActiveTab={(tab) => {
                 if (tab === 'dashboard' || tab === 'certificate') {
-                  setActiveTab(tab);
+                  setActiveTab(tab as any);
                 }
               }}
               onSelectModule={handleSelectModule}
               onGoToWelcome={() => setViewMode('welcome')}
               allModulesCompleted={allModulesCompleted}
+              onOpenAbout={() => setIsAboutOpen(true)}
             />
 
-            {/* Main Content Area */}
+            {/* Content Area */}
             <main className="flex-1 min-w-0">
               {activeTab === 'module' && (
                 <CoursePlayer
                   module={currentModule}
-                  onCompleteModule={handleCompleteModule}
-                  onGoToNextModule={handleGoToNextModule}
-                  isCompleted={!!userProgress.moduleProgress[currentModuleId]?.completed}
-                  previousScore={userProgress.moduleProgress[currentModuleId]?.scorePercent || 0}
-                  isLastModule={currentModuleId === modules.length}
-                  userName={userProgress.fullName}
-                  onSaveUserName={handleNameChange}
+                  userProgress={userProgress}
+                  onUpdateProgress={handleUpdateProgress}
+                  onNextModule={() => {
+                    if (currentModuleId < modules.length) {
+                      setCurrentModuleId(currentModuleId + 1);
+                    } else {
+                      setActiveTab('certificate');
+                    }
+                  }}
                   onGoToCertificate={() => setActiveTab('certificate')}
                 />
               )}
@@ -365,10 +385,15 @@ function AppContent() {
                 <Dashboard
                   modules={modules}
                   userProgress={userProgress}
-                  onSelectModule={handleSelectModule}
+                  onSelectModule={(id) => {
+                    setCurrentModuleId(id);
+                    setActiveTab('module');
+                  }}
                   onGoToCertificate={() => setActiveTab('certificate')}
-                  allModulesCompleted={allModulesCompleted}
-                  onRestoreProgress={handleRestoreProgress}
+                  onRestoreProgress={(imported) => {
+                    setUserProgress(imported);
+                    saveProgressToStorage(imported);
+                  }}
                 />
               )}
 
@@ -386,6 +411,9 @@ function AppContent() {
           </div>
         </>
       )}
+
+      {/* About System Modal */}
+      <AboutModal isOpen={isAboutOpen} onClose={() => setIsAboutOpen(false)} />
 
     </div>
   );

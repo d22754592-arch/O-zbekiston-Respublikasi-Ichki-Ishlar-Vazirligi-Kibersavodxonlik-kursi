@@ -23,6 +23,7 @@ export const translations = {
     language: "Til",
     lightMode: "Kunduzgi rejim",
     darkMode: "Tungi rejim",
+    aboutSystem: "Tizim Haqida",
 
     // Welcome Screen
     officialCurriculum: "Rasmiy O'quv Dasturi",
@@ -63,6 +64,23 @@ export const translations = {
     understandBtn: "TUSHUNDIM / DARSLARGA O'TISH",
     videoEnded: "VIDEO TANISHTIRUV YAKUNLANDI!",
     videoEndedSub: "E'tiboringiz uchun rahmat. Endi darslarga o'tilmoqda...",
+
+    // About System Modal
+    aboutSystemTitle: "Tizim Haqida Rasmiy Ma'lumot",
+    aboutSystemOrg: "O'zbekiston Respublikasi IIV Farg'ona viloyati IIB",
+    aboutSystemDept: "Kiberjinoyatlarga Qarshi Kurashish Boshqarmasi",
+    aboutPlatformName: "Kibersavodxonlik Maxsus O'quv Portali",
+    aboutPlatformDesc: "Ichki ishlar organlari xodimlarining axborot xavfsizligi madaniyatini oshirish va zamonaviy raqamli tahdidlardan himoyalanish bo'yicha maxsus interaktiv platforma.",
+    aboutLeadershipTitle: "Metodik Rahbarlik:",
+    aboutLeadershipValue: "Farg'ona viloyati IIB Kiberxavfsizlik boshqarmasi rahbariyati",
+    aboutAuthorTitle: "Dasturiy Ta'minot Muallifi va Ishlab Chiquvchi:",
+    aboutAuthorName: "Adaxamjonov Dostonbek Dilshodbek o'g'li",
+    aboutAuthorRole: "Kiberxavfsizlik va axborot texnologiyalari bo'yicha mutaxassis",
+    aboutOfficialStatement: "Ushbu interaktiv platforma Farg'ona viloyati IIB Kiberxavfsizlik boshqarmasi RAHBARLIGI asosida mutaxassis Adaxamjonov Dostonbek Dilshodbek o'g'li tomonidan ishlab chiqilgan va joriy etilgan.",
+    aboutTechTitle: "Texnologik Arxitektura:",
+    aboutTechStack: "React 19 • TypeScript • TailwindCSS • SHA-256 Kriptografik QR Verifikatsiya",
+    aboutVersion: "Dasturiy Versiya: 2.0.0 (Enterprise Build)",
+    aboutClose: "Yopish",
 
     // Course Player
     moduleTag: "O'quv Moduli #{id} • IIB Maxsus Kursi",
@@ -168,6 +186,7 @@ export const translations = {
     language: "Тил",
     lightMode: "Кундузги режим",
     darkMode: "Тунги режим",
+    aboutSystem: "Тизим Ҳақида",
 
     // Welcome Screen
     officialCurriculum: "Расмий Ўқув Дастури",
@@ -209,6 +228,23 @@ export const translations = {
     videoEnded: "ВИДЕО ТАНИШТИРУВ ЯКУНЛАНДИ!",
     videoEndedSub: "Эътиборингиз учун раҳмат. Энди дарсларга ўтилмоқда...",
 
+    // About System Modal
+    aboutSystemTitle: "Тизим Ҳақида Расмий Маълумот",
+    aboutSystemOrg: "Ўзбекистон Республикаси ИИВ Фарғона вилояти ИИБ",
+    aboutSystemDept: "Кибержиноятларга Қарши Курашиш Бошқармаси",
+    aboutPlatformName: "Киберсаводхонлик Махсус Ўқув Портали",
+    aboutPlatformDesc: "Ички ишлар органлари ходимларининг ахборот хавфсизлиги маданиятини ошириш ва замонавий рақамли таҳдидлардан ҳимояланиш бўйича махсус интерактив платформа.",
+    aboutLeadershipTitle: "Методик Раҳбарлик:",
+    aboutLeadershipValue: "Фарғона вилояти ИИБ Киберхавфсизлик бошқармаси раҳбарияти",
+    aboutAuthorTitle: "Дастурий Таъминот Муаллифи ва Ишлаб Чиқувчи:",
+    aboutAuthorName: "Адахамжонов Достонбек Дилшодбек ўғли",
+    aboutAuthorRole: "Киберхавфсизлик ва ахборот технологиялари бўйича мутахассис",
+    aboutOfficialStatement: "Ушбу интерактив платформа Фарғона вилояти ИИБ Киберхавфсизлик бошқармаси РАҲБАРИЯТИ асосида мутахассис Адахамжонов Достонбек Дилшодбек ўғли томонидан ишлаб чиқилган ва жорий этилган.",
+    aboutTechTitle: "Технологик Архитектура:",
+    aboutTechStack: "React 19 • TypeScript • TailwindCSS • SHA-256 Криптографик QR Верификация",
+    aboutVersion: "Дастурий Версия: 2.0.0 (Enterprise Build)",
+    aboutClose: "Ёпиш",
+
     // Course Player
     moduleTag: "Ўқув Модули #{id} • ИИБ Махсус Курси",
     moduleCompletedBadge: "Муваффақиятли Ўтилган ({score}%)",
@@ -222,7 +258,7 @@ export const translations = {
     exitFullscreen: "Чиқиш",
     slideProgress: "Жараён:",
     slidesCompletedPrompt: "Слайдларни тўлиқ ўрганиб бўлдингизми?",
-    slidesCompletedDesc: "Билимингизни синаш ва кейинги модулни очиш учун Модул Тести ({count} та савол) топширинг.",
+    slidesCompletedDesc: "Билимингизни синаш ва keyingi модулни очиш учун Модул Тести ({count} та савол) топширинг.",
     takeQuizBtn: "МОДУЛ ТЕСТИНИ ТОПШИРИШ",
     quizTestDesc: "Модулни муваффақиятли топшириш учун камида 80% натижа кўрсатишингиз шарт.",
     unlimitedTime: "Чексиз Вақт",
@@ -313,6 +349,7 @@ export const translations = {
     language: "Язык",
     lightMode: "Дневной режим",
     darkMode: "Ночной режим",
+    aboutSystem: "О системе",
 
     // Welcome Screen
     officialCurriculum: "Официальная учебная программа",
@@ -353,6 +390,23 @@ export const translations = {
     understandBtn: "ПОНЯТНО / ПЕРЕЙТИ К УРОКАМ",
     videoEnded: "ВИДЕО-ПРЕЗЕНТАЦИЯ ЗАВЕРШЕНА!",
     videoEndedSub: "Спасибо за внимание. Переход к урокам...",
+
+    // About System Modal
+    aboutSystemTitle: "Официальная информация о системе",
+    aboutSystemOrg: "МВД Республики Узбекистан • УВД Ферганской области",
+    aboutSystemDept: "Управление по борьбе с киберпреступлениями",
+    aboutPlatformName: "Специальный учебный портал киберграмотности",
+    aboutPlatformDesc: "Специализированная интерактивная обучающая платформа для повышения культуры информационной безопасности и защиты от цифровых угроз.",
+    aboutLeadershipTitle: "Методическое руководство:",
+    aboutLeadershipValue: "Руководство Управления кибербезопасности УВД Ферганской области",
+    aboutAuthorTitle: "Автор и разработчик программного обеспечения:",
+    aboutAuthorName: "Адахамжонов Достонбек Дилшодбек угли",
+    aboutAuthorRole: "Специалист по кибербезопасности и информационным технологиям",
+    aboutOfficialStatement: "Данная интерактивная обучающая платформа разработана и внедрена специалистом Адахамжоновым Достонбеком Дилшодбек угли под РУКОВОДСТВОМ Управления кибербезопасности УВД Ферганской области.",
+    aboutTechTitle: "Технологическая архитектура:",
+    aboutTechStack: "React 19 • TypeScript • TailwindCSS • Криптографическая QR-верификация SHA-256",
+    aboutVersion: "Версия ПО: 2.0.0 (Enterprise Build)",
+    aboutClose: "Закрыть",
 
     // Course Player
     moduleTag: "Учебный модуль #{id} • Специальный курс МВД",
