@@ -363,20 +363,18 @@ function AppContent() {
               onOpenAbout={() => setIsAboutOpen(true)}
             />
 
-            {/* Content Area */}
+            {/* Main Content Area */}
             <main className="flex-1 min-w-0">
               {activeTab === 'module' && (
                 <CoursePlayer
                   module={currentModule}
-                  userProgress={userProgress}
-                  onUpdateProgress={handleUpdateProgress}
-                  onNextModule={() => {
-                    if (currentModuleId < modules.length) {
-                      setCurrentModuleId(currentModuleId + 1);
-                    } else {
-                      setActiveTab('certificate');
-                    }
-                  }}
+                  onCompleteModule={handleCompleteModule}
+                  onGoToNextModule={handleGoToNextModule}
+                  isCompleted={!!userProgress.moduleProgress[currentModuleId]?.completed}
+                  previousScore={userProgress.moduleProgress[currentModuleId]?.scorePercent || 0}
+                  isLastModule={currentModuleId === modules.length}
+                  userName={userProgress.fullName}
+                  onSaveUserName={handleNameChange}
                   onGoToCertificate={() => setActiveTab('certificate')}
                 />
               )}
@@ -385,15 +383,10 @@ function AppContent() {
                 <Dashboard
                   modules={modules}
                   userProgress={userProgress}
-                  onSelectModule={(id) => {
-                    setCurrentModuleId(id);
-                    setActiveTab('module');
-                  }}
+                  onSelectModule={handleSelectModule}
                   onGoToCertificate={() => setActiveTab('certificate')}
-                  onRestoreProgress={(imported) => {
-                    setUserProgress(imported);
-                    saveProgressToStorage(imported);
-                  }}
+                  allModulesCompleted={allModulesCompleted}
+                  onRestoreProgress={handleRestoreProgress}
                 />
               )}
 
