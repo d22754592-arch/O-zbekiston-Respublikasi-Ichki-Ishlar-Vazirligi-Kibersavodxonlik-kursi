@@ -299,7 +299,7 @@ export default function WelcomeScreen({
             className="hover:text-indigo-400 transition-colors cursor-pointer flex items-center space-x-1"
           >
             <Info className="w-3 h-3 text-indigo-500" />
-            <span>{t('aboutSystem')} (v2.0)</span>
+            <span>{t('aboutSystem')}</span>
           </button>
 
           <div className="flex items-center space-x-1.5 text-indigo-500">

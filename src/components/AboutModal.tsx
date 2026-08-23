@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, ShieldCheck, Award, Code2, Cpu, UserCheck, CheckCircle2, Lock } from 'lucide-react';
+import { X, ShieldCheck, Award, UserCheck } from 'lucide-react';
 import cyberLogo from './cyber_emblem.png';
 import { useLanguage } from '../i18n/LanguageContext';
 
@@ -16,7 +16,7 @@ export default function AboutModal({ isOpen, onClose }: AboutModalProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
       <div 
-        className="relative w-full max-w-2xl bg-gradient-to-b from-[#0d182e] via-[#091124] to-[#050b18] border border-slate-700/70 rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] text-white"
+        className="relative w-full max-w-xl bg-gradient-to-b from-[#0d182e] via-[#091124] to-[#050b18] border border-slate-700/70 rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] text-white"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Decorative Top Accent Glow */}
@@ -25,7 +25,7 @@ export default function AboutModal({ isOpen, onClose }: AboutModalProps) {
         {/* Modal Header */}
         <div className="flex items-center justify-between p-5 sm:p-6 border-b border-slate-800/80 bg-slate-900/40">
           <div className="flex items-center space-x-3.5">
-            <div className="w-11 h-11 rounded-2xl overflow-hidden bg-slate-950 border border-slate-700 flex items-center justify-center shadow-lg p-0.5">
+            <div className="w-12 h-12 rounded-2xl overflow-hidden bg-slate-950 border border-slate-700 flex items-center justify-center shadow-lg p-0.5">
               <img 
                 src={cyberLogo} 
                 alt="IIB Kiberxavfsizlik" 
@@ -33,14 +33,9 @@ export default function AboutModal({ isOpen, onClose }: AboutModalProps) {
               />
             </div>
             <div>
-              <div className="flex items-center space-x-2">
-                <span className="text-[10px] sm:text-xs font-bold tracking-widest text-indigo-400 uppercase">
-                  {t('aboutSystemTitle')}
-                </span>
-                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
-                  v2.0.0
-                </span>
-              </div>
+              <span className="text-[10px] sm:text-xs font-bold tracking-widest text-indigo-400 uppercase block">
+                {t('aboutSystemTitle')}
+              </span>
               <h2 className="text-sm sm:text-base font-extrabold text-white tracking-tight">
                 {t('aboutPlatformName')}
               </h2>
@@ -57,10 +52,10 @@ export default function AboutModal({ isOpen, onClose }: AboutModalProps) {
         </div>
 
         {/* Modal Content Body */}
-        <div className="p-5 sm:p-6 overflow-y-auto space-y-5 text-sm">
+        <div className="p-5 sm:p-6 overflow-y-auto space-y-4 text-sm">
           
           {/* Institutional Official Statement Banner */}
-          <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-blue-950/40 via-indigo-950/30 to-slate-900/60 border border-indigo-500/30 shadow-inner space-y-2.5">
+          <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-blue-950/40 via-indigo-950/30 to-slate-900/60 border border-indigo-500/30 shadow-inner space-y-2">
             <div className="flex items-center space-x-2 text-indigo-400 font-bold text-xs uppercase tracking-wider">
               <ShieldCheck className="w-4 h-4 text-indigo-400" />
               <span>{t('aboutSystemOrg')}</span>
@@ -101,34 +96,6 @@ export default function AboutModal({ isOpen, onClose }: AboutModalProps) {
               </span>
             </div>
 
-          </div>
-
-          {/* Technical Specifications & Architecture */}
-          <div className="p-4 rounded-2xl bg-slate-900/30 border border-slate-800/80 space-y-2.5">
-            <div className="flex items-center space-x-2 text-slate-400 text-xs font-semibold">
-              <Cpu className="w-4 h-4 text-indigo-400" />
-              <span>{t('aboutTechTitle')}</span>
-            </div>
-            <p className="text-xs text-slate-300 font-mono bg-slate-950/60 p-2.5 rounded-xl border border-slate-800">
-              {t('aboutTechStack')}
-            </p>
-            <div className="flex flex-wrap items-center gap-3 pt-1 text-[11px] text-slate-400">
-              <span className="flex items-center space-x-1">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                <span>Offline PWA qo'llab-quvvatlash</span>
-              </span>
-              <span className="flex items-center space-x-1">
-                <Lock className="w-3.5 h-3.5 text-blue-400" />
-                <span>Maxfiy lokal xotira (Encrypted Storage)</span>
-              </span>
-            </div>
-          </div>
-
-          {/* Copyright Footer */}
-          <div className="text-center pt-2">
-            <p className="text-[11px] text-slate-500 font-mono">
-              © 2026 {t('aboutSystemOrg')} • {t('aboutVersion')}
-            </p>
           </div>
 
         </div>
