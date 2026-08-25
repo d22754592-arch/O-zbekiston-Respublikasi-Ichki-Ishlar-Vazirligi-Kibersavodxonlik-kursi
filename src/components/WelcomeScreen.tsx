@@ -289,23 +289,18 @@ export default function WelcomeScreen({
         </div>
 
         {/* Footer */}
-        <div className={`text-center border-t pt-5 flex flex-col sm:flex-row items-center justify-between text-xs gap-2 font-medium ${
-          isDark ? 'border-slate-800/60 text-slate-500' : 'border-slate-200 text-slate-400'
+        <div className={`text-center border-t pt-5 flex flex-col sm:flex-row items-center justify-between text-xs gap-3 font-medium ${
+          isDark ? 'border-slate-800/60 text-slate-400' : 'border-slate-200 text-slate-500'
         }`}>
-          <div>{t('academyTitle')}</div>
+          <div className="font-semibold text-center sm:text-left">{t('welcomeFooterTitle')}</div>
           
           <button
             onClick={() => setIsAboutOpen(true)}
-            className="hover:text-indigo-400 transition-colors cursor-pointer flex items-center space-x-1"
+            className="hover:text-indigo-400 transition-colors cursor-pointer flex items-center space-x-1.5 px-3 py-1 rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20"
           >
-            <Info className="w-3 h-3 text-indigo-500" />
+            <Info className="w-3.5 h-3.5 text-indigo-400" />
             <span>{t('aboutSystem')}</span>
           </button>
-
-          <div className="flex items-center space-x-1.5 text-indigo-500">
-            <ShieldCheck className="w-3.5 h-3.5" />
-            <span>{t('courseTitle')}</span>
-          </div>
         </div>
 
       </div>

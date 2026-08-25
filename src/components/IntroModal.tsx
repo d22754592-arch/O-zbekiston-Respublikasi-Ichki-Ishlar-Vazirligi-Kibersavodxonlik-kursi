@@ -73,7 +73,7 @@ export default function IntroModal({ isOpen, onClose }: IntroModalProps) {
               ref={videoRef}
               controls
               playsInline
-              preload="auto"
+              preload="metadata"
               className="w-full max-h-[440px] aspect-video object-contain bg-black"
               onPlay={() => setIsPlaying(true)}
               onPause={() => setIsPlaying(false)}

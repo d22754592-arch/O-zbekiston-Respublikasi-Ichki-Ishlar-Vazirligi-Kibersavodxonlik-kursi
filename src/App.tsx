@@ -160,8 +160,19 @@ function AppContent() {
 
       logger.info(`Module #${moduleId} completed with score ${scorePercent}%`);
 
+      const allDone = modules.every(m => m.id === moduleId ? true : updatedModuleProgress[m.id]?.completed);
+      let certDate = prev.completedDate;
+      if (allDone && (!certDate || !certDate.trim())) {
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const dd = String(today.getDate()).padStart(2, '0');
+        certDate = `${yyyy}-${mm}-${dd}`;
+      }
+
       return {
         ...prev,
+        completedDate: certDate,
         moduleProgress: updatedModuleProgress,
       };
     });
@@ -180,6 +191,13 @@ function AppContent() {
     setUserProgress(prev => ({
       ...prev,
       fullName: name,
+    }));
+  };
+
+  const handleDateChange = (date: string) => {
+    setUserProgress(prev => ({
+      ...prev,
+      completedDate: date,
     }));
   };
 
@@ -396,6 +414,7 @@ function AppContent() {
                   defaultName="Toshpulatov Behruz Alisherovich"
                   completedDate={userProgress.completedDate}
                   onNameChange={handleNameChange}
+                  onDateChange={handleDateChange}
                   onBackToCourse={() => setActiveTab('module')}
                 />
               )}

@@ -94,6 +94,23 @@ export default function CoursePlayer({
     }));
   }, [module.slideCount, module.slideFolder]);
 
+  // Smart preloading for adjacent slides to guarantee zero latency & smooth transitions
+  useEffect(() => {
+    if (slides && slides.length > 0) {
+      const preloadIndices = [
+        currentSlideIndex + 1,
+        currentSlideIndex + 2,
+        currentSlideIndex - 1
+      ];
+      preloadIndices.forEach(idx => {
+        if (idx >= 0 && idx < slides.length) {
+          const img = new Image();
+          img.src = slides[idx].url;
+        }
+      });
+    }
+  }, [currentSlideIndex, slides]);
+
   // Keyboard navigation for slides
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {

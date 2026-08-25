@@ -11,14 +11,16 @@ interface CertificateProps {
   defaultName?: string;
   completedDate?: string;
   onNameChange?: (name: string) => void;
+  onDateChange?: (date: string) => void;
   onBackToCourse?: () => void;
 }
 
 export default function Certificate({
   fullName: initialFullName = '',
   defaultName = '',
-  completedDate: initialDate,
+  completedDate: initialDate = '',
   onNameChange,
+  onDateChange,
   onBackToCourse,
 }: CertificateProps) {
   const { t } = useLanguage();
@@ -26,13 +28,24 @@ export default function Certificate({
   const [isGenerating, setIsGenerating] = useState(false);
 
   const [completedDate, setCompletedDate] = useState(() => {
-    if (initialDate) return initialDate;
+    if (initialDate && initialDate.trim()) return initialDate;
     const today = new Date();
     const yyyy = today.getFullYear();
     const mm = String(today.getMonth() + 1).padStart(2, '0');
     const dd = String(today.getDate()).padStart(2, '0');
-    return `${yyyy}-${mm}-${dd}`;
+    const dateStr = `${yyyy}-${mm}-${dd}`;
+    if (onDateChange) {
+      onDateChange(dateStr);
+    }
+    return dateStr;
   });
+
+  const handleDateChange = (val: string) => {
+    setCompletedDate(val);
+    if (onDateChange) {
+      onDateChange(val);
+    }
+  };
 
   const displayDate = useMemo(() => {
     if (!completedDate) return '';
@@ -170,7 +183,7 @@ export default function Certificate({
               <input
                 type="date"
                 value={completedDate}
-                onChange={(e) => setCompletedDate(e.target.value)}
+                onChange={(e) => handleDateChange(e.target.value)}
                 className="w-full bg-[#050b18] border border-slate-700 focus:border-amber-400 text-white font-bold pl-10 pr-3 py-2.5 text-xs rounded-xl focus:outline-none transition-colors"
               />
             </div>
@@ -305,14 +318,14 @@ export default function Certificate({
                 fontWeight: 900,
                 fontSize: 'clamp(8px, 1.3vw, 13px)',
                 color: '#1e3a8a',
-                letterSpacing: '0.06em',
+                letterSpacing: '0.04em',
                 textTransform: 'uppercase',
                 margin: 0,
                 textAlign: 'center',
                 lineHeight: 1.35,
               }}>
                 {t('certOrgTitle')}<br />
-                {t('departmentTitle')}
+                {t('certDeptTitle')}
               </p>
             </div>
 

@@ -4,7 +4,8 @@ export const translations = {
   uz: {
     // Branding & Header
     iibTitle: "O'zbekiston Respublikasi IIV",
-    departmentTitle: "Kiberjinoyatlarga Qarshi Kurashish Boshqarmasi",
+    departmentTitle: "Farg'ona Viloyati Kiberjinoyatlarga Qarshi Kurashish Boshqarmasi",
+    welcomeFooterTitle: "FARG'ONA VILOYATI KIBERJINOYATLARGA QARSHI KURASHISH BOSHQARMASI O'QUV DASTURI",
     courseTitle: "Kibersavodxonlik Maxsus Kursi",
     sidebarHeaderTitle: "Kibersavodxonlik kursi",
     academyTitle: "IIB Kiberxavfsizlik",
@@ -156,6 +157,7 @@ export const translations = {
 
     // Certificate
     certOrgTitle: "Fargʻona viloyati IIB",
+    certDeptTitle: "Kiberjinoyatlarga Qarshi Kurashish Boshqarmasi",
     certMainTitle: "SERTIFIKAT",
     certAwardedTo: "USHBU SERTIFIKAT TOPSHIRILADI:",
     certReason: "Kibersavodxonlik kursini muvaffaqiyatli tamomlagani uchun",
@@ -185,11 +187,11 @@ export const translations = {
     verifyGoToHome: "Kiberxavfsizlik Kursi Bosh Sahifasiga O'tish",
   },
 
-
   oz: {
     // Branding & Header
     iibTitle: "Ўзбекистон Республикаси ИИВ",
-    departmentTitle: "Кибержиноятларга Қарши Курашиш Бошқармаси",
+    departmentTitle: "Фарғона Вилояти Кибержиноятларга Қарши Курашиш Бошқармаси",
+    welcomeFooterTitle: "ФАРҒОНА ВИЛОЯТИ КИБЕРЖИНОЯТЛАРГА ҚАРШИ КУРАШИШ БОШҚАРМАСИ ЎҚУВ ДАСТУРИ",
     courseTitle: "Киберсаводхонлик Махсус Курси",
     sidebarHeaderTitle: "Киберсаводхонлик курси",
     academyTitle: "ИИВ Киберхавфсизлик",
@@ -341,6 +343,7 @@ export const translations = {
 
     // Certificate
     certOrgTitle: "Фарғона вилояти ИИБ",
+    certDeptTitle: "Кибержиноятларга Қарши Курашиш Бошқармаси",
     certMainTitle: "СЕРТИФИКАТ",
     certAwardedTo: "УШБУ СЕРТИФИКАТ ТОПШИРИЛАДИ:",
     certReason: "Киберсаводхонлик курсини муваффақиятли тамомлагани учун",
@@ -370,11 +373,11 @@ export const translations = {
     verifyGoToHome: "Киберхавфсизлик Курси Бош Саҳифасига Ўтиш",
   },
 
-
   ru: {
     // Branding & Header
     iibTitle: "МВД Республики Узбекистан",
-    departmentTitle: "Управление по борьбе с киберпреступлениями",
+    departmentTitle: "Управление по борьбе с киберпреступлениями Ферганской области",
+    welcomeFooterTitle: "УЧЕБНАЯ ПРОГРАММА УПРАВЛЕНИЯ ПО БОРЬБЕ С КИБЕРПРЕСТУПЛЕНИЯМИ ФЕРГАНСКОЙ ОБЛАСТИ",
     courseTitle: "Специальный курс киберграмотности",
     sidebarHeaderTitle: "Курс киберграмотности",
     academyTitle: "Кибербезопасность МВД",
@@ -526,6 +529,7 @@ export const translations = {
 
     // Certificate
     certOrgTitle: "УВД Ферганской области",
+    certDeptTitle: "Управление по борьбе с киберпреступлениями",
     certMainTitle: "СЕРТИФИКАТ",
     certAwardedTo: "НАСТОЯЩИЙ СЕРТИФИКАТ ВЫДАН:",
     certReason: "За успешное окончание курса по киберграмотности",
