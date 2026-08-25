@@ -275,16 +275,14 @@ function AppContent() {
                 </div>
 
                 {/* 1-Click PWA App Install Button */}
-                {isInstallable && (
-                  <button
-                    onClick={installApp}
-                    className="px-3 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md cursor-pointer flex items-center space-x-1.5 border border-emerald-400/40 animate-pulse hover:scale-105 transition-all"
-                    title={t('installApp')}
-                  >
-                    <DownloadCloud className="w-3.5 h-3.5" />
-                    <span className="hidden md:inline">{t('installApp')}</span>
-                  </button>
-                )}
+                <button
+                  onClick={installApp}
+                  className="px-3 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-md cursor-pointer flex items-center space-x-1.5 border border-emerald-400/40 active:scale-95 transition-all"
+                  title={t('installApp')}
+                >
+                  <DownloadCloud className="w-3.5 h-3.5" />
+                  <span className="hidden md:inline">{t('installApp')}</span>
+                </button>
 
                 {/* About System Button */}
                 <button
